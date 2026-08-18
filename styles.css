@@ -387,3 +387,5 @@ nav ul {
 
 
 }
+
+/* ============================= */    box-shadow:        0 0 45px rgba(255,215,0,0.9);}/* Animation */@keyframes goldGlow {    from {        transform:translateX(0px);    }    to {        transform:translateX(-80px);    }}/* Change headings from blue to gold */.logo,section h2,.card h3,.project h3 {    color:#FFD700;}/* Gold borders */.card:hover {    border-color:#FFD700;}.project {    border-left-color:#FFD700;}/* Links */a {    color:#FFD700;}a:hover {    color:#ffffff;}
