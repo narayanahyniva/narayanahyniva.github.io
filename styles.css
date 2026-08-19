@@ -1319,6 +1319,205 @@ button {
 }
 
 /* ==========================================================================
+   Linux Mastery & System Administration Section
+   ========================================================================== */
+
+.linux-section {
+  padding: 100px 0;
+  position: relative;
+  background: radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+}
+
+.linux-search-wrapper {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto 28px;
+}
+
+.linux-search-input {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 15px;
+  backdrop-filter: blur(12px);
+  transition: all var(--transition-fast);
+}
+
+.linux-search-input:focus {
+  outline: none;
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+}
+
+.linux-tabs-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.btn-linux-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-linux-tab:hover {
+  color: #ffffff;
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.btn-linux-tab.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(56, 189, 248, 0.2));
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.linux-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.linux-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.linux-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.linux-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.linux-num-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--neon-green);
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.linux-cat-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-cyan);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.linux-card-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.linux-card-title i {
+  color: var(--neon-green);
+  width: 18px;
+  height: 18px;
+}
+
+.linux-card-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.linux-code-block {
+  background: #080611;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #34d399;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.linux-cmd-copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.linux-cmd-copy-btn:hover {
+  color: var(--neon-green);
+}
+
+.linux-keys-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.linux-key-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: #c7d2fe;
+}
+
+/* ==========================================================================
    Featured Projects & Interactive Slide Showcase
    ========================================================================== */
 

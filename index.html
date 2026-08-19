@@ -88,6 +88,7 @@
         <a href="#services" class="nav-link">Services</a>
         <a href="#cloud-directory" class="nav-link">Cloud Directory</a>
         <a href="#skills" class="nav-link">3D Skills</a>
+        <a href="#linux" class="nav-link">Linux Mastery</a>
         <a href="#architectures" class="nav-link">Architectures</a>
         <a href="#projects" class="nav-link">Projects</a>
         <a href="#freelance" class="nav-link">Freelance</a>
@@ -503,6 +504,31 @@
               <span class="tech-pill">Compute Optimizer</span>
             </div>
           </div>
+
+          <!-- Service 10 -->
+          <div class="service-card">
+            <div>
+              <div class="service-icon-wrapper" style="color: var(--cyber-cyan); border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.08);">
+                <i data-lucide="settings"></i>
+              </div>
+              <h3 class="service-title">Enterprise Toolchain &amp; Admin Governance</h3>
+              <p class="service-description">
+                End-to-end administration across enterprise engineering toolchains, project management workflows, identity access governance, repository lifecycles, and billing.
+              </p>
+              <ul class="service-features">
+                <li><i data-lucide="check-circle-2"></i> <strong>Jira Administration:</strong> Workflows, Custom Dashboards &amp; User RBAC</li>
+                <li><i data-lucide="check-circle-2"></i> <strong>GitHub Org Admin:</strong> Repos, Branch Protection, Users &amp; Billing</li>
+                <li><i data-lucide="check-circle-2"></i> <strong>Microsoft 365 &amp; Entra ID:</strong> User Lifecycle, Licensing &amp; SSO</li>
+              </ul>
+            </div>
+            <div class="service-tags">
+              <span class="tech-pill">Jira Admin</span>
+              <span class="tech-pill">GitHub Admin</span>
+              <span class="tech-pill">Microsoft 365</span>
+              <span class="tech-pill">Entra ID</span>
+              <span class="tech-pill">Workflows</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -704,6 +730,684 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Linux Mastery & Enterprise System Administration (26 Core Domains)
+         ========================================================================== -->
+    <section class="linux-section" id="linux">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">26 Core Domains &bull; DevOps Linux Reference</div>
+          <h2 class="section-title">Enterprise <span class="gradient-text">Linux &amp; Systems</span> Mastery</h2>
+          <p class="section-desc">
+            Complete production Linux engineering matrix covering server administration, file systems, permissions, process lifecycle, networking diagnostics, systemd services, and shell automation.
+          </p>
+        </div>
+
+        <!-- Linux Interactive Search Bar -->
+        <div class="linux-search-wrapper">
+          <i data-lucide="search" class="search-icon-inside"></i>
+          <input type="text" class="linux-search-input" id="linux-search-input" placeholder="Search 26 Linux topics or commands (e.g. systemctl, chmod, awk, journalctl, grep, ssh)...">
+        </div>
+
+        <!-- Linux Category Filter Tabs -->
+        <div class="linux-tabs-bar">
+          <button class="btn-linux-tab active" data-linux-cat="all">
+            <i data-lucide="terminal"></i> All Topics (26)
+          </button>
+          <button class="btn-linux-tab" data-linux-cat="core">
+            <i data-lucide="folder"></i> Core &amp; Filesystem (6)
+          </button>
+          <button class="btn-linux-tab" data-linux-cat="sec">
+            <i data-lucide="shield"></i> Security &amp; Users (5)
+          </button>
+          <button class="btn-linux-tab" data-linux-cat="sys">
+            <i data-lucide="cpu"></i> Processes &amp; System (5)
+          </button>
+          <button class="btn-linux-tab" data-linux-cat="cli">
+            <i data-lucide="code"></i> CLI &amp; Automation (10)
+          </button>
+        </div>
+
+        <!-- Linux Cards Grid (26 Topics) -->
+        <div class="linux-grid" id="linux-grid-container">
+
+          <!-- 01: Linux Basics -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 01</span>
+                <span class="linux-cat-tag">Core &amp; OS</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="info"></i> Linux Basics &amp; Host Identity</h3>
+              <p class="linux-card-desc">
+                What is Linux &amp; why it powers 95%+ of DevOps cloud servers. Inspecting OS kernel architecture, hostname configuration, active user identity, server timestamps, and load averages.
+              </p>
+              <div class="linux-code-block">
+                <span>uname -a &amp;&amp; hostname &amp;&amp; whoami &amp;&amp; uptime</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">uname -a</span>
+              <span class="linux-key-chip">hostname</span>
+              <span class="linux-key-chip">whoami</span>
+              <span class="linux-key-chip">date</span>
+              <span class="linux-key-chip">uptime</span>
+            </div>
+          </div>
+
+          <!-- 02: Linux File System -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 02</span>
+                <span class="linux-cat-tag">Filesystem</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="folder-tree"></i> Filesystem Hierarchy (FHS)</h3>
+              <p class="linux-card-desc">
+                Standard Linux directory tree structure: <code>/</code>, <code>/bin</code> (binaries), <code>/etc</code> (configs), <code>/home</code>, <code>/var</code> (logs/spool), <code>/tmp</code>, <code>/usr</code>, <code>/opt</code> (third-party), <code>/root</code>, <code>/dev</code>, <code>/proc</code> (virtual kernel data).
+              </p>
+              <div class="linux-code-block">
+                <span>pwd &amp;&amp; ls -la /etc /var/log /opt</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">/etc &amp; /var</span>
+              <span class="linux-key-chip">pwd</span>
+              <span class="linux-key-chip">ls</span>
+              <span class="linux-key-chip">ls -l</span>
+              <span class="linux-key-chip">ls -la</span>
+            </div>
+          </div>
+
+          <!-- 03: Directory Management -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 03</span>
+                <span class="linux-cat-tag">Navigation</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="folder-plus"></i> Directory Management</h3>
+              <p class="linux-card-desc">
+                Creating parent directories recursively, switching directories (<code>cd ..</code>, <code>cd ~</code> home), removing empty directories, and recursive directory tree deletions.
+              </p>
+              <div class="linux-code-block">
+                <span>mkdir -p /opt/app/{logs,conf,src} &amp;&amp; cd ~ &amp;&amp; cd ..</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">mkdir -p</span>
+              <span class="linux-key-chip">cd ..</span>
+              <span class="linux-key-chip">cd ~</span>
+              <span class="linux-key-chip">rmdir</span>
+              <span class="linux-key-chip">rm -rf</span>
+            </div>
+          </div>
+
+          <!-- 04: File Management -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 04</span>
+                <span class="linux-cat-tag">Files</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="file-plus"></i> File Operations &amp; Lifecycle</h3>
+              <p class="linux-card-desc">
+                Creating empty files with <code>touch</code>, copying single files &amp; recursive folders (<code>cp -r</code>), moving/renaming files (<code>mv</code>), and safe removing.
+              </p>
+              <div class="linux-code-block">
+                <span>touch config.yaml &amp;&amp; cp -r src/ /backup/ &amp;&amp; mv old.txt new.txt</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">touch</span>
+              <span class="linux-key-chip">cp -r</span>
+              <span class="linux-key-chip">mv (Rename)</span>
+              <span class="linux-key-chip">rm</span>
+            </div>
+          </div>
+
+          <!-- 05: Viewing Files -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 05</span>
+                <span class="linux-cat-tag">Inspection</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="file-text"></i> File Inspection &amp; Log Tailing</h3>
+              <p class="linux-card-desc">
+                Viewing file content with <code>cat</code>, paginated browsing with <code>less</code>, inspecting first lines with <code>head</code>, and continuous real-time log tailing with <code>tail -f</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>tail -f -n 100 /var/log/nginx/access.log | head -n 20</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">cat</span>
+              <span class="linux-key-chip">less</span>
+              <span class="linux-key-chip">head -n</span>
+              <span class="linux-key-chip">tail -f</span>
+            </div>
+          </div>
+
+          <!-- 06: File Editing -->
+          <div class="linux-card" data-cat="core">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 06</span>
+                <span class="linux-cat-tag">CLI Editors</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="edit-3"></i> CLI File Editors (Vim &amp; Nano)</h3>
+              <p class="linux-card-desc">
+                In-terminal file editing in headless servers. Mastering Vim modes (Normal, Insert <code>i</code>, Command <code>:wq</code> save &amp; quit, <code>:q!</code> force quit, <code>/search</code>) and Nano shortcuts.
+              </p>
+              <div class="linux-code-block">
+                <span>vim /etc/nginx/nginx.conf  # :wq save &amp; quit, :q! discard</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">vim</span>
+              <span class="linux-key-chip">nano</span>
+              <span class="linux-key-chip">Insert (i)</span>
+              <span class="linux-key-chip">:wq &amp; :q!</span>
+            </div>
+          </div>
+
+          <!-- 07: File Permissions -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 07</span>
+                <span class="linux-cat-tag">Permissions</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="lock"></i> Permissions &amp; Numeric Modes</h3>
+              <p class="linux-card-desc">
+                Permission layout: type (<code>-</code> file, <code>d</code> dir, <code>l</code> link), Owner/Group/Others. Values: <code>r=4, w=2, x=1</code>. Calculating modes: <code>754</code>, <code>640</code>, <code>700</code>, <code>740</code>, <code>453</code>, and symbolic <code>chmod u+x</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>chmod 754 deploy.sh &amp;&amp; chmod -R 640 /var/www/secret.env</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">r=4, w=2, x=1</span>
+              <span class="linux-key-chip">chmod 754 / 640</span>
+              <span class="linux-key-chip">chmod u+x</span>
+              <span class="linux-key-chip">-rwxr-xr--</span>
+            </div>
+          </div>
+
+          <!-- 08: File Ownership -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 08</span>
+                <span class="linux-cat-tag">Ownership</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="user-check"></i> File Ownership (chown &amp; chgrp)</h3>
+              <p class="linux-card-desc">
+                Managing file ownership boundaries. Differentiating Owner vs Group permissions, updating service account ownership recursively (<code>-R</code>), and group updates.
+              </p>
+              <div class="linux-code-block">
+                <span>chown -R www-data:www-data /var/www/html &amp;&amp; chgrp devops app.jar</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">chown</span>
+              <span class="linux-key-chip">chgrp</span>
+              <span class="linux-key-chip">User:Group</span>
+              <span class="linux-key-chip">ls -l</span>
+            </div>
+          </div>
+
+          <!-- 09: Users -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 09</span>
+                <span class="linux-cat-tag">User Accounts</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="users"></i> Linux User Administration</h3>
+              <p class="linux-card-desc">
+                Managing Linux accounts: inspecting <code>/etc/passwd</code> and <code>/etc/shadow</code>, creating user accounts with <code>adduser</code>, switching user context with <code>su -</code>, and account deletion with <code>userdel</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>adduser devops_eng &amp;&amp; su - devops_eng &amp;&amp; cat /etc/passwd</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">adduser</span>
+              <span class="linux-key-chip">userdel -r</span>
+              <span class="linux-key-chip">su -</span>
+              <span class="linux-key-chip">/etc/passwd</span>
+            </div>
+          </div>
+
+          <!-- 10: Groups -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 10</span>
+                <span class="linux-cat-tag">Groups</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="shield-check"></i> Group Governance &amp; usermod</h3>
+              <p class="linux-card-desc">
+                Creating administrative security groups with <code>groupadd</code>, attaching supplementary groups with <code>usermod -aG</code> (sudo, docker), and auditing user group memberships.
+              </p>
+              <div class="linux-code-block">
+                <span>groupadd docker &amp;&amp; usermod -aG sudo,docker devops_eng &amp;&amp; groups</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">groupadd</span>
+              <span class="linux-key-chip">usermod -aG</span>
+              <span class="linux-key-chip">groups</span>
+              <span class="linux-key-chip">docker group</span>
+            </div>
+          </div>
+
+          <!-- 11: Root & sudo -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 11</span>
+                <span class="linux-cat-tag">Privileges</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="key"></i> Root User &amp; Sudo Elevation</h3>
+              <p class="linux-card-desc">
+                Understanding superuser root access, sudo elevation (<code>sudo command</code>), full interactive root environment (<code>sudo -i</code>), and configuring least-privilege delegation via <code>visudo</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>sudo -i  # or sudo systemctl restart nginx via /etc/sudoers</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">Root User</span>
+              <span class="linux-key-chip">sudo</span>
+              <span class="linux-key-chip">sudo -i</span>
+              <span class="linux-key-chip">visudo</span>
+            </div>
+          </div>
+
+          <!-- 12: Package Management -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 12</span>
+                <span class="linux-cat-tag">Packages</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="box"></i> Package Management (APT)</h3>
+              <p class="linux-card-desc">
+                Updating package repositories, performing system upgrades, installing dependencies, searching package databases, and purging unused packages on Debian/Ubuntu servers.
+              </p>
+              <div class="linux-code-block">
+                <span>apt update &amp;&amp; apt install -y nginx docker.io &amp;&amp; apt search python3</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">apt update</span>
+              <span class="linux-key-chip">apt upgrade</span>
+              <span class="linux-key-chip">apt install</span>
+              <span class="linux-key-chip">apt remove</span>
+              <span class="linux-key-chip">apt search</span>
+            </div>
+          </div>
+
+          <!-- 13: Processes -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 13</span>
+                <span class="linux-cat-tag">Processes</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="activity"></i> Process Monitoring &amp; Kill Signals</h3>
+              <p class="linux-card-desc">
+                Inspecting running processes with <code>ps aux</code>, interactive resource tracking with <code>top/htop</code>, filtering process IDs with grep, and sending termination signals (<code>kill</code>, <code>kill -9</code> SIGKILL).
+              </p>
+              <div class="linux-code-block">
+                <span>ps aux | grep nginx &amp;&amp; kill -9 &lt;PID&gt; &amp;&amp; htop</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">ps aux</span>
+              <span class="linux-key-chip">top / htop</span>
+              <span class="linux-key-chip">grep process</span>
+              <span class="linux-key-chip">kill -9 (SIGKILL)</span>
+            </div>
+          </div>
+
+          <!-- 14: Services (systemctl) -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 14</span>
+                <span class="linux-cat-tag">Systemd</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="server"></i> Service Management (systemctl)</h3>
+              <p class="linux-card-desc">
+                Controlling background daemon services via systemd (<code>status</code>, <code>start</code>, <code>stop</code>, <code>restart</code>). Crucial difference: <code>start</code> (runtime) vs <code>enable</code> (auto-start on boot).
+              </p>
+              <div class="linux-code-block">
+                <span>systemctl enable --now nginx &amp;&amp; systemctl restart docker &amp;&amp; systemctl status nginx</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">systemctl status</span>
+              <span class="linux-key-chip">start vs enable</span>
+              <span class="linux-key-chip">restart/stop</span>
+              <span class="linux-key-chip">daemon-reload</span>
+            </div>
+          </div>
+
+          <!-- 15: Disk Management -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 15</span>
+                <span class="linux-cat-tag">Disk Storage</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="hard-drive"></i> Disk Space &amp; Storage Audits</h3>
+              <p class="linux-card-desc">
+                Checking disk filesystem usage with human-readable <code>df -h</code>, measuring directory storage footprints with <code>du -sh</code> to locate disk bloat, and listing block devices with <code>lsblk</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>df -h &amp;&amp; du -sh /var/log/* | sort -hr | head -n 5 &amp;&amp; lsblk</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">df -h</span>
+              <span class="linux-key-chip">du -sh</span>
+              <span class="linux-key-chip">lsblk</span>
+              <span class="linux-key-chip">Disk Usage</span>
+            </div>
+          </div>
+
+          <!-- 16: Memory & CPU -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 16</span>
+                <span class="linux-cat-tag">Hardware</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="cpu"></i> RAM, Swap &amp; CPU Diagnostics</h3>
+              <p class="linux-card-desc">
+                Checking physical RAM and swap space memory with <code>free -h</code>, monitoring real-time load, and inspecting CPU core architecture and thread counts with <code>lscpu</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>free -h &amp;&amp; lscpu &amp;&amp; top -b -n 1 | head -n 12</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">free -h</span>
+              <span class="linux-key-chip">RAM &amp; Swap</span>
+              <span class="linux-key-chip">lscpu</span>
+              <span class="linux-key-chip">CPU Topology</span>
+            </div>
+          </div>
+
+          <!-- 17: Searching -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 17</span>
+                <span class="linux-cat-tag">Search</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="search"></i> Advanced File Search (find)</h3>
+              <p class="linux-card-desc">
+                Locating files and directories across the system: searching by pattern name, extension (<code>*.conf</code>), type (<code>-type f</code>, <code>-type d</code>), size (<code>-size +100M</code>), and modification timestamp.
+              </p>
+              <div class="linux-code-block">
+                <span>find /etc -type f -name "*.conf" -size +10k -mtime -7</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">find -name</span>
+              <span class="linux-key-chip">Find by Extension</span>
+              <span class="linux-key-chip">-type d / f</span>
+              <span class="linux-key-chip">Size &amp; Time</span>
+            </div>
+          </div>
+
+          <!-- 18: Text Searching (grep) -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 18</span>
+                <span class="linux-cat-tag">Text Search</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="filter"></i> Pattern Matching with grep</h3>
+              <p class="linux-card-desc">
+                Extracting matching patterns from files and streams. Case-insensitive search (<code>-i</code>), recursive folder search (<code>-r</code>), line numbering (<code>-n</code>), and regex pattern filtering.
+              </p>
+              <div class="linux-code-block">
+                <span>grep -rni "DATABASE_URL" /opt/apps/ --color=auto</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">grep -i</span>
+              <span class="linux-key-chip">grep -r</span>
+              <span class="linux-key-chip">grep -n</span>
+              <span class="linux-key-chip">Regex Search</span>
+            </div>
+          </div>
+
+          <!-- 19: Pipes & Redirection -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 19</span>
+                <span class="linux-cat-tag">I/O Streams</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="git-commit"></i> Pipes &amp; I/O Stream Redirection</h3>
+              <p class="linux-card-desc">
+                Chaining commands with pipe <code>|</code>, output overwrite redirection <code>&gt;</code>, output append redirection <code>&gt;&gt;</code>, input redirection <code>&lt;</code>, and error stream redirection <code>2&gt;&amp;1</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>cat access.log | grep "500" &gt;&gt; server_errors.log 2&gt;&amp;1</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">Pipe |</span>
+              <span class="linux-key-chip">Overwrite &gt;</span>
+              <span class="linux-key-chip">Append &gt;&gt;</span>
+              <span class="linux-key-chip">Input &lt;</span>
+              <span class="linux-key-chip">stderr 2&gt;&amp;1</span>
+            </div>
+          </div>
+
+          <!-- 20: Text Processing -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 20</span>
+                <span class="linux-cat-tag">Data Parsing</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="code-2"></i> Text Processing (awk, sed, cut)</h3>
+              <p class="linux-card-desc">
+                Stream parsing utilities: sorting with <code>sort</code>, deduplicating with <code>uniq -c</code>, counting words/lines with <code>wc -l</code>, field slicing with <code>cut</code>, column extraction with <code>awk</code>, and in-place substitutions with <code>sed</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>cut -d: -f1 /etc/passwd | sort | uniq -c &amp;&amp; sed -i 's/80/8080/g' app.conf</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">awk</span>
+              <span class="linux-key-chip">sed -i</span>
+              <span class="linux-key-chip">cut -d</span>
+              <span class="linux-key-chip">sort &amp; uniq</span>
+              <span class="linux-key-chip">wc -l</span>
+            </div>
+          </div>
+
+          <!-- 21: Networking -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 21</span>
+                <span class="linux-cat-tag">Networking</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="wifi"></i> Network Diagnostics &amp; Ports</h3>
+              <p class="linux-card-desc">
+                Inspecting IP configuration (<code>ip addr</code>), default routing (<code>ip route</code>), ping latency, DNS resolution (<code>nslookup</code>, <code>dig</code>), listening TCP/UDP sockets (<code>ss -tuln</code>), and port connectivity (<code>nc</code>).
+              </p>
+              <div class="linux-code-block">
+                <span>ip addr show &amp;&amp; ss -tuln | grep 80 &amp;&amp; dig +short google.com &amp;&amp; nc -zv 127.0.0.1 443</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">ip addr</span>
+              <span class="linux-key-chip">ss -tuln</span>
+              <span class="linux-key-chip">ping</span>
+              <span class="linux-key-chip">dig / nslookup</span>
+              <span class="linux-key-chip">nc -zv</span>
+            </div>
+          </div>
+
+          <!-- 22: SSH -->
+          <div class="linux-card" data-cat="sec">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 22</span>
+                <span class="linux-cat-tag">Remote Access</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="terminal"></i> SSH Remote Access &amp; SCP Transfer</h3>
+              <p class="linux-card-desc">
+                Connecting securely to remote EC2/cloud instances using private keys (<code>.pem</code> / <code>id_rsa</code>), key generation with <code>ssh-keygen</code>, remote execution, and secure copying with <code>scp</code>.
+              </p>
+              <div class="linux-code-block">
+                <span>ssh -i key.pem ubuntu@10.0.1.50 "systemctl status app" &amp;&amp; scp -i key.pem dist.tar.gz ubuntu@host:/opt/</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">ssh with .pem</span>
+              <span class="linux-key-chip">scp remote copy</span>
+              <span class="linux-key-chip">Key Auth</span>
+              <span class="linux-key-chip">Remote Exec</span>
+            </div>
+          </div>
+
+          <!-- 23: Environment Variables -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 23</span>
+                <span class="linux-cat-tag">Environment</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="sliders"></i> Environment Variables &amp; PATH</h3>
+              <p class="linux-card-desc">
+                Inspecting system variables with <code>env</code>, printing variables (<code>echo $HOME</code>), creating and exporting variables (<code>export</code>), binary executable resolution with <code>which</code>, and PATH configuration.
+              </p>
+              <div class="linux-code-block">
+                <span>export NODE_ENV=production &amp;&amp; export PATH=$PATH:/opt/bin &amp;&amp; which docker</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">env</span>
+              <span class="linux-key-chip">export</span>
+              <span class="linux-key-chip">echo $HOME</span>
+              <span class="linux-key-chip">PATH</span>
+              <span class="linux-key-chip">which</span>
+            </div>
+          </div>
+
+          <!-- 24: Linux Logs -->
+          <div class="linux-card" data-cat="sys">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 24</span>
+                <span class="linux-cat-tag">Logs</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="scroll-text"></i> System Logs &amp; journalctl</h3>
+              <p class="linux-card-desc">
+                Navigating <code>/var/log</code> (syslog, auth.log, nginx), live log tailing, querying systemd journal logs by service unit (<code>journalctl -u</code>), and filtering by time windows (<code>--since</code>).
+              </p>
+              <div class="linux-code-block">
+                <span>journalctl -u nginx.service -f -n 50 --since "1 hour ago"</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">/var/log</span>
+              <span class="linux-key-chip">tail -f</span>
+              <span class="linux-key-chip">journalctl -u</span>
+              <span class="linux-key-chip">journalctl -f</span>
+            </div>
+          </div>
+
+          <!-- 25: Cron -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 25</span>
+                <span class="linux-cat-tag">Scheduling</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="calendar"></i> Cron Job Scheduling &amp; Automation</h3>
+              <p class="linux-card-desc">
+                Scheduling recurring automation tasks with cron: editing crontabs with <code>crontab -e</code>, listing jobs with <code>crontab -l</code>, and 5-field syntax (<code>min hr dom mon dow</code>) for scheduled database backups.
+              </p>
+              <div class="linux-code-block">
+                <span>crontab -e  # 0 2 * * * /opt/scripts/backup.sh &gt; /dev/null 2&gt;&amp;1</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">crontab -e</span>
+              <span class="linux-key-chip">crontab -l</span>
+              <span class="linux-key-chip">5-field Syntax</span>
+              <span class="linux-key-chip">Automated Tasks</span>
+            </div>
+          </div>
+
+          <!-- 26: Shell Scripting -->
+          <div class="linux-card" data-cat="cli">
+            <div>
+              <div class="linux-card-top">
+                <span class="linux-num-tag">TOPIC 26</span>
+                <span class="linux-cat-tag">Scripting</span>
+              </div>
+              <h3 class="linux-card-title"><i data-lucide="terminal-square"></i> Bash Shell Scripting &amp; Automation</h3>
+              <p class="linux-card-desc">
+                Writing production shell scripts: Shebang <code>#!/bin/bash</code>, variables, command substitution <code>$()</code>, conditionals (<code>if [ $? -eq 0 ]</code>), loops (<code>for host in "${SERVERS[@]}"</code>), making executable (<code>chmod +x</code>), and script execution.
+              </p>
+              <div class="linux-code-block">
+                <span>#!/bin/bash \nchmod +x deploy.sh &amp;&amp; ./deploy.sh  # loops, if-conditions &amp; variables</span>
+                <button class="linux-cmd-copy-btn" title="Copy Command"><i data-lucide="copy" style="width:14px;"></i></button>
+              </div>
+            </div>
+            <div class="linux-keys-list">
+              <span class="linux-key-chip">#!/bin/bash</span>
+              <span class="linux-key-chip">Variables</span>
+              <span class="linux-key-chip">Command Sub $()</span>
+              <span class="linux-key-chip">if / for loop</span>
+              <span class="linux-key-chip">chmod +x</span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1432,10 +2136,10 @@
               <!-- Role 1 -->
               <div class="timeline-item">
                 <div class="timeline-date">DEC 2024 – PRESENT &bull; 1 YR 9 MOS</div>
-                <div class="timeline-role">Cloud DevOps Engineer</div>
+                <div class="timeline-role">Cloud DevOps Engineer &amp; Systems Administrator</div>
                 <div class="timeline-company">Hyniva &bull; Bengaluru, Karnataka, India (On-site)</div>
                 <p class="timeline-desc">
-                  Architecting and managing cloud infrastructure across <strong>Development, Pre-Production, UAT, and Production</strong> environments for Hyniva's enterprise product suite including <strong>FinXServe</strong> (Salesforce-native digital banking platform), <strong>Claim Pioneer</strong> (AI claims workflow automation), <strong>AIRA</strong> (Autonomous Intelligent Reasoning Agent with OneAPI), and <strong>Hyper</strong> (wealth management investment platform). Executing front-end deployments via <strong>AWS Amplify</strong> and back-end containerized microservices deployments on <strong>AWS ECS (Fargate)</strong> using automated <strong>GitHub Actions</strong> CI/CD workflows. Implementing and configuring <strong>Application Load Balancers (ALB)</strong> and target groups, managing <strong>AWS Route 53</strong> DNS records, <strong>GoDaddy</strong> domain configurations, <strong>AWS Certificate Manager (ACM)</strong> SSL/TLS certificates, and documenting end-to-end connection and network architectures.
+                  Architecting and managing cloud infrastructure across <strong>Development, Pre-Production, UAT, and Production</strong> environments for Hyniva's enterprise product suite (FinXServe, Claim Pioneer, AIRA, Hyper, VLF, Drive30, EAzy School, People Fund, Employee Portal, Document Manager, Buildzbit, ELog, AWT). Executing front-end deployments via <strong>AWS Amplify</strong> and back-end containerized microservices on <strong>AWS ECS (Fargate) &amp; EC2</strong> using automated <strong>GitHub Actions</strong> CI/CD workflows. Administering <strong>Application Load Balancers (ALB)</strong>, <strong>Route 53</strong> DNS, <strong>GoDaddy</strong> domains, and <strong>AWS ACM</strong> SSL/TLS certificates. Leading <strong>GitHub Organization Administration</strong> (creating/managing repos, user onboarding/offboarding, team permissions, branch protection rules, code owners, and billing &amp; seat management) and <strong>Jira Administration</strong> (custom workflows, issue types, transition screens, Scrum/Kanban boards, executive tracking dashboards, and SLA permission schemes).
                 </p>
               </div>
 
@@ -1445,7 +2149,7 @@
                 <div class="timeline-role">Cloud Engineer</div>
                 <div class="timeline-company">Hyniva &bull; Bengaluru, Karnataka, India (On-site)</div>
                 <p class="timeline-desc">
-                  Provisioned and managed core AWS services (EC2, EBS, Snapshots, Security Groups, VPC, Route 53, API Gateway, SNS, SQS, SES). Built and maintained CI/CD pipeline components using CodeCommit, Jenkins, and GitHub Actions. Administered Azure AD / Microsoft Entra ID by managing users, groups, roles, and App Registrations with OAuth 2.0 and OpenID Connect. Tracked engineering tasks and Agile incident resolution using Jira.
+                  Provisioned and managed core AWS services (EC2, EBS, Snapshots, Security Groups, VPC, Route 53, API Gateway, SNS, SQS, SES). Built and maintained CI/CD pipeline components using CodeCommit, Jenkins, and GitHub Actions. Administered <strong>Azure AD / Microsoft Entra ID</strong> and <strong>Microsoft 365 Admin Center</strong> by managing users, groups, license allocations, enterprise app registrations, and OAuth 2.0 / OpenID Connect policies. Configured and administered <strong>Jira project boards, custom workflow transitions, and incident resolution tracking</strong> across cross-functional engineering teams.
                 </p>
               </div>
 
@@ -1455,7 +2159,7 @@
                 <div class="timeline-role">System Engineer</div>
                 <div class="timeline-company">Hyniva &bull; Bengaluru, Karnataka, India (On-site)</div>
                 <p class="timeline-desc">
-                  Managed internal IT infrastructure, hardware provisioning, performance tuning, and server administration. Administered enterprise LAN/WAN networks, routers, switches, firewalls, and secure VPNs. Managed user lifecycle and group policies via Active Directory and Microsoft 365 Admin Center. Implemented and maintained enterprise security tooling including Bitdefender, Microsoft Defender, CrowdStrike, and Vanta.
+                  Managed internal IT infrastructure, hardware provisioning, performance tuning, and server administration. Administered enterprise LAN/WAN networks, routers, switches, firewalls, and secure VPNs. Managed user lifecycle and group policies via <strong>Active Directory and Microsoft 365 Admin Center</strong>. Implemented and maintained enterprise security tooling including Bitdefender, Microsoft Defender, CrowdStrike, and Vanta compliance governance.
                 </p>
               </div>
             </div>
@@ -1818,8 +2522,9 @@
             &bull; <strong>Containerization &amp; Orchestration:</strong> Docker, Kubernetes (EKS/AKS/GKE), Helm, Istio Service Mesh, Container Security<br>
             &bull; <strong>Infrastructure as Code &amp; Config:</strong> Terraform, Terragrunt, Ansible, CloudFormation, Packer<br>
             &bull; <strong>CI/CD &amp; GitOps:</strong> GitHub Actions, Jenkins, AWS CodePipeline, ArgoCD, SonarQube<br>
+            &bull; <strong>Toolchain &amp; Identity Administration:</strong> Jira Administrator (Custom Workflows, Dashboards, RBAC), GitHub Organization Admin (Repos, Branch Protection, Billing), Microsoft 365 Admin Center &amp; Entra ID (SSO, Licensing)<br>
             &bull; <strong>Monitoring &amp; Observability:</strong> AWS CloudWatch, Prometheus, Grafana, Datadog, ELK Stack<br>
-            &bull; <strong>Scripting &amp; Databases:</strong> Python, Bash, YAML, Linux Administration, MySQL, PostgreSQL, Redis, MongoDB
+            &bull; <strong>Linux &amp; Scripting:</strong> 26-Domain Enterprise Linux Administration (Systemd, Permissions, Networking, SSH), Bash, Python, YAML, PostgreSQL, MySQL, Redis
           </div>
         </div>
 
@@ -1829,18 +2534,19 @@
           <!-- Role 1 -->
           <div style="margin-bottom: 16px;">
             <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--text-primary);">
-              <span>Cloud DevOps Engineer — Hyniva</span>
+              <span>Cloud DevOps Engineer &amp; Systems Administrator — Hyniva</span>
               <span style="font-family: var(--font-mono); font-size: 12.5px; color:var(--cyber-cyan);">Dec 2024 – Present &bull; 1 yr 9 mos</span>
             </div>
             <div style="font-size: 12.5px; color: var(--aws-gold); margin-bottom: 4px;">Bengaluru, Karnataka, India &bull; On-site</div>
             <ul style="font-size: 13px; color: var(--text-secondary); margin-left: 20px; list-style: disc; margin-top: 4px; line-height: 1.6;">
-              <li>Architecting, provisioning, and operating multi-tier cloud infrastructure across Development, Pre-Production, UAT, and Production environments for enterprise products: FinXServe, Claim Pioneer, AIRA, and Hyper.</li>
-              <li>Executing front-end deployments with AWS Amplify and containerized backend microservices on AWS ECS (Fargate) via automated GitHub Actions CI/CD workflows.</li>
+              <li>Architecting, provisioning, and operating multi-tier cloud infrastructure across Development, Pre-Production, UAT, and Production environments for 13 enterprise products (FinXServe, Claim Pioneer, AIRA, Hyper, VLF, EAzy School, People Fund, Employee Portal, Document Manager, Buildzbit, ELog, AWT, Drive30).</li>
+              <li>Executing front-end deployments with AWS Amplify and containerized backend microservices on AWS ECS (Fargate) &amp; EC2 via automated GitHub Actions CI/CD workflows.</li>
               <li>Implementing Application Load Balancers (ALB) and dynamic Target Groups for high availability, traffic routing, and health checking.</li>
               <li>Managing DNS records and hosted zones in AWS Route 53 with GoDaddy registrar domain configurations.</li>
               <li>Managing AWS Certificate Manager (ACM) SSL/TLS certificates lifecycle with DNS validation.</li>
+              <li>Administering <strong>GitHub Organization</strong> (creating/managing repos, user onboarding/offboarding, team permissions, branch protection rules, code owners, and billing &amp; seat management).</li>
+              <li>Administering <strong>Jira</strong> (designing custom workflows, issue types, transition screens, Scrum/Kanban boards, executive tracking dashboards, and SLA permission schemes).</li>
               <li>Authoring standardized connection, networking, and environment architecture documentation.</li>
-              <li>Administering GitHub Organization repository access controls, branch protection rules, and Entra ID (Azure AD) identity governance.</li>
             </ul>
           </div>
 
@@ -1854,8 +2560,8 @@
             <ul style="font-size: 13px; color: var(--text-secondary); margin-left: 20px; list-style: disc; margin-top: 4px; line-height: 1.6;">
               <li>Provisioned core AWS services: EC2, EBS, Snapshots, Security Groups, VPC, Route 53, API Gateway, SNS, SQS, SES.</li>
               <li>Built and maintained CI/CD components using CodeCommit, Jenkins, and GitHub Actions with Git branching strategies.</li>
-              <li>Administered Azure AD (Microsoft Entra ID) users, groups, roles, and App Registrations with OAuth 2.0 and OpenID Connect.</li>
-              <li>Collaborated with engineering teams to manage secure access and tracked tasks and incidents using Jira in Agile workflows.</li>
+              <li>Administered <strong>Azure AD / Microsoft Entra ID</strong> and <strong>Microsoft 365 Admin Center</strong> by managing users, groups, license allocations, enterprise app registrations, and OAuth 2.0 / OpenID Connect policies.</li>
+              <li>Configured and managed Jira project workflows, custom status transitions, and incident resolution tracking for engineering squads.</li>
             </ul>
           </div>
 
@@ -1869,8 +2575,8 @@
             <ul style="font-size: 13px; color: var(--text-secondary); margin-left: 20px; list-style: disc; margin-top: 4px; line-height: 1.6;">
               <li>Managed internal IT infrastructure, hardware provisioning, server patching, and system maintenance.</li>
               <li>Administered enterprise LAN/WAN networks, routers, switches, firewalls, and secure VPN infrastructure.</li>
-              <li>Managed user lifecycle and access controls via Active Directory, Microsoft 365, and Admin Center.</li>
-              <li>Maintained enterprise security tooling including Bitdefender, Microsoft Defender, CrowdStrike, and Vanta.</li>
+              <li>Managed user lifecycle and access controls via <strong>Active Directory and Microsoft 365 Admin Center</strong>.</li>
+              <li>Maintained enterprise security tooling including Bitdefender, Microsoft Defender, CrowdStrike, and Vanta compliance governance.</li>
             </ul>
           </div>
         </div>

@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Skills Category Filter
   initSkillsFilter();
 
+  // Linux Mastery Matrix & Command Reference Engine
+  initLinuxMatrix();
+
   // Flagship Feature: Interactive Architecture Explorer
   initArchitectureExplorer();
 
@@ -672,6 +675,72 @@ function initSkillsFilter() {
         } else {
           card.style.display = 'none';
         }
+      });
+    });
+  });
+}
+
+/* ==========================================================================
+   Enterprise Linux Mastery & System Administration Matrix Engine
+   ========================================================================== */
+function initLinuxMatrix() {
+  const searchInput = document.getElementById('linux-search-input');
+  const tabs = document.querySelectorAll('.btn-linux-tab');
+  const cards = document.querySelectorAll('.linux-card');
+  const copyBtns = document.querySelectorAll('.linux-cmd-copy-btn');
+
+  if (cards.length === 0) return;
+
+  let currentCategory = 'all';
+  let searchTerm = '';
+
+  function filterCards() {
+    cards.forEach((card) => {
+      const cardCat = card.getAttribute('data-cat');
+      const text = card.textContent.toLowerCase();
+
+      const matchCat = currentCategory === 'all' || cardCat === currentCategory;
+      const matchSearch = !searchTerm || text.includes(searchTerm);
+
+      if (matchCat && matchSearch) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Category Tab Click
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentCategory = tab.getAttribute('data-linux-cat') || 'all';
+      filterCards();
+    });
+  });
+
+  // Search Input Handler
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value.toLowerCase().trim();
+      filterCards();
+    });
+  }
+
+  // Copy Command Code on click
+  copyBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const codeEl = btn.parentElement.querySelector('span');
+      if (!codeEl) return;
+      const codeText = codeEl.textContent.trim();
+      navigator.clipboard.writeText(codeText).then(() => {
+        btn.innerHTML = `<i data-lucide="check" style="width:14px; color:var(--neon-green);"></i>`;
+        if (window.lucide) lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = `<i data-lucide="copy" style="width:14px;"></i>`;
+          if (window.lucide) lucide.createIcons();
+        }, 2000);
       });
     });
   });
@@ -1718,6 +1787,15 @@ Available commands:
   <span class="term-cmd">certifications</span> - Target certification roadmap (In Prep)
   <span class="term-cmd">architecture</span>   - Cloud architecture overview
   <span class="term-cmd">projects</span>       - Production projects & case studies
+  <span class="term-cmd">skills</span>         - Complete technology stack & capabilities
+  <span class="term-cmd">linux</span>          - 26-Domain Enterprise Linux Administration matrix
+  <span class="term-cmd">admin</span>          - Jira, GitHub Org & Microsoft 365 Administration
+  <span class="term-cmd">directory</span>      - 80+ Multi-Cloud & Open-Source Services
+  <span class="term-cmd">projects</span>       - Production enterprise case studies (13 projects)
+  <span class="term-cmd">architecture</span>   - Active production cloud topology designs
+  <span class="term-cmd">certifications</span> - Official certification roadmap & prep
+  <span class="term-cmd">experience</span>     - Professional career at Hyniva (4 yrs 2 mos)
+  <span class="term-cmd">education</span>      - Academic degrees & credentials
   <span class="term-cmd">hire</span>           - Freelance consultation & pricing options ($250-$500)
   <span class="term-cmd">resume</span>         - Summary ATS resume & contact
   <span class="term-cmd">contact</span>        - Direct email, phone, and WhatsApp
@@ -1726,32 +1804,76 @@ Available commands:
   <span class="term-cmd">clear</span>          - Clear terminal output
     `,
     about: () => `
-<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud DevOps Engineer at Hyniva (Bengaluru, Karnataka, India).
-4+ years of dedicated experience across System Administration, Cloud Infrastructure, and DevOps Automation.
-Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for enterprise products:
-• <span class="term-success">FinXServe</span> — Digital banking experience orchestration layer (Salesforce-native).
-• <span class="term-success">Claim Pioneer</span> — Automated AI claims lifecycle management & real-time tracking.
-• <span class="term-success">AIRA</span> — Autonomous Intelligent Reasoning Agent with OneAPI integration & compliance guardrails.
-• <span class="term-success">Hyper</span> — Digital investment journey & wealth management portfolio planning platform.
-DevOps Core: AWS Amplify (FE), AWS ECS Fargate (BE), Application Load Balancers (ALB), Route 53, GoDaddy ACM SSL, GitHub Actions.
+<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud DevOps Engineer & Administrator at Hyniva (Bengaluru, India).
+4+ years of dedicated experience across System Administration, Cloud Infrastructure, Toolchain Governance, and DevOps Automation.
+Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for 13 enterprise products:
+• <span class="term-success">FinXServe</span> — Digital banking experience layer (Salesforce-native).
+• <span class="term-success">Claim Pioneer</span> — Automated AI claims lifecycle & tracking.
+• <span class="term-success">AIRA</span> — Autonomous Intelligent Reasoning Agent with OneAPI.
+• <span class="term-success">Hyper</span> — Digital investment journey & portfolio simulation.
+DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Actions, Jira Administration, Microsoft 365 Admin.
     `,
     experience: () => `
 <span class="term-success">Professional Experience at Hyniva (4 yrs 2 mos · Bengaluru, India):</span>
-1. <span class="term-info">Cloud DevOps Engineer</span> (Dec 2024 – Present · 1 yr 9 mos):
-   • Multi-tier environments: Development, Pre-Production, UAT, and Production.
-   • Enterprise Platforms: FinXServe (Digital Banking), Claim Pioneer (Claims AI), AIRA (Reasoning Agent), and Hyper (Wealth Management).
-   • Front-end CI/CD deployments using AWS Amplify service.
-   • Back-end microservices deployments on AWS ECS (Fargate) with automated GitHub Actions CI/CD workflows.
-   • Implemented Application Load Balancers (ALB) and dynamic Target Groups post-deployment.
-   • Configured Route 53 DNS records, GoDaddy domain management, and ACM SSL/TLS certificates.
-   • Authored standardized connection, network, and multi-tier environment architecture documentation.
+1. <span class="term-info">Cloud DevOps Engineer & Systems Administrator</span> (Dec 2024 – Present · 1 yr 9 mos):
+   • Multi-tier environments: Development, Pre-Production, UAT, and Production for 13 enterprise products.
+   • Front-end deployments via AWS Amplify; containerized backend on AWS ECS Fargate via GitHub Actions CI/CD.
+   • Configured Application Load Balancers (ALB), Route 53 DNS, GoDaddy domains, ACM SSL/TLS certificates.
+   • <span class="term-cmd">GitHub Org Administration:</span> Repositories lifecycle, user onboarding/offboarding, team RBAC, branch protection rules, code owners, seat and billing management.
+   • <span class="term-cmd">Jira Administration:</span> Custom workflows, issue types, screens, transition validators, Agile Scrum/Kanban boards, executive tracking dashboards, permission schemes.
 2. <span class="term-info">Cloud Engineer</span> (Jul 2023 – Dec 2024 · 1 yr 6 mos):
-   • Provisioned core AWS: EC2, EBS, VPC, Route 53, API Gateway, SNS, SQS.
-   • Built CI/CD pipeline components via CodeCommit, Jenkins, GitHub Actions; Jira Agile tracking.
-   • Administered Azure AD / Microsoft Entra ID users, roles, and App Registrations (OAuth 2.0 / OIDC).
+   • Provisioned core AWS: EC2, EBS, VPC, Route 53, API Gateway, SNS, SQS, SES.
+   • CI/CD pipeline components via CodeCommit, Jenkins, GitHub Actions; Jira sprint and incident resolution tracking.
+   • Administered <span class="term-cmd">Azure AD / Microsoft Entra ID</span> and <span class="term-cmd">Microsoft 365 Admin Center</span>: users, groups, license allocations, enterprise app registrations (OAuth 2.0 / OIDC).
 3. <span class="term-info">System Engineer</span> (Jul 2022 – Jul 2023 · 1 yr 1 mo):
-   • Enterprise IT infrastructure, LAN/WAN networks, routers, switches, firewalls, and VPNs.
-   • Active Directory, Microsoft 365 Admin, Bitdefender, Defender, CrowdStrike, Vanta.
+   • Enterprise IT infrastructure, LAN/WAN networks, routers, switches, firewalls, and secure VPNs.
+   • Active Directory, Microsoft 365 Admin Center, Bitdefender, Defender, CrowdStrike, Vanta compliance governance.
+    `,
+    linux: () => `
+<span class="term-success">Enterprise Linux Mastery Matrix (26 Core Domains):</span>
+1.  <span class="term-info">Linux Basics:</span> uname, hostname, whoami, date, uptime, server identification
+2.  <span class="term-info">Filesystem (FHS):</span> /, /bin, /etc, /home, /var, /tmp, /usr, /opt, /root, /dev, /proc, pwd, ls, ls -la
+3.  <span class="term-info">Directory Management:</span> mkdir, mkdir -p, cd, cd .., cd ~, rmdir, rm -rf
+4.  <span class="term-info">File Operations:</span> touch, cp, cp -r, mv (rename/move), rm
+5.  <span class="term-info">Viewing Files:</span> cat, less, head, tail, tail -f (real-time streaming)
+6.  <span class="term-info">File Editing:</span> nano, vim (:wq save/quit, :q! force discard, insert mode i)
+7.  <span class="term-info">Permissions:</span> chmod numeric (754, 640, 700, 740, 453) & symbolic (u+x), r=4 w=2 x=1
+8.  <span class="term-info">Ownership:</span> chown -R user:group, chgrp, owner vs group separation
+9.  <span class="term-info">Users Management:</span> whoami, /etc/passwd, adduser, su -, userdel -r
+10. <span class="term-info">Groups Management:</span> groupadd, usermod -aG (sudo, docker), groups
+11. <span class="term-info">Root & Sudo:</span> Root superuser, sudo, sudo -i, visudo least-privilege delegation
+12. <span class="term-info">Package Management:</span> apt update, apt upgrade, apt install, apt remove, apt search
+13. <span class="term-info">Process Management:</span> ps aux, top, htop, grep processes, PID, kill, kill -9 (SIGKILL)
+14. <span class="term-info">Services (systemd):</span> systemctl status/start/stop/restart/enable, difference between start & enable
+15. <span class="term-info">Disk Management:</span> df -h, du -sh, lsblk, disk utilization audits
+16. <span class="term-info">Memory & CPU:</span> free -h (RAM & Swap), top/htop, lscpu architecture
+17. <span class="term-info">Searching (find):</span> find -name, find directories, find by extension, size & time filters
+18. <span class="term-info">Text Searching:</span> grep, grep -i, grep -r, grep -n, regex filters
+19. <span class="term-info">Pipes & Redirection:</span> Pipe |, overwrite >, append >>, input <, stderr 2>&1
+20. <span class="term-info">Text Processing:</span> sort, uniq -c, wc -l, cut -d, awk '{print $1}', sed 's/old/new/g'
+21. <span class="term-info">Networking:</span> ip addr, ip route, ping, nslookup, dig, ss -tuln, nc -zv
+22. <span class="term-info">SSH & SCP:</span> ssh -i key.pem, scp remote copy, ssh-keygen, key authentication
+23. <span class="term-info">Environment:</span> env, echo $HOME, export, PATH variables, which
+24. <span class="term-info">System Logs:</span> /var/log/*, tail -f, journalctl -u, journalctl -f, --since
+25. <span class="term-info">Cron Scheduling:</span> crontab -e, crontab -l, 5-field syntax (min hr dom mon dow)
+26. <span class="term-info">Shell Scripting:</span> #!/bin/bash, variables, command substitution $(), if/else, for loops, chmod +x
+    `,
+    admin: () => `
+<span class="term-success">Enterprise Administration & Governance:</span>
+• <span class="term-info">Jira Administration:</span>
+  - Designed & maintained custom issue types, transition screens, custom fields, and validators.
+  - Architected Agile Scrum & Kanban sprint boards, release versions, and backlog workflows.
+  - Built executive tracking dashboards with custom JQL filters and gadget analytics.
+  - Managed user permissions, project roles, group schemes, and automated SLA escalation alerts.
+• <span class="term-info">GitHub Organization Administration:</span>
+  - Managed repository lifecycles (creation, archiving, templating) across engineering squads.
+  - Handled user onboarding/offboarding, team invitations, and role-based permissions (Admin/Write/Read).
+  - Enforced branch protection rules, required PR approvals, Code Owners, and signed commits.
+  - Managed enterprise subscription plans, billings, and seat allocation optimization.
+• <span class="term-info">Microsoft 365 Admin Center & Entra ID:</span>
+  - Administered user identities, license assignments (E5/Business Premium), and dynamic groups.
+  - Configured Enterprise App Registrations, Single Sign-On (SSO), and OAuth 2.0 / OIDC integrations.
+  - Enforced Multi-Factor Authentication (MFA), Conditional Access, and security baselines.
     `,
     education: () => `
 <span class="term-success">Academic Background &bull; Yogi Vemana University, Kadapa:</span>
