@@ -824,174 +824,441 @@
           </p>
         </div>
 
-        <div class="projects-grid">
-          <!-- Project 1: FinXServe -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">AWS EC2 &bull; ECS &bull; Nginx &bull; Docker &bull; PostgreSQL</div>
-              <div class="project-arch-flow">
-                GitHub Actions <span>&rarr;</span> EC2 / ECS Docker <span>&rarr;</span> Nginx Proxy <span>&rarr;</span> PostgreSQL / pgAdmin <span>&rarr;</span> S3 &amp; Alerts
-              </div>
+        <!-- Interactive Slider Controls HUD Bar -->
+        <div class="projects-controls-bar">
+          <div class="project-filter-group" id="project-filter-group">
+            <button class="project-filter-pill active" data-filter="all">All Projects (13)</button>
+            <button class="project-filter-pill" data-filter="fintech">FinTech &amp; Banking (4)</button>
+            <button class="project-filter-pill" data-filter="ai">AI &amp; Automation (4)</button>
+            <button class="project-filter-pill" data-filter="cloud">Enterprise &amp; Cloud (5)</button>
+          </div>
+
+          <div class="slider-actions-group">
+            <button class="view-mode-toggle-btn active" id="btn-toggle-view" title="Toggle Slide View / Grid View">
+              <i data-lucide="sliders-horizontal" style="width:14px;"></i>
+              <span id="view-mode-label">Slide View</span>
+            </button>
+
+            <button class="slide-ctrl-btn" id="btn-prev-project" aria-label="Previous Project" title="Previous Slide">
+              <i data-lucide="chevron-left"></i>
+            </button>
+
+            <div class="slider-indicator-badge" id="project-slide-indicator">
+              01 / 13
             </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">FinXServe Enterprise Cloud Infrastructure</h3>
-                <p class="project-desc">
-                  Designed and deployed resilient containerized infrastructure on AWS EC2 &amp; ECS. Configured Nginx reverse proxy, Docker containerization, Elastic.io integrations, and isolated VPC networking. Installed and managed PostgreSQL database with pgAdmin server administration, integrated Amazon S3 for cloud asset storage and automated snapshot backups, and engineered automated GitHub Actions CI/CD pipelines across Dev and Production with real-time build and deployment notification services.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="server"></i> EC2 &amp; Nginx Reverse Proxy</div>
-                  <div class="metric-chip"><i data-lucide="box"></i> Docker &amp; GitHub Actions CI/CD</div>
-                  <div class="metric-chip"><i data-lucide="database"></i> PostgreSQL &amp; pgAdmin Server</div>
-                  <div class="metric-chip"><i data-lucide="bell"></i> Notification Services &amp; S3 Backups</div>
+
+            <button class="slide-ctrl-btn" id="btn-next-project" aria-label="Next Project" title="Next Slide">
+              <i data-lucide="chevron-right"></i>
+            </button>
+
+            <button class="slide-ctrl-btn" id="btn-autoplay-project" aria-label="Toggle Autoplay" title="Auto Play / Pause">
+              <i data-lucide="play" id="autoplay-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Projects Slider Stage -->
+        <div class="projects-slider-stage" id="projects-slider-stage">
+          <div class="projects-slider-viewport" id="projects-slider-viewport">
+            <div class="projects-slider-track" id="projects-slider-track">
+              
+              <!-- Slide 1: Hyper -->
+              <div class="project-slide-item active" data-cat="fintech" data-index="0">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Wealth Management &bull; Digital Investment &bull; Portfolio Planning</div>
+                    <div class="project-arch-flow">
+                      Amplify Web App <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Scoring &amp; Sim Engine (ECS) <span>&rarr;</span> Advisor Portfolios
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Hyper — Personalized Digital Investment Journeys</h3>
+                      <p class="project-desc">
+                        Modern digital investment journey and portfolio planning platform taking investors from goal discovery to tailored portfolio recommendations using advisor-defined scoring models and real-time interactive what-if simulations. Managed domain configurations, Route 53 DNS records, GoDaddy ACM SSL certificates, front-end delivery on AWS Amplify, and high-performance backend microservices on ECS Fargate via GitHub Actions.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="trending-up"></i> Portfolio Recommendations</div>
+                        <div class="metric-chip"><i data-lucide="sliders"></i> Real-Time What-If Sims</div>
+                        <div class="metric-chip"><i data-lucide="lock"></i> Compliance-Ready Flows</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/contact" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>Book a Demo / Explore</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="project-footer">
-                <a href="https://github.com/Hyniva-LLC/FinxServe_React" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>View Repository / Live</span> <i data-lucide="external-link"></i>
-                </a>
+
+              <!-- Slide 2: FinXServe -->
+              <div class="project-slide-item" data-cat="fintech" data-index="1">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">AWS EC2 &bull; ECS &bull; Nginx &bull; Docker &bull; PostgreSQL</div>
+                    <div class="project-arch-flow">
+                      GitHub Actions <span>&rarr;</span> EC2 / ECS Docker <span>&rarr;</span> Nginx Proxy <span>&rarr;</span> PostgreSQL / pgAdmin <span>&rarr;</span> S3 &amp; Alerts
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">FinXServe Enterprise Cloud Infrastructure</h3>
+                      <p class="project-desc">
+                        Salesforce-native omnichannel digital banking experience platform unifying lending, cards, and deposits without core replacement. Designed and deployed resilient containerized infrastructure on AWS EC2 &amp; ECS with Nginx reverse proxy, Docker deployments, PostgreSQL + pgAdmin administration, Amazon S3 asset storage &amp; automated backups, and GitHub Actions CI/CD with real-time deployment notification services.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="server"></i> EC2 &amp; Nginx Reverse Proxy</div>
+                        <div class="metric-chip"><i data-lucide="box"></i> Docker &amp; GitHub Actions CI/CD</div>
+                        <div class="metric-chip"><i data-lucide="database"></i> PostgreSQL &amp; pgAdmin Server</div>
+                        <div class="metric-chip"><i data-lucide="bell"></i> Notification Services &amp; S3 Backups</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://github.com/Hyniva-LLC/FinxServe_React" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Repository / Live</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              <!-- Slide 3: Claim Pioneer (Uberization) -->
+              <div class="project-slide-item" data-cat="ai" data-index="2">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Insurance &bull; Workflow Automation &bull; Uberization</div>
+                    <div class="project-arch-flow">
+                      Amplify UI <span>&rarr;</span> Route 53 DNS <span>&rarr;</span> ALB Target Groups <span>&rarr;</span> AI Dispatcher (ECS) <span>&rarr;</span> Live Claims
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Claim Pioneer — Uberization of Claims Lifecycle</h3>
+                      <p class="project-desc">
+                        Fast, automated, and intelligence-driven claims orchestration platform eliminating manual assignment delays, biased routing, and customer frustration. Brings real-time visibility and built-in AI assignment across every claim step from intake to closure. Architected scalable multi-tier infrastructure with AWS Amplify front-end, containerized microservices on AWS ECS Fargate, ALB health checks, Route 53 routing, and documented connection architecture.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="cpu"></i> Built-in AI Assignment</div>
+                        <div class="metric-chip"><i data-lucide="activity"></i> Live Claim Tracking</div>
+                        <div class="metric-chip"><i data-lucide="check-circle-2"></i> End-to-End Automation</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>Explore Platform</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4: AIRA -->
+              <div class="project-slide-item" data-cat="ai" data-index="3">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Financial Institutions &bull; Insurance &bull; Enterprise AI</div>
+                    <div class="project-arch-flow">
+                      OneAPI Ingress <span>&rarr;</span> Route 53 / ACM <span>&rarr;</span> ALB <span>&rarr;</span> AIRA Agents (ECS Fargate) <span>&rarr;</span> Compliance Engine
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">AIRA — Autonomous Intelligent Reasoning Agent</h3>
+                      <p class="project-desc">
+                        First enterprise-ready AI platform for financial services and insurance combining autonomous multi-step reasoning, compliance-first guardrails, and OneAPI integration framework (reducing onboarding from months to weeks). Engineered multi-environment infrastructure across Dev, Pre-Prod, UAT, and Prod with ECS Fargate microservices, GitHub Actions CI/CD, ALB target groups, GoDaddy ACM SSL/TLS, and audit trails for mission-critical decisions.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="sparkles"></i> Autonomous Reasoning</div>
+                        <div class="metric-chip"><i data-lucide="link-2"></i> OneAPI Integration</div>
+                        <div class="metric-chip"><i data-lucide="shield"></i> Guardrails &amp; Compliance</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/contact" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>Get Started / Learn More</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 5: Drive30 -->
+              <div class="project-slide-item" data-cat="cloud" data-index="4">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Kubernetes &bull; IoT Telemetry &bull; Redis &bull; RabbitMQ</div>
+                    <div class="project-arch-flow">
+                      Ingress <span>&rarr;</span> K8s Pods / ECS <span>&rarr;</span> Redis Cache <span>&rarr;</span> RabbitMQ <span>&rarr;</span> Postgres
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Drive30 Telemetry Command Center</h3>
+                      <p class="project-desc">
+                        High-frequency vehicle telemetry and fleet command platform processing real-time sensor streams and geofencing events. Built distributed microservices on Kubernetes and ECS with automated HPA pod autoscaling, Redis cluster caching, and RabbitMQ event streaming for real-time telemetry processing and 99.98% high availability.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="zap"></i> 99.98% High Availability</div>
+                        <div class="metric-chip"><i data-lucide="activity"></i> Sub-50ms Response</div>
+                        <div class="metric-chip"><i data-lucide="radio"></i> Real-Time Telemetry</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://github.com/narayanahyniva" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>Explore Architecture</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 6: VLF -->
+              <div class="project-slide-item" data-cat="fintech" data-index="5">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">FinTech &bull; Vehicle Loan &amp; Finance &bull; Automated Underwriting</div>
+                    <div class="project-arch-flow">
+                      Amplify Frontend <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Loan Engine (ECS) <span>&rarr;</span> RDS Multi-AZ
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">VLF — Vehicle Loan &amp; Finance Platform</h3>
+                      <p class="project-desc">
+                        Omnichannel vehicle loan origination and automated credit decisioning platform streamlining borrower onboarding, vehicle valuation, and dealer financing workflows. Configured secure multi-tier AWS infrastructure with automated GitHub Actions CI/CD, Route 53 latency routing, ALB target groups, and strict SSL/TLS encryption for sensitive financial applications.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="car"></i> Auto Loan Origination</div>
+                        <div class="metric-chip"><i data-lucide="shield-check"></i> Sub-Second Decisioning</div>
+                        <div class="metric-chip"><i data-lucide="layers"></i> Multi-Tier AWS Infra</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Details</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 7: EAzy School -->
+              <div class="project-slide-item" data-cat="cloud" data-index="6">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">EdTech &bull; School Management ERP &bull; Multi-Tenant SaaS</div>
+                    <div class="project-arch-flow">
+                      CloudFront / Amplify <span>&rarr;</span> ALB <span>&rarr;</span> Node.js / Python API (ECS) <span>&rarr;</span> PostgreSQL &amp; S3
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">EAzy School — Cloud-Native EdTech Platform</h3>
+                      <p class="project-desc">
+                        Comprehensive school management ERP and e-learning SaaS platform handling student admissions, attendance tracking, automated fee billing, and real-time parent-teacher communications. Managed containerized deployments on AWS ECS, database migrations, Nginx reverse proxy routing, and automated daily database snapshot backups to Amazon S3.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="graduation-cap"></i> Multi-Tenant ERP</div>
+                        <div class="metric-chip"><i data-lucide="credit-card"></i> Automated Fee Billing</div>
+                        <div class="metric-chip"><i data-lucide="database"></i> ECS &amp; S3 Backups</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Details</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 8: People Fund -->
+              <div class="project-slide-item" data-cat="fintech" data-index="7">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">FinTech &bull; P2P Lending &bull; Crowdfunding Architecture</div>
+                    <div class="project-arch-flow">
+                      Amplify UI <span>&rarr;</span> Route 53 / ACM <span>&rarr;</span> ALB <span>&rarr;</span> Micro-Lending Engine (ECS) <span>&rarr;</span> Payment Webhooks
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">People Fund — Peer-to-Peer Crowdfunding Platform</h3>
+                      <p class="project-desc">
+                        Decentralized community micro-lending and campaign fundraising platform connecting individual backers with verified projects. Implemented PCI-DSS compliant cloud infrastructure, secure OAuth 2.0 authentication, Webhook listeners for payment processors, automated deployment pipelines via GitHub Actions, and Route 53 DNS routing.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="users"></i> Community Micro-Lending</div>
+                        <div class="metric-chip"><i data-lucide="shield"></i> PCI-DSS Compliant</div>
+                        <div class="metric-chip"><i data-lucide="git-branch"></i> GitHub Actions CI/CD</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Details</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 9: Employee Portal -->
+              <div class="project-slide-item" data-cat="cloud" data-index="8">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Enterprise Workspace &bull; HRMS &bull; Microsoft Entra ID / SSO</div>
+                    <div class="project-arch-flow">
+                      Entra ID (Azure AD) SSO <span>&rarr;</span> ALB <span>&rarr;</span> Portal App (ECS / Docker) <span>&rarr;</span> PostgreSQL
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Employee Portal — Enterprise HRMS &amp; Workspace</h3>
+                      <p class="project-desc">
+                        Unified internal enterprise portal providing seamless employee lifecycle management, payroll integration, leave tracking, and secure document access. Configured Microsoft Entra ID (Azure AD) SAML/OAuth 2.0 Single Sign-On (SSO), RBAC access boundaries, containerized Docker deployments behind Nginx reverse proxy, and automated database backups.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="key"></i> Microsoft Entra ID SSO</div>
+                        <div class="metric-chip"><i data-lucide="user-check"></i> RBAC Role Governance</div>
+                        <div class="metric-chip"><i data-lucide="server"></i> Docker &amp; Nginx Reverse Proxy</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://github.com/narayanahyniva" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Architecture</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 10: Document Manager -->
+              <div class="project-slide-item" data-cat="cloud" data-index="9">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Cloud Archival &bull; Document Security &bull; AWS S3 &amp; KMS</div>
+                    <div class="project-arch-flow">
+                      Upload UI <span>&rarr;</span> ALB <span>&rarr;</span> Processing Worker (ECS) <span>&rarr;</span> AWS S3 KMS Encrypted
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Document Manager — Enterprise Secure Cloud Archival</h3>
+                      <p class="project-desc">
+                        High-security document management, optical character recognition (OCR), and digital vault platform for enterprise contracts and compliance records. Architected with Amazon S3 bucket versioning, AWS KMS server-side encryption, pre-signed upload URLs, virus scanning pipelines with ClamAV, and automated lifecycle archival policies.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="file-check"></i> AWS KMS Encryption</div>
+                        <div class="metric-chip"><i data-lucide="hard-drive"></i> S3 Lifecycle Archival</div>
+                        <div class="metric-chip"><i data-lucide="shield-alert"></i> Automated Virus Scanning</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://github.com/narayanahyniva" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Architecture</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 11: Buildzbit -->
+              <div class="project-slide-item" data-cat="ai" data-index="10">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">No-Code / Low-Code &bull; Web Builder &bull; Dynamic CI/CD Engine</div>
+                    <div class="project-arch-flow">
+                      Builder Studio <span>&rarr;</span> Template Engine (ECS) <span>&rarr;</span> Docker Builder <span>&rarr;</span> S3 / CloudFront
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Buildzbit — Modular Builder &amp; Deployment Platform</h3>
+                      <p class="project-desc">
+                        Next-generation visual web building and rapid site generator enabling users to create, preview, and deploy custom interactive web apps. Built containerized rendering engines on AWS ECS Fargate, automated custom domain provisioning with Route 53 &amp; ACM, and instant edge CDN distribution via CloudFront.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="layout-grid"></i> Visual Template Engine</div>
+                        <div class="metric-chip"><i data-lucide="globe"></i> Instant CDN Publishing</div>
+                        <div class="metric-chip"><i data-lucide="link"></i> Auto Custom Domains</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Details</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 12: ELog -->
+              <div class="project-slide-item" data-cat="cloud" data-index="11">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Observability &bull; Electronic Logging &bull; OpenSearch &bull; Kafka</div>
+                    <div class="project-arch-flow">
+                      App Log Streams <span>&rarr;</span> FluentBit / Logstash <span>&rarr;</span> Kafka Queue <span>&rarr;</span> OpenSearch / CloudWatch
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">ELog — Enterprise Electronic Logging &amp; Audit Trail</h3>
+                      <p class="project-desc">
+                        Centralized, high-throughput log aggregation and immutable compliance audit tracking system capable of ingesting millions of daily event streams across multi-cloud clusters. Configured FluentBit daemonsets, OpenSearch log indexing, Grafana dashboards, automated retention purging, and real-time anomaly alert routing.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="scroll-text"></i> Immutable Audit Trails</div>
+                        <div class="metric-chip"><i data-lucide="activity"></i> High-Throughput Ingestion</div>
+                        <div class="metric-chip"><i data-lucide="alert-triangle"></i> Real-Time Anomaly Alerts</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://github.com/narayanahyniva" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Architecture</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 13: AWT -->
+              <div class="project-slide-item" data-cat="ai" data-index="12">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Workflow Automation &bull; Task Scheduling &bull; Event-Driven Microservices</div>
+                    <div class="project-arch-flow">
+                      Event Trigger <span>&rarr;</span> AWT Orchestrator (ECS) <span>&rarr;</span> Worker SQS <span>&rarr;</span> Integration Handlers
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">AWT — Automated Workflow Technology Engine</h3>
+                      <p class="project-desc">
+                        Enterprise workflow orchestration and business logic automation engine executing scheduled batch jobs, multi-step API integrations, and event-driven data transformations. Architected with AWS SQS dead-letter queues, ECS Fargate auto-scaling worker pools, and automated failure notification webhooks.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="workflow"></i> Multi-Step Orchestration</div>
+                        <div class="metric-chip"><i data-lucide="layers"></i> SQS Dead-Letter Queues</div>
+                        <div class="metric-chip"><i data-lucide="refresh-cw"></i> Auto Error Self-Healing</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <span>View Details</span> <i data-lucide="external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <!-- Project 2: Claim Pioneer -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">Insurance &bull; Workflow Automation &bull; Uberization</div>
-              <div class="project-arch-flow">
-                Amplify UI <span>&rarr;</span> Route 53 DNS <span>&rarr;</span> ALB Target Groups <span>&rarr;</span> AI Dispatcher (ECS) <span>&rarr;</span> Live Claims
-              </div>
-            </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">Claim Pioneer — Uberization of Claims Lifecycle</h3>
-                <p class="project-desc">
-                  Fast, automated, and intelligence-driven claims orchestration platform eliminating manual assignment delays, biased routing, and customer frustration. Brings real-time visibility and built-in AI assignment across every claim step from intake to closure. Architected scalable multi-tier infrastructure with AWS Amplify front-end, containerized microservices on AWS ECS Fargate, ALB health checks, Route 53 routing, and documented connection architecture.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="cpu"></i> Built-in AI Assignment</div>
-                  <div class="metric-chip"><i data-lucide="activity"></i> Live Claim Tracking</div>
-                  <div class="metric-chip"><i data-lucide="check-circle-2"></i> End-to-End Automation</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://www.hyniva.com/" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>Explore Platform</span> <i data-lucide="external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 3: AIRA -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">Financial Institutions &bull; Insurance &bull; Enterprise AI</div>
-              <div class="project-arch-flow">
-                OneAPI Ingress <span>&rarr;</span> Route 53 / ACM <span>&rarr;</span> ALB <span>&rarr;</span> AIRA Agents (ECS Fargate) <span>&rarr;</span> Compliance Engine
-              </div>
-            </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">AIRA — Autonomous Intelligent Reasoning Agent</h3>
-                <p class="project-desc">
-                  First enterprise-ready AI platform for financial services and insurance combining autonomous multi-step reasoning, compliance-first guardrails, and OneAPI integration framework (reducing onboarding from months to weeks). Engineered multi-environment infrastructure across Dev, Pre-Prod, UAT, and Prod with ECS Fargate microservices, GitHub Actions CI/CD, ALB target groups, GoDaddy ACM SSL/TLS, and audit trails for mission-critical decisions.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="sparkles"></i> Autonomous Reasoning</div>
-                  <div class="metric-chip"><i data-lucide="link-2"></i> OneAPI Integration</div>
-                  <div class="metric-chip"><i data-lucide="shield"></i> Guardrails &amp; Compliance</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://www.hyniva.com/contact" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>Get Started / Learn More</span> <i data-lucide="external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 4: Hyper -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">Wealth Management &bull; Digital Investment &bull; Portfolio Planning</div>
-              <div class="project-arch-flow">
-                Amplify Web App <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Scoring &amp; Sim Engine (ECS) <span>&rarr;</span> Advisor Portfolios
-              </div>
-            </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">Hyper — Personalized Digital Investment Journeys</h3>
-                <p class="project-desc">
-                  Modern digital investment journey and portfolio planning platform taking investors from goal discovery to personalized portfolio recommendations using advisor-defined scoring models and real-time interactive what-if simulations. Managed domain configurations, Route 53 DNS records, GoDaddy ACM SSL certificates, front-end delivery on AWS Amplify, and high-performance backend microservices on ECS Fargate via GitHub Actions.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="trending-up"></i> Portfolio Recommendations</div>
-                  <div class="metric-chip"><i data-lucide="sliders"></i> Real-Time What-If Sims</div>
-                  <div class="metric-chip"><i data-lucide="lock"></i> Compliance-Ready Flows</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://www.hyniva.com/contact" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>Book a Demo / Explore</span> <i data-lucide="external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 5: Enterprise Multi-Environment & Domain Architecture -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">Cloud Architecture &bull; Multi-Tier Environments &bull; Route 53 &amp; ALB</div>
-              <div class="project-arch-flow">
-                GoDaddy Domains <span>&rarr;</span> AWS Route 53 <span>&rarr;</span> ACM SSL/TLS <span>&rarr;</span> ALB Target Groups <span>&rarr;</span> Multi-Tier VPCs
-              </div>
-            </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">Enterprise Multi-Environment &amp; Domain Architecture</h3>
-                <p class="project-desc">
-                  Architected and managed four isolated cloud environments: Development, Pre-Production, UAT, and Production. Handled complete domain management, DNS records in AWS Route 53, GoDaddy registrar DNS configuration, AWS Certificate Manager (ACM) SSL/TLS lifecycle, Application Load Balancers with custom target groups, and authored standardized connection and network project documentation.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="globe"></i> Route 53 &amp; GoDaddy DNS</div>
-                  <div class="metric-chip"><i data-lucide="shield-check"></i> AWS ACM SSL Management</div>
-                  <div class="metric-chip"><i data-lucide="server"></i> ALB &amp; Target Groups</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://github.com/narayanahyniva" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>View GitHub Profile</span> <i data-lucide="external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 6: Containerized CI/CD Pipeline Framework -->
-          <div class="project-card">
-            <div class="project-preview-banner">
-              <div class="project-category-tag">GitHub Actions &bull; ECS Fargate &bull; DevSecOps</div>
-              <div class="project-arch-flow">
-                GitHub Push <span>&rarr;</span> Docker Multi-Stage <span>&rarr;</span> Trivy Scan <span>&rarr;</span> ECR <span>&rarr;</span> ECS Fargate Rollout
-              </div>
-            </div>
-            <div class="project-body">
-              <div>
-                <h3 class="project-title">Automated Containerized CI/CD &amp; DevSecOps Pipeline</h3>
-                <p class="project-desc">
-                  Engineered zero-downtime deployment pipelines using GitHub Actions, Docker multi-stage builds, Trivy container vulnerability scanning, and Amazon ECR with automated deployment updates to AWS ECS Fargate clusters behind Application Load Balancers with automated health checks and instant rollback triggers.
-                </p>
-                <div class="project-metrics-chips">
-                  <div class="metric-chip"><i data-lucide="fast-forward"></i> Under 3-min Release</div>
-                  <div class="metric-chip"><i data-lucide="shield-alert"></i> 0-second Downtime</div>
-                  <div class="metric-chip"><i data-lucide="box"></i> ECR &amp; ECS Fargate</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://github.com/narayanahyniva/GirHub-actions-Docker-Container" target="_blank" rel="noopener noreferrer" class="project-link">
-                  <span>View Pipeline Code</span> <i data-lucide="external-link"></i>
-                </a>
-              </div>
-            </div>
+          <!-- Slide Pagination Dots -->
+          <div class="slider-pagination-nav" id="slider-pagination-nav">
+            <!-- Populated dynamically by JS -->
           </div>
         </div>
       </div>

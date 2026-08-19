@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Flagship Feature: Interactive Architecture Explorer
   initArchitectureExplorer();
 
+  // Interactive Project Slider & Grid Showcase Engine
+  initProjectSlider();
+
   // Freelance Scope & Cost Estimator
   initFreelanceEstimator();
 
@@ -1295,6 +1298,246 @@ function initArchitectureExplorer() {
 }
 
 /* ==========================================================================
+   Featured Projects Interactive Slide & Grid Showcase Engine
+   ========================================================================== */
+function initProjectSlider() {
+  const stage = document.getElementById('projects-slider-stage');
+  const track = document.getElementById('projects-slider-track');
+  const allSlides = Array.from(document.querySelectorAll('.project-slide-item'));
+  const filterPills = document.querySelectorAll('.project-filter-pill');
+  const btnPrev = document.getElementById('btn-prev-project');
+  const btnNext = document.getElementById('btn-next-project');
+  const indicator = document.getElementById('project-slide-indicator');
+  const btnToggleView = document.getElementById('btn-toggle-view');
+  const viewModeLabel = document.getElementById('view-mode-label');
+  const btnAutoplay = document.getElementById('btn-autoplay-project');
+  const autoplayIcon = document.getElementById('autoplay-icon');
+  const paginationNav = document.getElementById('slider-pagination-nav');
+
+  if (!track || allSlides.length === 0) return;
+
+  let currentFilter = 'all';
+  let visibleSlides = allSlides;
+  let activeIndex = 0;
+  let isGridMode = false;
+  let autoplayInterval = null;
+
+  function getVisibleSlides() {
+    if (currentFilter === 'all') {
+      return allSlides;
+    }
+    return allSlides.filter((slide) => slide.getAttribute('data-cat') === currentFilter);
+  }
+
+  function updateSlider() {
+    visibleSlides = getVisibleSlides();
+    if (visibleSlides.length === 0) return;
+
+    if (activeIndex >= visibleSlides.length) {
+      activeIndex = 0;
+    } else if (activeIndex < 0) {
+      activeIndex = visibleSlides.length - 1;
+    }
+
+    // Update display of all slides based on filter
+    allSlides.forEach((slide) => {
+      const match = currentFilter === 'all' || slide.getAttribute('data-cat') === currentFilter;
+      if (match) {
+        slide.style.display = isGridMode ? 'flex' : 'block';
+      } else {
+        slide.style.display = 'none';
+      }
+      slide.classList.remove('active');
+    });
+
+    if (visibleSlides[activeIndex]) {
+      visibleSlides[activeIndex].classList.add('active');
+    }
+
+    // In slide mode, shift track based on visible index
+    if (!isGridMode) {
+      const visibleIndex = activeIndex;
+      track.style.transform = `translateX(-${visibleIndex * 100}%)`;
+    } else {
+      track.style.transform = 'none';
+    }
+
+    // Update Indicator Badge
+    if (indicator) {
+      const curNum = (activeIndex + 1).toString().padStart(2, '0');
+      const totNum = visibleSlides.length.toString().padStart(2, '0');
+      indicator.textContent = `${curNum} / ${totNum}`;
+    }
+
+    // Update Pagination Dots
+    renderDots();
+  }
+
+  function renderDots() {
+    if (!paginationNav) return;
+    paginationNav.innerHTML = '';
+
+    if (isGridMode) {
+      paginationNav.style.display = 'none';
+      return;
+    } else {
+      paginationNav.style.display = 'flex';
+    }
+
+    visibleSlides.forEach((slide, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `slide-dot ${idx === activeIndex ? 'active' : ''}`;
+      const titleEl = slide.querySelector('.project-title');
+      const title = titleEl ? titleEl.textContent : `Slide ${idx + 1}`;
+      dot.setAttribute('aria-label', `Go to ${title}`);
+      dot.setAttribute('title', title);
+
+      dot.addEventListener('click', () => {
+        activeIndex = idx;
+        updateSlider();
+      });
+
+      paginationNav.appendChild(dot);
+    });
+  }
+
+  // Next / Previous buttons
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      activeIndex++;
+      updateSlider();
+    });
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      activeIndex--;
+      updateSlider();
+    });
+  }
+
+  // Category Filters
+  filterPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach((p) => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentFilter = pill.getAttribute('data-filter') || 'all';
+      activeIndex = 0;
+      updateSlider();
+    });
+  });
+
+  // View Mode Toggle (Slide / Grid)
+  if (btnToggleView) {
+    btnToggleView.addEventListener('click', () => {
+      isGridMode = !isGridMode;
+      if (isGridMode) {
+        stage.classList.add('grid-mode');
+        btnToggleView.classList.remove('active');
+        if (viewModeLabel) viewModeLabel.textContent = 'Grid View';
+        if (btnAutoplay) btnAutoplay.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
+        if (btnPrev) btnPrev.style.display = 'none';
+        if (indicator) indicator.style.display = 'none';
+        stopAutoplay();
+      } else {
+        stage.classList.remove('grid-mode');
+        btnToggleView.classList.add('active');
+        if (viewModeLabel) viewModeLabel.textContent = 'Slide View';
+        if (btnAutoplay) btnAutoplay.style.display = 'flex';
+        if (btnNext) btnNext.style.display = 'flex';
+        if (btnPrev) btnPrev.style.display = 'flex';
+        if (indicator) indicator.style.display = 'block';
+      }
+      updateSlider();
+    });
+  }
+
+  // Autoplay functionality
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayInterval = setInterval(() => {
+      if (!isGridMode && visibleSlides.length > 1) {
+        activeIndex = (activeIndex + 1) % visibleSlides.length;
+        updateSlider();
+      }
+    }, 5000);
+    if (autoplayIcon) {
+      autoplayIcon.setAttribute('data-lucide', 'pause');
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+    if (autoplayIcon) {
+      autoplayIcon.setAttribute('data-lucide', 'play');
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
+  if (btnAutoplay) {
+    btnAutoplay.addEventListener('click', () => {
+      if (autoplayInterval) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+  }
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (!stage) return;
+    const projectsRect = stage.getBoundingClientRect();
+    const isInViewport = projectsRect.top < window.innerHeight && projectsRect.bottom > 0;
+    if (isInViewport && !isGridMode) {
+      if (e.key === 'ArrowRight') {
+        activeIndex++;
+        updateSlider();
+      } else if (e.key === 'ArrowLeft') {
+        activeIndex--;
+        updateSlider();
+      }
+    }
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  stage.addEventListener(
+    'touchstart',
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    },
+    { passive: true }
+  );
+
+  stage.addEventListener(
+    'touchend',
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const threshold = 40;
+      if (touchEndX < touchStartX - threshold) {
+        activeIndex++;
+        updateSlider();
+      } else if (touchEndX > touchStartX + threshold) {
+        activeIndex--;
+        updateSlider();
+      }
+    },
+    { passive: true }
+  );
+
+  // Initialize view
+  updateSlider();
+}
+
+/* ==========================================================================
    Freelance Scope & Cost Estimator
    ========================================================================== */
 function initFreelanceEstimator() {
@@ -1540,13 +1783,20 @@ DevOps Core: AWS Amplify (FE), AWS ECS Fargate (BE), Application Load Balancers 
 ⏳ Microsoft Certified: Azure Administrator (AZ-104) [60% Roadmap Goal]
     `,
     projects: () => `
-<span class="term-success">Enterprise Production Platforms & Case Studies:</span>
-1. <span class="term-info">FinXServe Enterprise Cloud Infrastructure:</span> AWS EC2 &amp; ECS Docker deployment, Nginx reverse proxy, PostgreSQL + pgAdmin administration, Elastic.io integration, S3 asset storage &amp; backups, and GitHub Actions CI/CD with real-time deployment notification services.
-2. <span class="term-info">Claim Pioneer — Claims Uberization:</span> AI claims assignment, live tracking & end-to-end workflow automation from intake to closure on AWS Amplify & ECS.
-3. <span class="term-info">AIRA — Autonomous Intelligent Reasoning Agent:</span> Enterprise AI platform combining autonomous multi-step reasoning, compliance guardrails & OneAPI integration framework.
-4. <span class="term-info">Hyper — Digital Investment Journey:</span> Wealth management platform with guided goal discovery, tailored portfolio recommendations, and real-time what-if simulations.
-5. <span class="term-info">Multi-Tier Infrastructure & Domain Orchestration:</span> Dev, Pre-Prod, UAT & Prod environments with Route 53 DNS, GoDaddy domains, ACM certificates, and ALB target groups.
-6. <span class="term-info">Zero-Downtime Container CI/CD Pipeline:</span> GitHub Actions, Docker multi-stage builds, Trivy security scanning & ECS Fargate automated rollouts.
+<span class="term-success">Enterprise Production Platforms & Case Studies (13 Projects):</span>
+1.  <span class="term-info">Hyper:</span> Wealth management platform with guided goal discovery, portfolio recommendations & real-time simulations.
+2.  <span class="term-info">FinXServe:</span> Salesforce-native digital banking layer with EC2/ECS Docker, Nginx proxy, PostgreSQL + pgAdmin, S3 & CI/CD.
+3.  <span class="term-info">Claim Pioneer (Uberization):</span> Automated AI claims assignment, live tracking & end-to-end workflow visibility.
+4.  <span class="term-info">AIRA:</span> Autonomous Intelligent Reasoning Agent with OneAPI integration & regulatory compliance guardrails.
+5.  <span class="term-info">Drive30:</span> High-frequency vehicle telemetry command center on Kubernetes & Redis streaming.
+6.  <span class="term-info">VLF:</span> Vehicle Loan & Finance origination platform with automated underwriting pipelines on AWS.
+7.  <span class="term-info">EAzy School:</span> Cloud-native school ERP & EdTech SaaS with ECS Fargate and automated S3 backups.
+8.  <span class="term-info">People Fund:</span> Peer-to-peer crowdfunding & micro-lending platform with secure payment webhooks.
+9.  <span class="term-info">Employee Portal:</span> Enterprise HRMS workspace with Microsoft Entra ID (Azure AD) SSO and RBAC governance.
+10. <span class="term-info">Document Manager:</span> Secure cloud document vault with AWS S3 KMS encryption and automated virus scanning.
+11. <span class="term-info">Buildzbit:</span> Modular no-code website builder with containerized rendering and CloudFront edge CDN.
+12. <span class="term-info">ELog:</span> High-throughput enterprise log aggregation & audit trail engine with OpenSearch and Kafka.
+13. <span class="term-info">AWT:</span> Automated Workflow Technology engine for enterprise task scheduling and event queues.
     `,
     architecture: () => `
 Active production architectures:
