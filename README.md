@@ -1,13 +1,17 @@
-# Narayana Kanaka — Principal Cloud & DevOps Architect Portfolio & Consultancy Platform
+# Narayana Kanaka — Cloud DevOps Engineer Portfolio & Consultancy Platform
 
-> **Live Website:** [https://narayanahyniva.github.io/](https://narayanahyniva.github.io/)
+> **Live Website:** [https://narayanahyniva.github.io/](https://narayanahyniva.github.io/)  
+> **Location:** Bengaluru, Karnataka, India • **Experience:** 4+ Years at Hyniva (Systems Engineer &rarr; Cloud Engineer &rarr; Cloud DevOps Engineer)
 
-A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Consultancy web application engineered for **Narayana Kanaka**.
+A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Consultancy web application engineered for **Narayana Kanaka** (He/Him).
 
 ---
 
 ## 🌟 Highlights & Features
 
+- 🏢 **4+ Years Full-Time Experience at Hyniva (Bengaluru, India)**: Documenting progressive promotions from System Engineer (Jul 2022) to Cloud Engineer (Jul 2023) to Cloud DevOps Engineer (Dec 2024 - Present).
+- 🎓 **Formal Academic Qualifications**: Master of Business Administration (MBA - 77% Distinction) & Bachelor of Computer Applications (BCA - 71%) from Yogi Vemana University, Kadapa.
+- 🛡️ **Verified LinkedIn Skill Assessments**: Passed official LinkedIn assessments in **Linux** and **Amazon Web Services (AWS)**.
 - 🌐 **Comprehensive Multi-Cloud & Open-Source Directory (80+ Services)**: Complete searchable index of AWS (30+ services), Microsoft Azure (14 services), Google Cloud (12 services), DevOps & GitOps (14 tools), and Observability & Linux (12 tools).
 - 🎯 **Certification Roadmap (In Active Preparation)**: Structured tracking for AWS Certified Solutions Architect (SAA-C03), AWS DevOps Professional (DOP-C02), HashiCorp Terraform Associate (003), and CKA Kubernetes Administrator certifications.
 - 🌌 **Futuristic 3D Cloud Hero Environment**: Three.js WebGL particle field and interactive server node network responding dynamically to mouse parallax and screen viewport.

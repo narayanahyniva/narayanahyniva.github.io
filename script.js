@@ -104,11 +104,13 @@ function initDynamicTyping() {
   if (!typingElement) return;
 
   const phrases = [
-    'Designing Scalable Multi-Cloud Architectures (AWS • Azure • GCP)',
-    'Automating Zero-Downtime GitOps & CI/CD Pipelines',
-    'Kubernetes Cluster Orchestration & Microservices',
-    'Infrastructure as Code with Terraform & Ansible',
-    'DevSecOps Hardening & 35%+ Cloud Cost Optimization'
+    'Systems Engineer → Cloud Engineer → Cloud DevOps Engineer',
+    'Multi-Cloud Infrastructure: AWS • Azure • GCP',
+    'Infrastructure as Code with Terraform, CloudFormation & Ansible',
+    'End-to-End CI/CD: GitHub Actions, Jenkins & AWS CodePipeline',
+    'Containers & Orchestration: Docker • Kubernetes (Amazon EKS) • ECS Fargate',
+    'Identity & Access: Microsoft Entra ID (Azure AD) & AWS IAM',
+    'DNS & Domains: AWS Route 53, Cloudflare & GoDaddy'
   ];
 
   let phraseIndex = 0;
@@ -1440,7 +1442,9 @@ function initDevOpsTerminal() {
   const commands = {
     help: () => `
 Available commands:
-  <span class="term-cmd">about</span>          - Bio and cloud background
+  <span class="term-cmd">about</span>          - Bio and career progression at Hyniva
+  <span class="term-cmd">experience</span>     - 4+ years career milestones at Hyniva
+  <span class="term-cmd">education</span>      - Academic qualifications & grades (YVU)
   <span class="term-cmd">skills</span>         - Technical skills and tools matrix
   <span class="term-cmd">directory</span>      - Full 80+ AWS, Azure, GCP & Open-Source stack
   <span class="term-cmd">certifications</span> - Target certification roadmap (In Prep)
@@ -1454,9 +1458,32 @@ Available commands:
   <span class="term-cmd">clear</span>          - Clear terminal output
     `,
     about: () => `
-<span class="term-info">Narayana Kanaka</span> - Principal Cloud & DevOps Architect at HYNIVA LLC.
-4+ years designing high-availability infrastructure on AWS, Azure, and GCP.
-Specializing in Kubernetes orchestration, Terraform Infrastructure as Code, and GitOps CI/CD.
+<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud DevOps Engineer at Hyniva (Bengaluru, Karnataka, India).
+4+ years of dedicated full-time experience across System Administration, Cloud Engineering, and DevOps Automation.
+Career Path: Systems Engineer (Jul 2022 – Jul 2023) → Cloud Engineer (Jul 2023 – Dec 2024) → Cloud DevOps Engineer (Dec 2024 – Present).
+Core Expertise: AWS, Microsoft Azure, Google Cloud (GCP), Terraform, Kubernetes (Amazon EKS), Docker, GitHub Actions, Microsoft Entra ID (Azure AD), and Linux.
+Open to opportunities in Cloud Engineering, DevOps, Platform Engineering, and SRE.
+    `,
+    experience: () => `
+<span class="term-success">Professional Experience at Hyniva (4 yrs 2 mos · Bengaluru, India):</span>
+1. <span class="term-info">Cloud DevOps Engineer</span> (Dec 2024 – Present · 1 yr 9 mos):
+   • Multi-cloud infrastructure across AWS, Azure, and GCP.
+   • GitHub organization security, branch protection, and full deployment lifecycle.
+   • Docker, Kubernetes (EKS), ECS (Fargate), Terraform, CloudFormation, Ansible.
+   • CI/CD with CodePipeline, CodeBuild, CodeDeploy, Jenkins, GitHub Actions.
+   • Microsoft Entra ID (Azure AD) and DNS across GoDaddy, Cloudflare, Route 53.
+2. <span class="term-info">Cloud Engineer</span> (Jul 2023 – Dec 2024 · 1 yr 6 mos):
+   • Provisioned core AWS: EC2, EBS, VPC, Route 53, API Gateway, SNS, SQS.
+   • CI/CD pipelines via CodeCommit, Jenkins, GitHub Actions; Jira Agile tracking.
+   • Azure AD / Entra ID identity management and App Registrations (OAuth 2.0 / OIDC).
+3. <span class="term-info">System Engineer</span> (Jul 2022 – Jul 2023 · 1 yr 1 mo):
+   • Enterprise IT infrastructure, LAN/WAN, firewalls, and secure VPNs.
+   • Active Directory, Microsoft 365 Admin, Bitdefender, Defender, CrowdStrike, Vanta.
+    `,
+    education: () => `
+<span class="term-success">Academic Background &bull; Yogi Vemana University, Kadapa:</span>
+🎓 <span class="term-info">Master of Business Administration (MBA):</span> Human Resources Management (Aug 2019 – Aug 2021) &bull; <span class="term-success">Grade: 77% (Distinction)</span>
+🎓 <span class="term-info">Bachelor of Computer Applications (BCA):</span> Computer Science (Jul 2015 – May 2018) &bull; <span class="term-success">Grade: 71% (First Class)</span>
     `,
     skills: () => `
 <span class="term-cmd">AWS (30+):</span> EC2, ECS, EKS, Lambda, S3, CloudFront, Route53, VPC, ALB, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, WAF, CloudWatch, CodePipeline, ECR, SQS, SNS, SSM
