@@ -1910,7 +1910,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 2.  <span class="term-info">FinXServe:</span> Salesforce-native digital banking layer with EC2/ECS Docker, Nginx proxy, PostgreSQL + pgAdmin, S3 & CI/CD.
 3.  <span class="term-info">Claim Pioneer (Uberization):</span> Automated AI claims assignment, live tracking & end-to-end workflow visibility.
 4.  <span class="term-info">AIRA:</span> Autonomous Intelligent Reasoning Agent with OneAPI integration & regulatory compliance guardrails.
-5.  <span class="term-info">Drive30:</span> High-frequency vehicle telemetry command center on Kubernetes & Redis streaming.
+5.  <span class="term-info">Drive30:</span> Automotive inventory processing &amp; Command Center platform with AWS Transfer Family (SFTP), Lambda IdP, S3, SQS, ECS Fargate &amp; Next.js on Amplify.
 6.  <span class="term-info">VLF:</span> Vehicle Loan & Finance origination platform with automated underwriting pipelines on AWS.
 7.  <span class="term-info">EAzy School:</span> Cloud-native school ERP & EdTech SaaS with ECS Fargate and automated S3 backups.
 8.  <span class="term-info">People Fund:</span> Peer-to-peer crowdfunding & micro-lending platform with secure payment webhooks.
