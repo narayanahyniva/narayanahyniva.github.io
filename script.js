@@ -479,6 +479,7 @@ function initSkillsFilter() {
 const architectureData = {
   'aws-3tier': {
     title: 'AWS 3-Tier Enterprise Web Application Architecture',
+    budget: '$250 – $500',
     nodes: [
       {
         id: 'node-user',
@@ -623,6 +624,7 @@ const architectureData = {
   },
   'gitops-cicd': {
     title: 'Automated GitOps & Zero-Downtime CI/CD Pipeline',
+    budget: '$200 – $400',
     nodes: [
       {
         id: 'node-git',
@@ -727,6 +729,7 @@ spec:
   },
   'k8s-microservices': {
     title: 'Enterprise Kubernetes Microservices Architecture',
+    budget: '$300 – $500',
     nodes: [
       {
         id: 'node-ingress',
@@ -828,6 +831,7 @@ spec:
   },
   'serverless-event': {
     title: 'AWS Serverless Event-Driven Microservices Architecture',
+    budget: '$200 – $450',
     nodes: [
       {
         id: 'node-api',
@@ -902,6 +906,7 @@ spec:
   },
   'multi-region-dr': {
     title: 'Multi-Region High Availability & Disaster Recovery',
+    budget: '$350 – $500',
     nodes: [
       {
         id: 'node-dns',
@@ -989,6 +994,11 @@ function initArchitectureExplorer() {
     if (!arch) return;
 
     diagramTitle.innerHTML = `<i data-lucide="shield"></i> ${arch.title}`;
+
+    const budgetBadge = document.getElementById('arch-budget-badge');
+    if (budgetBadge && arch.budget) {
+      budgetBadge.textContent = `● Est. Setup: ${arch.budget}`;
+    }
 
     // Render nodes
     nodesContainer.innerHTML = '';
@@ -1089,7 +1099,7 @@ function initFreelanceEstimator() {
   if (!slider) return;
 
   const scaleNames = ['Small (Dev + Staging)', 'Medium (Dev + Stage + Prod)', 'Enterprise (Multi-Region / High Scale)'];
-  const scaleMultipliers = [0.8, 1.0, 1.6];
+  const scaleMultipliers = [0.85, 1.0, 1.25];
 
   let selectedScope = 'iac-setup';
   let selectedCloud = 'AWS';
@@ -1129,11 +1139,11 @@ function initFreelanceEstimator() {
   };
 
   const basePricing = {
-    'iac-setup': { time: '1 - 2 Weeks', minCost: 1500, maxCost: 3000 },
-    'cicd-pipeline': { time: '1 - 2 Weeks', minCost: 1200, maxCost: 2500 },
-    'k8s-migration': { time: '2 - 4 Weeks', minCost: 3000, maxCost: 6000 },
-    'cost-audit': { time: '3 - 5 Days', minCost: 800, maxCost: 1800 },
-    'full-consulting': { time: 'Monthly Retainer', minCost: 2500, maxCost: 2500, isMonthly: true }
+    'iac-setup': { time: '1 - 2 Weeks', minCost: 250, maxCost: 500 },
+    'cicd-pipeline': { time: '1 - 2 Weeks', minCost: 200, maxCost: 400 },
+    'k8s-migration': { time: '2 - 3 Weeks', minCost: 300, maxCost: 500 },
+    'cost-audit': { time: '3 - 5 Days', minCost: 150, maxCost: 300 },
+    'full-consulting': { time: 'Monthly Retainer', minCost: 350, maxCost: 500, isMonthly: true }
   };
 
   function updateCalculation() {
@@ -1285,12 +1295,12 @@ Active production architectures:
 5. Multi-Region Disaster Recovery (Route 53 DNS Failover + Aurora Global DB)
     `,
     hire: () => `
-Freelance & Consultancy Services:
-• Cloud Infrastructure & Terraform Setup
-• Zero-Downtime CI/CD Pipeline Automation
-• Kubernetes / EKS Cluster Migration
-• Cloud Cost (FinOps) & Security Audits
-• Dedicated Monthly DevOps Retainer
+Freelance & Consultancy Services (Budget: $250 – $500):
+• IaC & Cloud Architecture Setup (Terraform): $250 – $500
+• Zero-Downtime CI/CD Pipeline Automation: $200 – $400
+• Kubernetes / EKS Cluster Migration: $300 – $500
+• Cloud Cost (FinOps) & Security Audits: $150 – $300
+• Dedicated Monthly DevOps Retainer: $350 – $500 / Month
 Direct WhatsApp: <a href="https://wa.me/919666143335" target="_blank" style="color:var(--cyber-cyan); text-decoration:underline;">+91 9666143335</a>
     `,
     resume: () => `
