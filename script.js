@@ -162,15 +162,29 @@ function initHeroThreeCanvas() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   // Particles & Connection Points
-  const particleCount = 140;
+  const particleCount = 150;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
   const velocities = [];
 
-  for (let i = 0; i < particleCount * 3; i += 3) {
-    positions[i] = (Math.random() - 0.5) * 160;
-    positions[i + 1] = (Math.random() - 0.5) * 120;
-    positions[i + 2] = (Math.random() - 0.5) * 80;
+  const palette = [
+    new THREE.Color('#ff782e'), // sunset orange
+    new THREE.Color('#ec4899'), // vibrant magenta
+    new THREE.Color('#a855f7'), // electric purple
+    new THREE.Color('#818cf8'), // royal indigo
+    new THREE.Color('#38bdf8')  // sky azure
+  ];
+
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 160;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 120;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
+
+    const chosenColor = palette[Math.floor(Math.random() * palette.length)];
+    colors[i * 3] = chosenColor.r;
+    colors[i * 3 + 1] = chosenColor.g;
+    colors[i * 3 + 2] = chosenColor.b;
 
     velocities.push({
       x: (Math.random() - 0.5) * 0.12,
@@ -180,13 +194,14 @@ function initHeroThreeCanvas() {
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   // Particle Material
   const pMaterial = new THREE.PointsMaterial({
-    color: 0x00f0ff,
-    size: 2.2,
+    size: 2.4,
+    vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.9,
     blending: THREE.AdditiveBlending
   });
 
@@ -195,9 +210,9 @@ function initHeroThreeCanvas() {
 
   // Line Mesh for Dynamic Network Connections
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x0ea5e9,
+    color: 0x818cf8,
     transparent: true,
-    opacity: 0.18,
+    opacity: 0.22,
     blending: THREE.AdditiveBlending
   });
 
@@ -208,7 +223,7 @@ function initHeroThreeCanvas() {
   // Floating 3D Geometric Cloud Nodes (representing cloud servers)
   const cubeGeo = new THREE.IcosahedronGeometry(2.5, 0);
   const cubeMat = new THREE.MeshBasicMaterial({
-    color: 0x00f0ff,
+    color: 0xc084fc,
     wireframe: true,
     transparent: true,
     opacity: 0.35
