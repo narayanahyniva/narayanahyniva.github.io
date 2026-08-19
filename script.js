@@ -679,78 +679,82 @@ function initSkillsFilter() {
    ========================================================================== */
 const architectureData = {
   'aws-3tier': {
-    title: 'AWS 3-Tier Enterprise Web Application Architecture',
+    title: 'Hyniva Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
     budget: '$250 – $500',
     nodes: [
       {
         id: 'node-user',
-        icon: 'users',
-        title: 'Global Clients',
-        desc: 'HTTPS Requests',
-        badge: 'TLS 1.3',
-        infoTitle: 'Global Client Traffic',
-        infoDesc: 'End users accessing the web application through secure HTTPS protocol with global Anycast routing.',
+        icon: 'globe',
+        title: 'Route 53 & GoDaddy ACM',
+        desc: 'DNS Records & SSL/TLS',
+        badge: 'TLS 1.3 ACM',
+        infoTitle: 'AWS Route 53 & GoDaddy Domain Management',
+        infoDesc: 'Configured root and subdomain DNS records in Route 53 hosted zones integrated with GoDaddy registrar domains and AWS Certificate Manager (ACM) SSL/TLS encryption.',
         specs: [
-          'Protocol: TLS 1.3 / HTTP/2',
-          'Routing: Global Anycast DNS via Route 53',
-          'DDOS Protection: AWS Shield Standard'
+          'DNS: Route 53 Latency & Failover routing records',
+          'Certificates: AWS ACM SSL/TLS with DNS CNAME validation',
+          'Environments: Dev, Pre-Prod, UAT, and Production'
         ],
-        codeFile: 'route53_routing.tf',
-        code: `resource "aws_route53_record" "app_apex" {
-  zone_id = aws_route53_zone.primary.zone_id
-  name    = "narayana.dev"
-  type    = "A"
+        codeFile: 'route53_acm.tf',
+        code: `resource "aws_acm_certificate" "domain_cert" {
+  domain_name       = "app.hyniva.com"
+  validation_method = "DNS"
 
-  alias {
-    name                   = aws_cloudfront_distribution.cdn.domain_name
-    zone_id                = aws_cloudfront_distribution.cdn.hosted_zone_id
-    evaluate_target_health = true
+  subject_alternative_names = [
+    "*.hyniva.com",
+    "dev.hyniva.com",
+    "uat.hyniva.com"
+  ]
+
+  lifecycle {
+    create_before_destroy = true
   }
 }`
       },
       {
         id: 'node-cdn',
-        icon: 'cloud',
-        title: 'CloudFront & WAF',
-        desc: 'Edge CDN & Security',
-        badge: 'Edge Caching',
-        infoTitle: 'Amazon CloudFront & AWS WAF',
-        infoDesc: 'Edge caching layer providing sub-20ms asset delivery and managed web application firewall protection against SQLi and XSS attacks.',
+        icon: 'layout',
+        title: 'AWS Amplify Front-End',
+        desc: 'SPA Hosting & CI/CD',
+        badge: 'Automated CI/CD',
+        infoTitle: 'AWS Amplify Front-End Deployment',
+        infoDesc: 'Continuous deployment of modern Single Page Applications (React / Next.js) with global edge hosting, instant cache invalidation, and custom domain mapping.',
         specs: [
-          'Edge Locations: 400+ PoPs globally',
-          'Security: AWS WAF Managed Core Rule Set',
-          'Origin Shield: Enabled with strict SSL origin policy'
+          'Hosting: AWS Amplify Managed Edge CDN',
+          'Deployments: Automated Git branch build & PR previews',
+          'Security: Strict CSP, HSTS, and custom headers'
         ],
-        codeFile: 'cloudfront_waf.tf',
-        code: `resource "aws_cloudfront_distribution" "cdn" {
-  origin {
-    domain_name = aws_lb.main_alb.dns_name
-    origin_id   = "ALB-Origin"
+        codeFile: 'amplify_app.tf',
+        code: `resource "aws_amplify_app" "portal_frontend" {
+  name       = "hyniva-enterprise-portal"
+  repository = "https://github.com/Hyniva-LLC/FinxServe_React"
 
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
-  }
-
-  web_acl_id = aws_wafv2_web_acl.main_waf.arn
-  enabled    = true
+  build_spec = <<-EOT
+    version: 1
+    frontend:
+      phases:
+        preBuild:
+          commands: ["npm ci"]
+        build:
+          commands: ["npm run build"]
+      artifacts:
+        baseDirectory: dist
+        files: ["**/*"]
+  EOT
 }`
       },
       {
         id: 'node-alb',
         icon: 'network',
         title: 'Application Load Balancer',
-        desc: 'Multi-AZ Layer 7',
+        desc: 'Target Groups & Health Checks',
         badge: 'High-Throughput',
-        infoTitle: 'Application Load Balancer (ALB)',
-        infoDesc: 'Distributes incoming traffic across redundant Amazon ECS container tasks in private subnets across 3 Availability Zones.',
+        infoTitle: 'Application Load Balancer (ALB) & Target Groups',
+        infoDesc: 'High-availability Layer 7 load balancer routing incoming API traffic to dynamic ECS Fargate target groups across multiple Availability Zones with sub-second health checks.',
         specs: [
-          'Health Checks: /healthz every 15s with auto-deregistration',
-          'Target Group: Dynamic port mapping to ECS Fargate',
-          'Security: Private VPC peering & SG ingress'
+          'Target Groups: Dynamic port mapping to ECS Fargate tasks',
+          'Health Checks: Path-based /health endpoint every 15s',
+          'Security: ACM SSL termination & HTTP to HTTPS redirect'
         ],
         codeFile: 'alb_main.tf',
         code: `resource "aws_lb" "main_app_alb" {
@@ -772,27 +776,33 @@ const architectureData = {
       {
         id: 'node-compute',
         icon: 'box',
-        title: 'ECS / EC2 Private Subnets',
-        desc: 'Auto-Scaling Microservices',
-        badge: 'Auto-Healing',
-        infoTitle: 'Amazon ECS Fargate / EC2 Container Cluster',
-        infoDesc: 'Stateless application containers deployed in isolated private subnets with auto-scaling policies based on CPU/memory utilization.',
+        title: 'ECS Fargate Microservices',
+        desc: 'GitHub Actions CI/CD',
+        badge: 'Serverless Compute',
+        infoTitle: 'AWS ECS Fargate Backend Services',
+        infoDesc: 'Containerized backend microservices (FinXServe, Claim Pioneer, AIRA, Hyper) running on serverless AWS ECS Fargate with zero host management and automated GitHub Actions rollouts.',
         specs: [
-          'Isolation: Zero public IPs, outbound via NAT Gateways',
-          'Scaling: Target tracking policy (CPU @ 65%)',
-          'Deploy Strategy: Blue/Green rolling zero-downtime'
+          'Compute: Serverless AWS ECS Fargate with ARM64 / Graviton',
+          'CI/CD: GitHub Actions multi-stage build & ECR image push',
+          'Scaling: Target tracking autoscaling (CPU & Memory)'
         ],
         codeFile: 'ecs_fargate.tf',
-        code: `resource "aws_ecs_service" "app_service" {
-  name            = "finxserve-core"
+        code: `resource "aws_ecs_service" "backend_service" {
+  name            = "enterprise-backend-api"
   cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.app.arn
+  task_definition = aws_ecs_task_definition.api.arn
   desired_count   = 4
   launch_type     = "FARGATE"
 
   network_configuration {
     subnets         = module.vpc.private_subnets
     security_groups = [aws_security_group.ecs_sg.id]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.api_tg.arn
+    container_name   = "api-container"
+    container_port   = 8080
   }
 }`
       },
@@ -1474,25 +1484,30 @@ Available commands:
     `,
     about: () => `
 <span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud DevOps Engineer at Hyniva (Bengaluru, Karnataka, India).
-4+ years of dedicated full-time experience across System Administration, Cloud Engineering, and DevOps Automation.
-Career Path: Systems Engineer (Jul 2022 – Jul 2023) → Cloud Engineer (Jul 2023 – Dec 2024) → Cloud DevOps Engineer (Dec 2024 – Present).
-Core Expertise: AWS, Microsoft Azure, Google Cloud (GCP), Terraform, Kubernetes (Amazon EKS), Docker, GitHub Actions, Microsoft Entra ID (Azure AD), and Linux.
-Open to opportunities in Cloud Engineering, DevOps, Platform Engineering, and SRE.
+4+ years of dedicated experience across System Administration, Cloud Infrastructure, and DevOps Automation.
+Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for enterprise products:
+• <span class="term-success">FinXServe</span> — Digital banking experience orchestration layer (Salesforce-native).
+• <span class="term-success">Claim Pioneer</span> — Automated AI claims lifecycle management & real-time tracking.
+• <span class="term-success">AIRA</span> — Autonomous Intelligent Reasoning Agent with OneAPI integration & compliance guardrails.
+• <span class="term-success">Hyper</span> — Digital investment journey & wealth management portfolio planning platform.
+DevOps Core: AWS Amplify (FE), AWS ECS Fargate (BE), Application Load Balancers (ALB), Route 53, GoDaddy ACM SSL, GitHub Actions.
     `,
     experience: () => `
 <span class="term-success">Professional Experience at Hyniva (4 yrs 2 mos · Bengaluru, India):</span>
 1. <span class="term-info">Cloud DevOps Engineer</span> (Dec 2024 – Present · 1 yr 9 mos):
-   • Multi-cloud infrastructure across AWS, Azure, and GCP.
-   • GitHub organization security, branch protection, and full deployment lifecycle.
-   • Docker, Kubernetes (EKS), ECS (Fargate), Terraform, CloudFormation, Ansible.
-   • CI/CD with CodePipeline, CodeBuild, CodeDeploy, Jenkins, GitHub Actions.
-   • Microsoft Entra ID (Azure AD) and DNS across GoDaddy, Cloudflare, Route 53.
+   • Multi-tier environments: Development, Pre-Production, UAT, and Production.
+   • Enterprise Platforms: FinXServe (Digital Banking), Claim Pioneer (Claims AI), AIRA (Reasoning Agent), and Hyper (Wealth Management).
+   • Front-end CI/CD deployments using AWS Amplify service.
+   • Back-end microservices deployments on AWS ECS (Fargate) with automated GitHub Actions CI/CD workflows.
+   • Implemented Application Load Balancers (ALB) and dynamic Target Groups post-deployment.
+   • Configured Route 53 DNS records, GoDaddy domain management, and ACM SSL/TLS certificates.
+   • Authored standardized connection, network, and multi-tier environment architecture documentation.
 2. <span class="term-info">Cloud Engineer</span> (Jul 2023 – Dec 2024 · 1 yr 6 mos):
    • Provisioned core AWS: EC2, EBS, VPC, Route 53, API Gateway, SNS, SQS.
-   • CI/CD pipelines via CodeCommit, Jenkins, GitHub Actions; Jira Agile tracking.
-   • Azure AD / Entra ID identity management and App Registrations (OAuth 2.0 / OIDC).
+   • Built CI/CD pipeline components via CodeCommit, Jenkins, GitHub Actions; Jira Agile tracking.
+   • Administered Azure AD / Microsoft Entra ID users, roles, and App Registrations (OAuth 2.0 / OIDC).
 3. <span class="term-info">System Engineer</span> (Jul 2022 – Jul 2023 · 1 yr 1 mo):
-   • Enterprise IT infrastructure, LAN/WAN, firewalls, and secure VPNs.
+   • Enterprise IT infrastructure, LAN/WAN networks, routers, switches, firewalls, and VPNs.
    • Active Directory, Microsoft 365 Admin, Bitdefender, Defender, CrowdStrike, Vanta.
     `,
     education: () => `
@@ -1501,19 +1516,19 @@ Open to opportunities in Cloud Engineering, DevOps, Platform Engineering, and SR
 🎓 <span class="term-info">Bachelor of Computer Applications (BCA):</span> Computer Science (Jul 2015 – May 2018) &bull; <span class="term-success">Grade: 71% (First Class)</span>
     `,
     skills: () => `
-<span class="term-cmd">AWS (30+):</span> EC2, ECS, EKS, Lambda, S3, CloudFront, Route53, VPC, ALB, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, WAF, CloudWatch, CodePipeline, ECR, SQS, SNS, SSM
+<span class="term-cmd">AWS (30+):</span> Amplify, ECS Fargate, EKS, EC2, Lambda, S3, CloudFront, Route 53, VPC, ALB, Target Groups, ACM, RDS Aurora, DynamoDB, IAM, KMS, WAF, CloudWatch, ECR, SQS, SNS
 <span class="term-cmd">Azure (14):</span> VMs, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
 <span class="term-cmd">GCP (12):</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
-<span class="term-cmd">DevOps & IaC:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI, Packer
-<span class="term-cmd">Observability & OS:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK / OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux (Amazon Linux, Ubuntu, RHEL), Python, Bash
-<span class="term-cmd">Databases:</span> PostgreSQL, MySQL, MariaDB, Redis, MongoDB, DynamoDB, Elasticsearch
+<span class="term-cmd">DevOps & IaC:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI
+<span class="term-cmd">Observability & OS:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK / OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux (Ubuntu, RHEL, Amazon Linux), Python, Bash
+<span class="term-cmd">Databases & Web:</span> PostgreSQL, MySQL, Redis, DynamoDB, MongoDB, REST APIs, WebSockets, OneAPI
     `,
     directory: () => `
 <span class="term-success">Multi-Cloud & Open-Source Services Directory (80+ Technologies):</span>
-• <span class="term-info">AWS:</span> EC2, ECS, EKS, Lambda, S3, CloudFront, Route53, VPC, ALB, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, Secrets Manager, WAF, CloudWatch, CodePipeline, ECR, SQS, SNS, SSM
+• <span class="term-info">AWS:</span> Amplify, ECS Fargate, EKS, EC2, Lambda, S3, CloudFront, Route53, VPC, ALB, Target Groups, ACM, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, WAF, CloudWatch, ECR, SQS, SNS
 • <span class="term-info">Azure:</span> Virtual Machines, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
 • <span class="term-info">GCP:</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
-• <span class="term-info">DevOps:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI, Packer
+• <span class="term-info">DevOps:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI
 • <span class="term-info">Observability:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK, OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux, Python, Bash
     `,
     certifications: () => `
@@ -1525,10 +1540,13 @@ Open to opportunities in Cloud Engineering, DevOps, Platform Engineering, and SR
 ⏳ Microsoft Certified: Azure Administrator (AZ-104) [60% Roadmap Goal]
     `,
     projects: () => `
-1. <span class="term-info">FinXServe Cloud Infrastructure:</span> AWS ECS Docker deployment with ALB, ECR, SSL, and CloudWatch.
-2. <span class="term-info">Drive30 Command Center:</span> Distributed Kubernetes microservices with Redis caching.
-3. <span class="term-info">Hyniva Multi-Tenant IaC:</span> Modular Terraform multi-environment infrastructure.
-4. <span class="term-info">Zero-Downtime CI/CD:</span> AWS CodePipeline & Jenkins with blue/green deployment.
+<span class="term-success">Enterprise Production Platforms & Case Studies:</span>
+1. <span class="term-info">FinXServe — Digital Banking Experience:</span> Salesforce-native omnichannel orchestration layer for loans, cards & deposits. AWS Amplify (FE) + ECS Fargate (BE) + ALB + GoDaddy ACM SSL + Route 53.
+2. <span class="term-info">Claim Pioneer — Claims Uberization:</span> AI claims assignment, live tracking & end-to-end workflow automation from intake to closure on AWS Amplify & ECS.
+3. <span class="term-info">AIRA — Autonomous Intelligent Reasoning Agent:</span> Enterprise AI platform combining autonomous multi-step reasoning, compliance guardrails & OneAPI integration framework.
+4. <span class="term-info">Hyper — Digital Investment Journey:</span> Wealth management platform with guided goal discovery, tailored portfolio recommendations, and real-time what-if simulations.
+5. <span class="term-info">Multi-Tier Infrastructure & Domain Orchestration:</span> Dev, Pre-Prod, UAT & Prod environments with Route 53 DNS, GoDaddy domains, ACM certificates, and ALB target groups.
+6. <span class="term-info">Zero-Downtime Container CI/CD Pipeline:</span> GitHub Actions, Docker multi-stage builds, Trivy security scanning & ECS Fargate automated rollouts.
     `,
     architecture: () => `
 Active production architectures:
