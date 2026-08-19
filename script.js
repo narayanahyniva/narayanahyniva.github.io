@@ -1541,7 +1541,7 @@ DevOps Core: AWS Amplify (FE), AWS ECS Fargate (BE), Application Load Balancers 
     `,
     projects: () => `
 <span class="term-success">Enterprise Production Platforms & Case Studies:</span>
-1. <span class="term-info">FinXServe — Digital Banking Experience:</span> Salesforce-native omnichannel orchestration layer for loans, cards & deposits. AWS Amplify (FE) + ECS Fargate (BE) + ALB + GoDaddy ACM SSL + Route 53.
+1. <span class="term-info">FinXServe Enterprise Cloud Infrastructure:</span> AWS EC2 &amp; ECS Docker deployment, Nginx reverse proxy, PostgreSQL + pgAdmin administration, Elastic.io integration, S3 asset storage &amp; backups, and GitHub Actions CI/CD with real-time deployment notification services.
 2. <span class="term-info">Claim Pioneer — Claims Uberization:</span> AI claims assignment, live tracking & end-to-end workflow automation from intake to closure on AWS Amplify & ECS.
 3. <span class="term-info">AIRA — Autonomous Intelligent Reasoning Agent:</span> Enterprise AI platform combining autonomous multi-step reasoning, compliance guardrails & OneAPI integration framework.
 4. <span class="term-info">Hyper — Digital Investment Journey:</span> Wealth management platform with guided goal discovery, tailored portfolio recommendations, and real-time what-if simulations.
