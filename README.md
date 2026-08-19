@@ -8,8 +8,10 @@ A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Cons
 
 ## 🌟 Highlights & Features
 
+- 🌐 **Comprehensive Multi-Cloud & Open-Source Directory (80+ Services)**: Complete searchable index of AWS (30+ services), Microsoft Azure (14 services), Google Cloud (12 services), DevOps & GitOps (14 tools), and Observability & Linux (12 tools).
+- 🎯 **Certification Roadmap (In Active Preparation)**: Structured tracking for AWS Certified Solutions Architect (SAA-C03), AWS DevOps Professional (DOP-C02), HashiCorp Terraform Associate (003), and CKA Kubernetes Administrator certifications.
 - 🌌 **Futuristic 3D Cloud Hero Environment**: Three.js WebGL particle field and interactive server node network responding dynamically to mouse parallax and screen viewport.
-- 💼 **Enterprise Cloud & DevOps Consultancy**: Comprehensive breakdown of cloud migration, AWS/Azure/GCP architectures, Kubernetes orchestration, zero-downtime CI/CD pipelines, and FinOps cost optimization.
+- 💼 **Enterprise Cloud & DevOps Consultancy**: Comprehensive breakdown of cloud migration, AWS/Azure/GCP architectures, Kubernetes orchestration, zero-downtime CI/CD pipelines, and FinOps cost optimization ($250 – $500 project tiers).
 - 🧠 **Interactive 3D Technology Sphere**: Real-time rotating 3D spherical tag cloud with interactive drag rotation and categorized skill matrix filters.
 - 🏗️ **Flagship Feature: Interactive Cloud Architecture Playground**:
   - **AWS 3-Tier Enterprise Web App Architecture**

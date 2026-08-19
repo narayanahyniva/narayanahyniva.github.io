@@ -86,10 +86,12 @@
       <nav class="nav-menu" id="nav-menu">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#services" class="nav-link">Services</a>
-        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#cloud-directory" class="nav-link">Cloud Directory</a>
+        <a href="#skills" class="nav-link">3D Skills</a>
         <a href="#architectures" class="nav-link">Architectures</a>
         <a href="#projects" class="nav-link">Projects</a>
-        <a href="#freelance" class="nav-link">Freelance & Pricing</a>
+        <a href="#freelance" class="nav-link">Freelance</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
@@ -146,21 +148,32 @@
 
           <div class="hero-cta-group">
             <a href="#freelance" class="btn btn-primary">
-              <i data-lucide="briefcase"></i> Book Consultation
+              <i data-lucide="briefcase"></i> Book Consultation ($250-$500)
             </a>
             <a href="#architectures" class="btn btn-secondary">
               <i data-lucide="layers"></i> View 3D Architectures
             </a>
-            <a href="#projects" class="btn btn-secondary">
-              <i data-lucide="folder-git-2"></i> Case Studies
+            <a href="#cloud-directory" class="btn btn-secondary">
+              <i data-lucide="grid"></i> Explore 80+ Technologies
             </a>
             <button class="btn btn-outline-gold" id="open-resume-btn">
               <i data-lucide="file-text"></i> View Resume
             </button>
           </div>
 
+          <!-- Breadcrumb Decision Support Bar (Inspired by Executive Dashboard) -->
+          <div class="decision-flow-bar">
+            <span class="flow-step active"><i data-lucide="check-circle" style="width:12px; display:inline-block; vertical-align:middle; color:var(--neon-green);"></i> Pre-Audit</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step">IaC Blueprint</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step">GitOps CI/CD</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step" style="color:var(--cyber-cyan);">Zero-Downtime Live</span>
+          </div>
+
           <!-- Hero Metrics HUD Ribbon -->
-          <div class="hero-metrics-ribbon">
+          <div class="hero-metrics-ribbon" style="margin-top: 24px;">
             <div class="metric-item">
               <div class="metric-value">4+</div>
               <div class="metric-label">Years Exp.</div>
@@ -180,32 +193,58 @@
           </div>
         </div>
 
-        <!-- Hero Visual HUD Card & Mini Pipeline Visualizer -->
-        <div class="hero-visual-card">
-          <div class="hud-header">
-            <div class="hud-title">
-              <i data-lucide="activity"></i> INFRASTRUCTURE HUD &bull; PROD-EAST-1
+        <!-- Hero Executive Pulse HUD Card (Inspired by Modern Executive Dashboard) -->
+        <div class="hero-pulse-card">
+          <div class="pulse-top-header">
+            <span class="pulse-header-title">INFRASTRUCTURE PULSE &bull; MULTI-CLOUD</span>
+            <span class="pulse-live-tag">Live signals</span>
+          </div>
+
+          <div class="pulse-hero-body">
+            <div class="pulse-icon-box">
+              <i data-lucide="trending-up"></i>
             </div>
-            <div class="hud-ping">
-              <i data-lucide="radio"></i> 18ms Latency
+            <div>
+              <div class="pulse-hero-title">High Availability Advantage</div>
+              <div class="pulse-hero-desc">
+                Deploy resilient multi-cloud architectures with automated failovers, zero-downtime releases, and sub-20ms edge latency.
+              </div>
+            </div>
+          </div>
+
+          <div class="pulse-metrics-grid">
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="clock" style="width:12px;"></i> Latency</div>
+              <div class="pulse-metric-val">18ms</div>
+              <div class="pulse-metric-delta delta-green">&darr; -40% vs default</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="shield-check" style="width:12px;"></i> Availability</div>
+              <div class="pulse-metric-val">99.99%</div>
+              <div class="pulse-metric-delta delta-cyan">&uarr; +100% automated</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="dollar-sign" style="width:12px;"></i> Setup Scope</div>
+              <div class="pulse-metric-val" style="font-size: 18px;">$250–$500</div>
+              <div class="pulse-metric-delta delta-gold">&darr; -35% cost save</div>
             </div>
           </div>
 
           <!-- Floating Cloud Provider Badges -->
-          <div class="cloud-badges-grid">
+          <div class="cloud-badges-grid" style="margin-top: 20px; margin-bottom: 16px;">
             <div class="cloud-badge-card aws">
               <div class="badge-icon">☁️</div>
-              <div class="badge-name" style="color: var(--aws-gold);">AWS</div>
+              <div class="badge-name" style="color: var(--aws-gold);">AWS (32+ Serv.)</div>
               <div class="badge-status">● Active Node</div>
             </div>
             <div class="cloud-badge-card azure">
               <div class="badge-icon">🔷</div>
-              <div class="badge-name" style="color: var(--azure-blue);">Azure</div>
+              <div class="badge-name" style="color: var(--azure-blue);">Azure (14+ Serv.)</div>
               <div class="badge-status">● Synced</div>
             </div>
             <div class="cloud-badge-card gcp">
               <div class="badge-icon">🌐</div>
-              <div class="badge-name" style="color: var(--gcp-red);">GCP</div>
+              <div class="badge-name" style="color: var(--gcp-red);">GCP (12+ Serv.)</div>
               <div class="badge-status">● Redundant</div>
             </div>
           </div>
@@ -214,7 +253,7 @@
           <div class="pipeline-sim">
             <div class="pipeline-sim-header">
               <span><i data-lucide="git-merge" style="display:inline-block; vertical-align:middle; width:14px;"></i> GitOps Deployment Pipeline</span>
-              <span style="color: var(--neon-green);">Status: Auto-Triggered</span>
+              <span style="color: var(--neon-green);">Status: Active</span>
             </div>
 
             <div class="pipeline-stages">
@@ -232,7 +271,7 @@
               </div>
               <div class="pipeline-stage">
                 <div class="stage-node pulse"><i data-lucide="play" style="width:14px;"></i></div>
-                <div class="stage-name">EKS Deploy</div>
+                <div class="stage-name">EKS Live</div>
               </div>
             </div>
           </div>
@@ -469,6 +508,57 @@
               <span class="tech-pill">Compute Optimizer</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Exhaustive Cloud Ecosystem & Open-Source Toolchain Directory
+         ========================================================================== -->
+    <section class="cloud-directory-section" id="cloud-directory">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Complete Tech Matrix</div>
+          <h2 class="section-title">Multi-Cloud &amp; <span class="gradient-text">Open-Source Services</span> Directory</h2>
+          <p class="section-desc">
+            Explore 80+ enterprise cloud services, DevOps toolchains, and open-source infrastructure technologies managed across production environments.
+          </p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="directory-search-wrapper">
+          <i data-lucide="search" class="search-icon-inside"></i>
+          <input type="text" class="directory-search-input" id="dir-search-input" placeholder="Search 80+ technologies (e.g. S3, AKS, Cloud Run, Terraform, Prometheus, RDS)...">
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="directory-tabs-bar">
+          <button class="btn-dir-tab active" data-dir-cat="all">
+            <i data-lucide="layers"></i> All Technologies (80+)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="aws">
+            <i data-lucide="cloud" style="color: var(--aws-gold);"></i> AWS Services (30+)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="azure">
+            <i data-lucide="network" style="color: var(--azure-blue);"></i> Microsoft Azure (14)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="gcp">
+            <i data-lucide="globe" style="color: var(--gcp-red);"></i> Google Cloud (12)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="devops">
+            <i data-lucide="git-merge" style="color: var(--cyber-cyan);"></i> DevOps &amp; GitOps (14)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="observability">
+            <i data-lucide="line-chart" style="color: var(--neon-green);"></i> Observability &amp; Linux (12)
+          </button>
+          <button class="btn-dir-tab" data-dir-cat="databases">
+            <i data-lucide="database" style="color: var(--neon-purple);"></i> Databases &amp; Cache (8)
+          </button>
+        </div>
+
+        <!-- Directory Cards Grid -->
+        <div class="directory-cards-grid" id="directory-cards-container">
+          <!-- Populated dynamically via script.js for instant filtering and search -->
         </div>
       </div>
     </section>
@@ -1082,37 +1172,96 @@
           </div>
         </div>
 
-        <!-- Certifications Showcase -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Certifications Roadmap Section (In Active Preparation / Coming Soon)
+         ========================================================================== -->
+    <section class="certifications-section" id="certifications" style="padding: 90px 0; background: rgba(5, 9, 20, 0.6); position: relative;">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">TARGET CERTIFICATIONS &bull; IN PREPARATION</div>
+          <h2 class="section-title">Professional Certification <span class="gradient-text">Roadmap &amp; Goals</span></h2>
+          <p class="section-desc">
+            Currently in active preparation for official industry certifications across Amazon Web Services, HashiCorp Terraform, Kubernetes, and Azure. Hands-on architectural labs &amp; exam readiness in progress.
+          </p>
+        </div>
+
         <div class="cert-grid">
+          <!-- Cert 1 -->
           <div class="cert-badge-card">
-            <div class="cert-icon"><i data-lucide="award"></i></div>
-            <div>
+            <div class="cert-icon" style="color: var(--aws-gold); background: rgba(255,153,0,0.1);"><i data-lucide="award"></i></div>
+            <div style="flex: 1;">
               <div class="cert-title">AWS Certified Solutions Architect</div>
-              <div class="cert-issuer">Amazon Web Services &bull; Associate</div>
+              <div class="cert-issuer">Amazon Web Services &bull; Associate (SAA-C03)</div>
+              <div class="cert-status-badge">
+                <i data-lucide="target" style="width: 12px;"></i> Currently Preparing &bull; Coming Soon
+              </div>
+              <div class="cert-progress-bar">
+                <div class="cert-progress-fill" style="width: 85%;"></div>
+              </div>
             </div>
           </div>
 
+          <!-- Cert 2 -->
           <div class="cert-badge-card">
-            <div class="cert-icon"><i data-lucide="award"></i></div>
-            <div>
+            <div class="cert-icon" style="color: var(--aws-gold); background: rgba(255,153,0,0.1);"><i data-lucide="shield"></i></div>
+            <div style="flex: 1;">
               <div class="cert-title">AWS Certified DevOps Engineer</div>
-              <div class="cert-issuer">Amazon Web Services &bull; Professional</div>
+              <div class="cert-issuer">Amazon Web Services &bull; Professional (DOP-C02)</div>
+              <div class="cert-status-badge">
+                <i data-lucide="target" style="width: 12px;"></i> Currently Preparing &bull; Coming Soon
+              </div>
+              <div class="cert-progress-bar">
+                <div class="cert-progress-fill" style="width: 75%;"></div>
+              </div>
             </div>
           </div>
 
+          <!-- Cert 3 -->
           <div class="cert-badge-card">
-            <div class="cert-icon"><i data-lucide="shield-check"></i></div>
-            <div>
+            <div class="cert-icon" style="color: var(--neon-purple); background: rgba(168,85,247,0.1);"><i data-lucide="layers"></i></div>
+            <div style="flex: 1;">
               <div class="cert-title">HashiCorp Certified Terraform Associate</div>
-              <div class="cert-issuer">HashiCorp IaC Certification</div>
+              <div class="cert-issuer">HashiCorp IaC Certification (003)</div>
+              <div class="cert-status-badge" style="color: var(--neon-purple); border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.12);">
+                <i data-lucide="target" style="width: 12px;"></i> Currently Preparing &bull; Coming Soon
+              </div>
+              <div class="cert-progress-bar">
+                <div class="cert-progress-fill" style="width: 85%; background: linear-gradient(90deg, var(--neon-purple), var(--cyber-cyan));"></div>
+              </div>
             </div>
           </div>
 
+          <!-- Cert 4 -->
           <div class="cert-badge-card">
-            <div class="cert-icon"><i data-lucide="box"></i></div>
-            <div>
+            <div class="cert-icon" style="color: var(--k8s-blue); background: rgba(50,108,229,0.1);"><i data-lucide="box"></i></div>
+            <div style="flex: 1;">
               <div class="cert-title">Certified Kubernetes Administrator (CKA)</div>
-              <div class="cert-issuer">Linux Foundation / CNCF Track</div>
+              <div class="cert-issuer">Cloud Native Computing Foundation (CNCF)</div>
+              <div class="cert-status-badge" style="color: var(--k8s-blue); border-color: rgba(50,108,229,0.35); background: rgba(50,108,229,0.12);">
+                <i data-lucide="target" style="width: 12px;"></i> Currently Preparing &bull; Coming Soon
+              </div>
+              <div class="cert-progress-bar">
+                <div class="cert-progress-fill" style="width: 70%; background: linear-gradient(90deg, var(--k8s-blue), var(--cyber-cyan));"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cert 5 -->
+          <div class="cert-badge-card">
+            <div class="cert-icon" style="color: var(--azure-blue); background: rgba(0,120,212,0.1);"><i data-lucide="network"></i></div>
+            <div style="flex: 1;">
+              <div class="cert-title">Microsoft Certified: Azure Administrator</div>
+              <div class="cert-issuer">Microsoft Azure &bull; Associate (AZ-104)</div>
+              <div class="cert-status-badge" style="color: var(--azure-blue); border-color: rgba(0,120,212,0.35); background: rgba(0,120,212,0.12);">
+                <i data-lucide="clock" style="width: 12px;"></i> Roadmap Goal &bull; Coming Soon
+              </div>
+              <div class="cert-progress-bar">
+                <div class="cert-progress-fill" style="width: 60%; background: linear-gradient(90deg, var(--azure-blue), var(--cyber-cyan));"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1364,6 +1513,17 @@
               <li>Implemented automated CI/CD workflows using GitHub Actions and Jenkins with automated testing, security gates, and container registry publishing.</li>
               <li>Optimized cloud resources and compute instances, achieving a 35%+ reduction in recurring monthly AWS infrastructure bills.</li>
             </ul>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: var(--cyber-cyan); text-transform: uppercase; font-size: 14px; letter-spacing: 1px; margin-bottom: 8px;">Target Certifications (In Active Preparation &bull; Target 2026)</h4>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+            &bull; <strong>AWS Certified Solutions Architect – Associate (SAA-C03):</strong> Currently Preparing (Core Multi-AZ VPC, ECS, RDS, IAM, S3)<br>
+            &bull; <strong>AWS Certified DevOps Engineer – Professional (DOP-C02):</strong> Currently Preparing (CodePipeline, Blue/Green Deployments, DR)<br>
+            &bull; <strong>HashiCorp Certified: Terraform Associate (003):</strong> Currently Preparing (Modular IaC, State Locking, Workspaces)<br>
+            &bull; <strong>Certified Kubernetes Administrator (CKA):</strong> Currently Preparing (Cluster Arch, Ingress, Pod Networking, RBAC)<br>
+            &bull; <strong>Microsoft Certified: Azure Administrator (AZ-104):</strong> Roadmap Track (VNets, AKS, Entra ID)
           </div>
         </div>
       </div>

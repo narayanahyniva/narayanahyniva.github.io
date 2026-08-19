@@ -2155,6 +2155,332 @@ button {
   }
 }
 
+/* ==========================================================================
+   Hero Pulse & Market Signals Card (Inspired by Modern Executive HUD)
+   ========================================================================== */
+
+.hero-pulse-card {
+  background: rgba(10, 15, 26, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 1px 1px rgba(16, 185, 129, 0.2);
+  backdrop-filter: blur(24px);
+  position: relative;
+  overflow: hidden;
+}
+
+.pulse-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pulse-header-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.pulse-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--neon-green);
+  background: rgba(16, 185, 129, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.pulse-live-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulseDot 2s infinite;
+}
+
+.pulse-hero-body {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.pulse-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyber-cyan);
+  flex-shrink: 0;
+}
+
+.pulse-hero-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.pulse-hero-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pulse-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.pulse-metric-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pulse-metric-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.pulse-metric-val {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.pulse-metric-delta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.delta-green { color: var(--neon-green); }
+.delta-cyan { color: var(--cyber-cyan); }
+.delta-gold { color: var(--aws-gold); }
+
+/* Breadcrumbs Decision Bar */
+.decision-flow-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(10, 15, 29, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  margin-top: 24px;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.flow-step {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.flow-step.active {
+  color: var(--neon-green);
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Complete Cloud Services & Toolchain Directory
+   ========================================================================== */
+
+.cloud-directory-section {
+  padding: 100px 0;
+  position: relative;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 12, 24, 0.75) 50%, transparent 100%);
+}
+
+.directory-search-wrapper {
+  max-width: 640px;
+  margin: 0 auto 36px;
+  position: relative;
+}
+
+.directory-search-input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  background: rgba(13, 20, 36, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: 15px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.1);
+  transition: all var(--transition-fast);
+}
+
+.directory-search-input:focus {
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+  background: rgba(16, 24, 44, 0.95);
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cyber-cyan);
+  pointer-events: none;
+}
+
+.directory-tabs-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.btn-dir-tab {
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-dir-tab:hover, .btn-dir-tab.active {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--cyber-cyan);
+  color: var(--cyber-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.directory-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.dir-card {
+  background: rgba(13, 20, 36, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dir-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.15);
+  background: rgba(18, 28, 50, 0.85);
+}
+
+.dir-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.dir-service-name {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dir-category-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--cyber-blue);
+  white-space: nowrap;
+}
+
+.dir-card-desc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Certifications in Preparation Styling
+   ========================================================================== */
+
+.cert-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 153, 0, 0.12);
+  border: 1px solid rgba(255, 153, 0, 0.35);
+  color: var(--aws-gold);
+  margin-top: 6px;
+}
+
+.cert-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.cert-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--aws-gold), var(--cyber-cyan));
+  border-radius: 2px;
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     position: fixed;

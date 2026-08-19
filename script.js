@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Three.js 3D Hero Cloud Mesh
   initHeroThreeCanvas();
 
+  // Cloud & Open-Source Services Directory
+  initCloudDirectory();
+
   // Interactive 3D Technology Sphere (Canvas 3D Engine)
   initTechSphere();
 
@@ -299,6 +302,182 @@ function initHeroThreeCanvas() {
 }
 
 /* ==========================================================================
+   Complete Multi-Cloud & Open-Source Services Directory
+   ========================================================================== */
+const cloudDirectoryData = [
+  // --- AWS Services (30+) ---
+  { name: 'Amazon EC2', cat: 'aws', badge: 'Compute', desc: 'Resilient Elastic Compute Cloud virtual server instances with auto-scaling fleets.', icon: 'server' },
+  { name: 'Amazon ECS & Fargate', cat: 'aws', badge: 'Containers', desc: 'Highly scalable container orchestration with serverless Fargate execution.', icon: 'box' },
+  { name: 'Amazon EKS', cat: 'aws', badge: 'Kubernetes', desc: 'Managed Kubernetes control planes with high-availability node groups.', icon: 'box' },
+  { name: 'AWS Lambda', cat: 'aws', badge: 'Serverless', desc: 'Event-driven serverless compute executing microservices on-demand with zero idle cost.', icon: 'zap' },
+  { name: 'Amazon S3', cat: 'aws', badge: 'Storage', desc: 'Scalable cloud object storage with lifecycle management, KMS encryption, and replication.', icon: 'database' },
+  { name: 'Amazon CloudFront', cat: 'aws', badge: 'CDN & Edge', desc: 'Global low-latency content delivery network with edge security and SSL termination.', icon: 'globe' },
+  { name: 'Amazon Route 53', cat: 'aws', badge: 'DNS Routing', desc: 'Highly available Anycast DNS with latency-based, weighted, and failover routing.', icon: 'network' },
+  { name: 'Amazon VPC', cat: 'aws', badge: 'Networking', desc: 'Isolated virtual private cloud with private subnets, NAT gateways, and peering.', icon: 'network' },
+  { name: 'AWS ALB & NLB', cat: 'aws', badge: 'Load Balancing', desc: 'Layer 7 Application and Layer 4 Network Load Balancers with target health checks.', icon: 'activity' },
+  { name: 'Amazon RDS (PostgreSQL/MySQL)', cat: 'aws', badge: 'Databases', desc: 'Managed relational databases with automated snapshots and Multi-AZ replication.', icon: 'database' },
+  { name: 'Amazon Aurora Multi-AZ', cat: 'aws', badge: 'Clustered DB', desc: 'High-performance cloud-native relational database with sub-minute failover.', icon: 'database' },
+  { name: 'Amazon DynamoDB', cat: 'aws', badge: 'NoSQL', desc: 'Single-digit millisecond serverless NoSQL database with on-demand auto-scaling.', icon: 'database' },
+  { name: 'Amazon ElastiCache (Redis)', cat: 'aws', badge: 'Caching', desc: 'Sub-millisecond in-memory cache and session store with cluster mode enabled.', icon: 'zap' },
+  { name: 'AWS IAM', cat: 'aws', badge: 'Security', desc: 'Fine-grained Identity & Access Management with least-privilege RBAC policies.', icon: 'shield-check' },
+  { name: 'AWS KMS', cat: 'aws', badge: 'Encryption', desc: 'Centralized Key Management Service for automated envelope data encryption.', icon: 'lock' },
+  { name: 'AWS Secrets Manager', cat: 'aws', badge: 'Secrets', desc: 'Secure storage and automated rotation of API tokens, database keys, and credentials.', icon: 'key' },
+  { name: 'AWS WAF & Shield', cat: 'aws', badge: 'Threat Defense', desc: 'Web application firewall with DDoS mitigation, SQLi, and XSS managed rule sets.', icon: 'shield-alert' },
+  { name: 'Amazon CloudWatch', cat: 'aws', badge: 'Observability', desc: 'Full-stack infrastructure telemetry, custom metrics, log aggregation, and alarms.', icon: 'line-chart' },
+  { name: 'AWS CloudTrail', cat: 'aws', badge: 'Auditing', desc: 'Comprehensive governance, compliance auditing, and API activity logging.', icon: 'file-text' },
+  { name: 'AWS CodePipeline', cat: 'aws', badge: 'CI/CD', desc: 'Fully automated continuous integration and delivery service for rapid releases.', icon: 'git-branch' },
+  { name: 'AWS CodeBuild & CodeDeploy', cat: 'aws', badge: 'Deployments', desc: 'Build testing runners and automated blue/green rolling application deployments.', icon: 'play' },
+  { name: 'Amazon ECR', cat: 'aws', badge: 'Container Registry', desc: 'Secure, highly available Docker & OCI container image repository.', icon: 'archive' },
+  { name: 'Amazon EventBridge & SQS', cat: 'aws', badge: 'Messaging', desc: 'Serverless event bus and decoupled message queues with dead-letter DLQ monitoring.', icon: 'git-merge' },
+  { name: 'Amazon SNS', cat: 'aws', badge: 'Notifications', desc: 'Pub/Sub messaging service for fan-out architectures and SMS/Email alerts.', icon: 'bell' },
+  { name: 'AWS Systems Manager (SSM)', cat: 'aws', badge: 'Operations', desc: 'Secure agent-based session management, automated patching, and parameter store.', icon: 'sliders' },
+  { name: 'AWS Auto Scaling', cat: 'aws', badge: 'Scaling', desc: 'Dynamic target tracking and predictive scaling for EC2, ECS, and DynamoDB.', icon: 'trending-up' },
+  { name: 'Amazon EBS & EFS', cat: 'aws', badge: 'Storage', desc: 'Block storage volumes and multi-attach elastic network file systems.', icon: 'hard-drive' },
+  { name: 'AWS Transit Gateway', cat: 'aws', badge: 'Network Hub', desc: 'Centralized interconnection hub connecting multiple VPCs and on-premises networks.', icon: 'git-pull-request' },
+
+  // --- Microsoft Azure (13) ---
+  { name: 'Azure Virtual Machines', cat: 'azure', badge: 'Compute', desc: 'Scalable Linux and Windows virtual machines in Azure cloud infrastructure.', icon: 'server' },
+  { name: 'Azure Kubernetes Service (AKS)', cat: 'azure', badge: 'Kubernetes', desc: 'Managed enterprise Kubernetes clusters with automated patching and Entra ID RBAC.', icon: 'box' },
+  { name: 'Azure App Service', cat: 'azure', badge: 'PaaS Compute', desc: 'Fully managed platform for building, deploying, and scaling web apps.', icon: 'cpu' },
+  { name: 'Azure Virtual Network (VNet)', cat: 'azure', badge: 'Networking', desc: 'Private network infrastructure with network security groups (NSGs) and subnets.', icon: 'network' },
+  { name: 'Azure SQL Database', cat: 'azure', badge: 'Managed DB', desc: 'Intelligent, scalable relational cloud database with built-in high availability.', icon: 'database' },
+  { name: 'Azure Blob Storage', cat: 'azure', badge: 'Object Storage', desc: 'Massively scalable and secure object storage for cloud data and backups.', icon: 'archive' },
+  { name: 'Azure DevOps Pipelines', cat: 'azure', badge: 'CI/CD', desc: 'Enterprise CI/CD automation pipelines, Git repos, and release management.', icon: 'git-branch' },
+  { name: 'Microsoft Entra ID (Azure AD)', cat: 'azure', badge: 'Identity & IAM', desc: 'Universal cloud identity, Single Sign-On (SSO), and conditional access policies.', icon: 'user-check' },
+  { name: 'Azure Load Balancer', cat: 'azure', badge: 'Load Balancing', desc: 'Ultra-low latency Layer 4 load balancing and Layer 7 Application Gateways with WAF.', icon: 'activity' },
+  { name: 'Azure Monitor & Log Analytics', cat: 'azure', badge: 'Observability', desc: 'Comprehensive telemetry collection, diagnostic analytics, and alerts.', icon: 'line-chart' },
+  { name: 'Azure Key Vault', cat: 'azure', badge: 'Security', desc: 'Safeguard cryptographic keys, certificates, and secrets with HSM validation.', icon: 'key' },
+  { name: 'Azure Container Registry (ACR)', cat: 'azure', badge: 'Registry', desc: 'Private OCI container registry with geo-replication and vulnerability scanning.', icon: 'box' },
+  { name: 'Azure Cosmos DB', cat: 'azure', badge: 'NoSQL', desc: 'Globally distributed, multi-model NoSQL database with single-digit ms latencies.', icon: 'database' },
+
+  // --- Google Cloud Platform (12) ---
+  { name: 'Google Kubernetes Engine (GKE)', cat: 'gcp', badge: 'Kubernetes', desc: 'Industry-leading managed Kubernetes platform with Autopilot and multi-cluster mesh.', icon: 'box' },
+  { name: 'Google Cloud Run', cat: 'gcp', badge: 'Serverless', desc: 'Fully managed serverless container execution platform scaling instantly from zero.', icon: 'zap' },
+  { name: 'Compute Engine (GCE)', cat: 'gcp', badge: 'IaaS Compute', desc: 'Customizable virtual machines running on Google’s secure global infrastructure.', icon: 'server' },
+  { name: 'Google Cloud Storage (GCS)', cat: 'gcp', badge: 'Object Storage', desc: 'Unified object storage with high availability and global edge caching.', icon: 'archive' },
+  { name: 'Google Cloud SQL', cat: 'gcp', badge: 'Managed DB', desc: 'Fully managed relational database service for PostgreSQL, MySQL, and SQL Server.', icon: 'database' },
+  { name: 'Google BigQuery', cat: 'gcp', badge: 'Data Analytics', desc: 'Serverless, cost-effective multi-cloud enterprise data warehouse.', icon: 'pie-chart' },
+  { name: 'GCP VPC & Cloud Interconnect', cat: 'gcp', badge: 'Networking', desc: 'Global VPC networks with private Google access and high-speed interconnects.', icon: 'network' },
+  { name: 'Cloud Load Balancing', cat: 'gcp', badge: 'Traffic Routing', desc: 'High-performance, single Anycast IPv4/IPv6 global load balancer.', icon: 'activity' },
+  { name: 'Google Cloud IAM', cat: 'gcp', badge: 'Security', desc: 'Fine-grained access control and workload identity federation.', icon: 'shield' },
+  { name: 'Google Artifact Registry', cat: 'gcp', badge: 'Containers', desc: 'Centralized repository for container images and language packages.', icon: 'box' },
+  { name: 'Cloud Operations (Stackdriver)', cat: 'gcp', badge: 'Monitoring', desc: 'Integrated monitoring, logging, error reporting, and distributed tracing.', icon: 'line-chart' },
+  { name: 'Google Cloud Pub/Sub', cat: 'gcp', badge: 'Event Ingestion', desc: 'Globally distributed message bus for high-throughput streaming analytics.', icon: 'git-merge' },
+
+  // --- DevOps & GitOps (12) ---
+  { name: 'HashiCorp Terraform', cat: 'devops', badge: 'IaC Core', desc: 'Declarative infrastructure as code for multi-cloud provisioning and state locking.', icon: 'layers' },
+  { name: 'HashiCorp Terragrunt', cat: 'devops', badge: 'IaC DRY', desc: 'Thin wrapper for Terraform providing DRY configurations and multi-module orchestration.', icon: 'layers' },
+  { name: 'Ansible Playbooks', cat: 'devops', badge: 'Configuration', desc: 'Agentless configuration management, software provisioning, and server hardening.', icon: 'terminal' },
+  { name: 'Docker & Compose', cat: 'devops', badge: 'Containers', desc: 'Multi-stage container builds, rootless execution, and multi-service definitions.', icon: 'box' },
+  { name: 'Kubernetes (K8s)', cat: 'devops', badge: 'Orchestration', desc: 'Production container scheduling, automated rollouts, service mesh, and self-healing.', icon: 'box' },
+  { name: 'Helm Package Manager', cat: 'devops', badge: 'K8s Packaging', desc: 'Modular Kubernetes templating, release management, and chart versioning.', icon: 'package' },
+  { name: 'ArgoCD GitOps', cat: 'devops', badge: 'Continuous Sync', desc: 'Declarative continuous delivery and automated drift reconciliation for Kubernetes.', icon: 'git-merge' },
+  { name: 'GitHub Actions', cat: 'devops', badge: 'CI/CD Pipelines', desc: 'Automated CI/CD matrix builds, automated test gates, and container deployments.', icon: 'git-pull-request' },
+  { name: 'Jenkins CI/CD', cat: 'devops', badge: 'Automation Server', desc: 'Declarative Groovy pipelines, distributed agent nodes, and webhook automation.', icon: 'play' },
+  { name: 'GitLab CI/CD', cat: 'devops', badge: 'Pipelines', desc: 'Integrated DevOps lifecycle platform with container scanning and auto-deploy.', icon: 'git-branch' },
+  { name: 'HashiCorp Packer', cat: 'devops', badge: 'Image Bakery', desc: 'Automated golden machine image creation for AWS AMIs and VM templates.', icon: 'hard-drive' },
+  { name: 'Git Version Control', cat: 'devops', badge: 'VCS', desc: 'Branching strategies, Gitflow, semantic versioning, and signed commits.', icon: 'git-commit' },
+
+  // --- Observability & Linux (12) ---
+  { name: 'Prometheus', cat: 'observability', badge: 'Metrics Engine', desc: 'High-performance time-series metric collection with PromQL query engine.', icon: 'activity' },
+  { name: 'Grafana', cat: 'observability', badge: 'Dashboards', desc: 'Interactive operational dashboards, log visualization, and alert triggers.', icon: 'line-chart' },
+  { name: 'Prometheus Alertmanager', cat: 'observability', badge: 'Alert Routing', desc: 'Deduplication, grouping, and notification routing to Slack, PagerDuty, and Email.', icon: 'bell' },
+  { name: 'Datadog APM', cat: 'observability', badge: 'APM Tracing', desc: 'End-to-end distributed tracing, infrastructure metrics, and synthetic monitoring.', icon: 'trending-up' },
+  { name: 'ELK Stack / OpenSearch', cat: 'observability', badge: 'Central Logging', desc: 'Logstash ingestion, Elasticsearch indexing, and Kibana log analytics.', icon: 'search' },
+  { name: 'OpenTelemetry (OTel)', cat: 'observability', badge: 'Telemetry Spec', desc: 'Vendor-agnostic instrumentation for distributed traces, metrics, and logs.', icon: 'sliders' },
+  { name: 'Nginx Web Server', cat: 'observability', badge: 'Reverse Proxy', desc: 'High-concurrency web server, reverse proxy, SSL offloader, and rate limiter.', icon: 'globe' },
+  { name: 'Envoy Proxy & HAProxy', cat: 'observability', badge: 'Service Proxy', desc: 'Cloud-native high-performance edge and service proxy for microservices.', icon: 'network' },
+  { name: 'Istio Service Mesh', cat: 'observability', badge: 'mTLS Mesh', desc: 'Traffic management, fault injection, and zero-trust mutual TLS security.', icon: 'shield-check' },
+  { name: 'Linux Administration', cat: 'observability', badge: 'OS Core', desc: 'Ubuntu, Debian, Amazon Linux 2023, RHEL/CentOS tuning, systemd, and cron jobs.', icon: 'terminal' },
+  { name: 'Python & Shell Scripting', cat: 'observability', badge: 'Automation', desc: 'Custom CLI tools, boto3 AWS SDK automation, and Linux administration scripts.', icon: 'code' },
+  { name: 'Cert-Manager', cat: 'observability', badge: 'TLS Certs', desc: 'Automated x509 certificate provisioning and renewal with Let’s Encrypt in K8s.', icon: 'lock' },
+
+  // --- Databases & Caching (8) ---
+  { name: 'PostgreSQL', cat: 'databases', badge: 'Relational DB', desc: 'Advanced open-source relational database with indexing and JSONB support.', icon: 'database' },
+  { name: 'MySQL / MariaDB', cat: 'databases', badge: 'RDBMS', desc: 'Battle-tested high-concurrency relational database with replication.', icon: 'database' },
+  { name: 'Redis In-Memory Store', cat: 'databases', badge: 'Cache & PubSub', desc: 'Sub-millisecond in-memory data structure store, caching, and message broker.', icon: 'zap' },
+  { name: 'MongoDB NoSQL', cat: 'databases', badge: 'Document DB', desc: 'Flexible JSON-like document database with replica sets and sharding.', icon: 'database' },
+  { name: 'Amazon DynamoDB', cat: 'databases', badge: 'Managed NoSQL', desc: 'Fully managed multi-region NoSQL database with predictable low latencies.', icon: 'database' },
+  { name: 'Elasticsearch', cat: 'databases', badge: 'Search Engine', desc: 'Distributed search and analytics engine for structured and unstructured data.', icon: 'search' }
+];
+
+function initCloudDirectory() {
+  const container = document.getElementById('directory-cards-container');
+  const searchInput = document.getElementById('dir-search-input');
+  const tabs = document.querySelectorAll('.btn-dir-tab');
+
+  if (!container) return;
+
+  let currentCategory = 'all';
+  let currentSearch = '';
+
+  function renderDirectory() {
+    container.innerHTML = '';
+    const filtered = cloudDirectoryData.filter((item) => {
+      const matchCat = currentCategory === 'all' || item.cat === currentCategory;
+      const matchSearch =
+        currentSearch === '' ||
+        item.name.toLowerCase().includes(currentSearch) ||
+        item.desc.toLowerCase().includes(currentSearch) ||
+        item.badge.toLowerCase().includes(currentSearch);
+      return matchCat && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-family: var(--font-mono);">
+          <i data-lucide="help-circle" style="margin: 0 auto 12px; display:block; color:var(--cyber-cyan); width:32px; height:32px;"></i>
+          No technologies matching "${currentSearch}". Try searching for AWS, Kubernetes, Terraform, or Prometheus.
+        </div>
+      `;
+      if (window.lucide) lucide.createIcons();
+      return;
+    }
+
+    filtered.forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'dir-card';
+      card.innerHTML = `
+        <div>
+          <div class="dir-card-header">
+            <div class="dir-service-name">
+              <i data-lucide="${item.icon}" style="width:16px; color:var(--cyber-cyan);"></i>
+              ${item.name}
+            </div>
+            <span class="dir-category-badge">${item.badge}</span>
+          </div>
+          <p class="dir-card-desc" style="margin-top: 8px;">${item.desc}</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // Category Tab Click
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentCategory = tab.getAttribute('data-dir-cat');
+      renderDirectory();
+    });
+  });
+
+  // Search Input
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase().trim();
+      renderDirectory();
+    });
+  }
+
+  // Initial render
+  renderDirectory();
+}
+
+/* ==========================================================================
    Interactive 3D Technology Sphere (HTML5 Canvas 3D Engine)
    ========================================================================== */
 function initTechSphere() {
@@ -329,7 +508,12 @@ function initTechSphere() {
     { text: 'Redis', color: '#dc2626', size: 13 },
     { text: 'ArgoCD', color: '#ff7c00', size: 13 },
     { text: 'CloudWatch', color: '#ff9900', size: 13 },
-    { text: 'DevSecOps', color: '#f43f5e', size: 14 }
+    { text: 'DevSecOps', color: '#f43f5e', size: 14 },
+    { text: 'AWS ECS', color: '#ff9900', size: 14 },
+    { text: 'AWS Lambda', color: '#ff9900', size: 13 },
+    { text: 'Azure AKS', color: '#0089d6', size: 13 },
+    { text: 'Google GKE', color: '#ea4335', size: 13 },
+    { text: 'Istio Mesh', color: '#466bb0', size: 13 }
   ];
 
   const radius = Math.min(width, height) * 0.38;
@@ -1258,9 +1442,11 @@ function initDevOpsTerminal() {
 Available commands:
   <span class="term-cmd">about</span>          - Bio and cloud background
   <span class="term-cmd">skills</span>         - Technical skills and tools matrix
+  <span class="term-cmd">directory</span>      - Full 80+ AWS, Azure, GCP & Open-Source stack
+  <span class="term-cmd">certifications</span> - Target certification roadmap (In Prep)
   <span class="term-cmd">architecture</span>   - Cloud architecture overview
   <span class="term-cmd">projects</span>       - Production projects & case studies
-  <span class="term-cmd">hire</span>           - Freelance consultation & pricing options
+  <span class="term-cmd">hire</span>           - Freelance consultation & pricing options ($250-$500)
   <span class="term-cmd">resume</span>         - Summary ATS resume & contact
   <span class="term-cmd">contact</span>        - Direct email, phone, and WhatsApp
   <span class="term-cmd">neofetch</span>       - System specs HUD banner
@@ -1273,12 +1459,28 @@ Available commands:
 Specializing in Kubernetes orchestration, Terraform Infrastructure as Code, and GitOps CI/CD.
     `,
     skills: () => `
-<span class="term-cmd">Cloud:</span> AWS (ECS, EKS, RDS, VPC, Lambda, S3, Route53), Azure, GCP
-<span class="term-cmd">Containers:</span> Docker, Kubernetes, Helm, Istio Service Mesh
-<span class="term-cmd">IaC & OS:</span> Terraform, Terragrunt, Ansible, Linux, Nginx
-<span class="term-cmd">CI/CD:</span> GitHub Actions, AWS CodePipeline, Jenkins, ArgoCD
-<span class="term-cmd">Monitoring:</span> Prometheus, Grafana, AWS CloudWatch, Datadog
-<span class="term-cmd">Languages:</span> Python, Bash, YAML, SQL
+<span class="term-cmd">AWS (30+):</span> EC2, ECS, EKS, Lambda, S3, CloudFront, Route53, VPC, ALB, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, WAF, CloudWatch, CodePipeline, ECR, SQS, SNS, SSM
+<span class="term-cmd">Azure (14):</span> VMs, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
+<span class="term-cmd">GCP (12):</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
+<span class="term-cmd">DevOps & IaC:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI, Packer
+<span class="term-cmd">Observability & OS:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK / OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux (Amazon Linux, Ubuntu, RHEL), Python, Bash
+<span class="term-cmd">Databases:</span> PostgreSQL, MySQL, MariaDB, Redis, MongoDB, DynamoDB, Elasticsearch
+    `,
+    directory: () => `
+<span class="term-success">Multi-Cloud & Open-Source Services Directory (80+ Technologies):</span>
+• <span class="term-info">AWS:</span> EC2, ECS, EKS, Lambda, S3, CloudFront, Route53, VPC, ALB, RDS, Aurora, DynamoDB, ElastiCache, IAM, KMS, Secrets Manager, WAF, CloudWatch, CodePipeline, ECR, SQS, SNS, SSM
+• <span class="term-info">Azure:</span> Virtual Machines, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
+• <span class="term-info">GCP:</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
+• <span class="term-info">DevOps:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI, Packer
+• <span class="term-info">Observability:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK, OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux, Python, Bash
+    `,
+    certifications: () => `
+<span class="term-warn">Certification Roadmap (In Active Preparation - Coming Soon / Target 2026):</span>
+🎯 AWS Certified Solutions Architect - Associate (SAA-C03) [85% Prep & Labs]
+🎯 AWS Certified DevOps Engineer - Professional (DOP-C02) [75% Prep & Labs]
+🎯 HashiCorp Certified: Terraform Associate (003) [85% Prep & Labs]
+🎯 Certified Kubernetes Administrator (CKA) [70% Prep & Labs]
+⏳ Microsoft Certified: Azure Administrator (AZ-104) [60% Roadmap Goal]
     `,
     projects: () => `
 1. <span class="term-info">FinXServe Cloud Infrastructure:</span> AWS ECS Docker deployment with ALB, ECR, SSL, and CloudWatch.
