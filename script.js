@@ -414,6 +414,10 @@ const cloudDirectoryData = [
   { name: 'Linux Administration', cat: 'observability', badge: 'OS Core', desc: 'Ubuntu, Debian, Amazon Linux 2023, RHEL/CentOS tuning, systemd, and cron jobs.', icon: 'terminal' },
   { name: 'Python & Shell Scripting', cat: 'observability', badge: 'Automation', desc: 'Custom CLI tools, boto3 AWS SDK automation, and Linux administration scripts.', icon: 'code' },
   { name: 'Cert-Manager', cat: 'observability', badge: 'TLS Certs', desc: 'Automated x509 certificate provisioning and renewal with Let’s Encrypt in K8s.', icon: 'lock' },
+  { name: 'Vanta Compliance', cat: 'observability', badge: 'SOC 2 / ISO 27001', desc: 'Continuous compliance automation, agent monitoring, security posture tracking, and audit readiness.', icon: 'shield-check' },
+  { name: 'Bitdefender GravityZone', cat: 'observability', badge: 'Endpoint & EDR', desc: 'Centralized endpoint security, real-time anti-malware, content control, and malicious domain blocking.', icon: 'shield-alert' },
+  { name: 'Microsoft Defender for Endpoint', cat: 'observability', badge: 'M365 Security', desc: 'Enterprise threat protection, attack surface reduction, Intune device compliance, and BitLocker encryption.', icon: 'shield' },
+  { name: 'Web & Application Filtering', cat: 'observability', badge: 'Access Control', desc: 'Corporate DNS & URL category blocking (social media, torrents, gaming, phishing), and process restrictions.', icon: 'lock' },
 
   // --- Databases & Caching (8) ---
   { name: 'PostgreSQL', cat: 'databases', badge: 'Relational DB', desc: 'Advanced open-source relational database with indexing and JSONB support.', icon: 'database' },
@@ -536,7 +540,11 @@ function initTechSphere() {
     { text: 'AWS Lambda', color: '#ff9900', size: 13 },
     { text: 'Azure AKS', color: '#0089d6', size: 13 },
     { text: 'Google GKE', color: '#ea4335', size: 13 },
-    { text: 'Istio Mesh', color: '#466bb0', size: 13 }
+    { text: 'Istio Mesh', color: '#466bb0', size: 13 },
+    { text: 'Vanta Compliance', color: '#10b981', size: 14 },
+    { text: 'Bitdefender', color: '#ec4899', size: 14 },
+    { text: 'MS Defender', color: '#38bdf8', size: 14 },
+    { text: 'Web Filtering', color: '#a855f7', size: 13 }
   ];
 
   const radius = Math.min(width, height) * 0.38;
@@ -1859,7 +1867,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 26. <span class="term-info">Shell Scripting:</span> #!/bin/bash, variables, command substitution $(), if/else, for loops, chmod +x
     `,
     admin: () => `
-<span class="term-success">Enterprise Administration & Governance:</span>
+<span class="term-success">Enterprise Administration, Security & Governance:</span>
 • <span class="term-info">Jira Administration:</span>
   - Designed & maintained custom issue types, transition screens, custom fields, and validators.
   - Architected Agile Scrum & Kanban sprint boards, release versions, and backlog workflows.
@@ -1874,6 +1882,11 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
   - Administered user identities, license assignments (E5/Business Premium), and dynamic groups.
   - Configured Enterprise App Registrations, Single Sign-On (SSO), and OAuth 2.0 / OIDC integrations.
   - Enforced Multi-Factor Authentication (MFA), Conditional Access, and security baselines.
+• <span class="term-info">Endpoint Security, Web Filtering & Compliance:</span>
+  - Vanta Compliance: Continuous automated SOC 2 & ISO 27001 posture tracking and agent management.
+  - Bitdefender GravityZone: Centralized EDR, Anti-Malware, and Web Access / URL category blocking.
+  - Microsoft Defender for Endpoint: Next-Gen Protection, Attack Surface Reduction, and Cloud App Security.
+  - Web & Application Control: Corporate DNS filtering, malicious/unapproved website blocking, and process restrictions.
     `,
     education: () => `
 <span class="term-success">Academic Background &bull; Yogi Vemana University, Kadapa:</span>
@@ -1885,6 +1898,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 <span class="term-cmd">Azure (14):</span> VMs, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
 <span class="term-cmd">GCP (12):</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
 <span class="term-cmd">DevOps & IaC:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI
+<span class="term-cmd">Security & Compliance:</span> Vanta (SOC 2 / ISO 27001), Bitdefender GravityZone, Microsoft Defender for Endpoint, Intune Device Compliance, Web Filtering & Blocking
 <span class="term-cmd">Observability & OS:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK / OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux (Ubuntu, RHEL, Amazon Linux), Python, Bash
 <span class="term-cmd">Databases & Web:</span> PostgreSQL, MySQL, Redis, DynamoDB, MongoDB, REST APIs, WebSockets, OneAPI
     `,
@@ -1894,6 +1908,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 • <span class="term-info">Azure:</span> Virtual Machines, AKS, App Service, VNet, Azure SQL, Blob, Azure DevOps, Entra ID, Load Balancer, Monitor, Key Vault, ACR, Cosmos DB
 • <span class="term-info">GCP:</span> GKE, Cloud Run, Compute Engine, Cloud Storage, Cloud SQL, BigQuery, VPC, Cloud Load Balancing, IAM, Artifact Registry, Stackdriver, Pub/Sub
 • <span class="term-info">DevOps:</span> Terraform, Terragrunt, Ansible, Docker, Kubernetes, Helm, ArgoCD, GitHub Actions, Jenkins, GitLab CI
+• <span class="term-info">Security:</span> Vanta Compliance, Bitdefender GravityZone, MS Defender for Endpoint, Corporate Web/URL Filtering
 • <span class="term-info">Observability:</span> Prometheus, Grafana, Alertmanager, Datadog, ELK, OpenSearch, OpenTelemetry, Nginx, Envoy, Istio, Linux, Python, Bash
     `,
     certifications: () => `
