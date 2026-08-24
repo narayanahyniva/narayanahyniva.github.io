@@ -432,6 +432,9 @@ button {
   display: flex;
   align-items: center;
   overflow: hidden;
+  background: 
+    linear-gradient(90deg, rgba(6, 5, 11, 0.96) 0%, rgba(6, 5, 11, 0.82) 48%, rgba(6, 5, 11, 0.40) 85%, rgba(6, 5, 11, 0.70) 100%),
+    url('assets/hero-bg.jpg') no-repeat right center / cover;
 }
 
 #hero-canvas {
@@ -2956,6 +2959,12 @@ button {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    background: 
+      linear-gradient(180deg, rgba(6, 5, 11, 0.92) 0%, rgba(6, 5, 11, 0.85) 60%, rgba(6, 5, 11, 0.95) 100%),
+      url('assets/hero-bg.jpg') no-repeat center top / cover;
+  }
+
   .nav-menu {
     position: fixed;
     top: var(--nav-height);
