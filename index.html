@@ -95,6 +95,7 @@
       <nav class="nav-menu" id="nav-menu">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#services" class="nav-link">Services</a>
+        <a href="#devsecops" class="nav-link">DevSecOps</a>
         <a href="#cloud-directory" class="nav-link">Cloud Directory</a>
         <a href="#skills" class="nav-link">3D Skills</a>
         <a href="#linux" class="nav-link">Linux Mastery</a>
@@ -537,6 +538,460 @@
               <span class="tech-pill">Entra ID</span>
               <span class="tech-pill">Workflows</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         DevSecOps Security Checks, Notification Routing & Monitoring Hub
+         ========================================================================== -->
+    <section class="devsecops-section" id="devsecops">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">DevSecOps &amp; Security Observability</div>
+          <h2 class="section-title">Automated Security Checks, <span class="gradient-text">Alert Routing</span> &amp; Monitoring</h2>
+          <p class="section-desc">
+            Production-grade DevSecOps architecture integrating automated shift-left code analysis, multi-channel alert routing across Slack, Teams &amp; PagerDuty, and runtime telemetry monitoring.
+          </p>
+        </div>
+
+        <!-- DevSecOps Navigation Tabs -->
+        <div class="devsecops-tabs-bar">
+          <button class="btn-devsec-tab active" data-tab="security-checks">
+            <i data-lucide="shield-check"></i> Security Checks Matrix (7 Stages)
+          </button>
+          <button class="btn-devsec-tab" data-tab="notifications">
+            <i data-lucide="bell-ring"></i> Notification &amp; Escalation Channels
+          </button>
+          <button class="btn-devsec-tab" data-tab="monitoring-gates">
+            <i data-lucide="activity"></i> Observability &amp; Quality Gates
+          </button>
+          <button class="btn-devsec-tab" data-tab="workflow-code">
+            <i data-lucide="code-2"></i> CI/CD Pipeline Blueprint (YAML)
+          </button>
+        </div>
+
+        <!-- Tab Panel 1: Security Checks Matrix -->
+        <div class="devsec-tab-panel active" id="panel-security-checks">
+          <div class="devsecops-grid">
+            <!-- Stage 1 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-shiftleft">Stage 1 • Shift Left</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="lock"></i> Pre-Commit</div>
+              </div>
+              <h3 class="devsec-title">Secret Scanning &amp; Git Hygiene</h3>
+              <p class="devsec-desc">
+                Prevents API keys, private certificates, AWS credentials, and database tokens from ever leaking into Git repositories.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">TruffleHog</span>
+                  <span class="tech-pill">Gitleaks</span>
+                  <span class="tech-pill">GitGuardian</span>
+                  <span class="tech-pill">Husky / Pre-Commit</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Hard fail build &amp; reject PR on regex entropy / secret key matches.</span>
+              </div>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-build">Stage 2 • Build</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="shield"></i> SAST</div>
+              </div>
+              <h3 class="devsec-title">Static Application Security Testing</h3>
+              <p class="devsec-desc">
+                Deep static analysis for OWASP Top 10, SQL injection, XSS, insecure deserialization, and CWE anti-patterns directly in source code.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">SonarQube</span>
+                  <span class="tech-pill">Semgrep</span>
+                  <span class="tech-pill">GitHub CodeQL</span>
+                  <span class="tech-pill">Checkmarx</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Quality Gate enforcement: 0 Critical / High security vulnerabilities allowed.</span>
+              </div>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-deps">Stage 3 • Dependencies</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="package"></i> SCA &amp; SBOM</div>
+              </div>
+              <h3 class="devsec-title">Software Composition Analysis</h3>
+              <p class="devsec-desc">
+                Scans 3rd-party libraries against the National Vulnerability Database (NVD), enforces license compliance, and generates SBOMs.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">Snyk Open Source</span>
+                  <span class="tech-pill">Aqua Trivy</span>
+                  <span class="tech-pill">OWASP Dep-Check</span>
+                  <span class="tech-pill">Syft / CycloneDX</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Block PR on CVSS &ge; 7.0 (High/Critical) and unapproved copyleft AGPL licenses.</span>
+              </div>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-iac">Stage 4 • IaC &amp; Cloud</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="cpu"></i> IaC Security</div>
+              </div>
+              <h3 class="devsec-title">Infrastructure as Code Scanning</h3>
+              <p class="devsec-desc">
+                Automated security compliance for Terraform, CloudFormation, Helm charts, and Kubernetes manifests before cloud provisioning.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">Checkov</span>
+                  <span class="tech-pill">tfsec</span>
+                  <span class="tech-pill">Terrascan</span>
+                  <span class="tech-pill">TFLint / OPA</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Block open 0.0.0.0/0 ingress, unencrypted S3/EBS volumes, and wildcard IAM policies.</span>
+              </div>
+            </div>
+
+            <!-- Stage 5 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-container">Stage 5 • Artifacts</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="box"></i> Container Security</div>
+              </div>
+              <h3 class="devsec-title">Container &amp; Base Image Security</h3>
+              <p class="devsec-desc">
+                Scans Docker base images and OS binaries for unpatched CVEs, enforces non-root execution, and cryptographically signs images.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">Aqua Trivy</span>
+                  <span class="tech-pill">AWS ECR Inspector</span>
+                  <span class="tech-pill">Docker Scout</span>
+                  <span class="tech-pill">Cosign (Sigstore)</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Reject unsigned images and containers running as root in Kubernetes deployment.</span>
+              </div>
+            </div>
+
+            <!-- Stage 6 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-staging">Stage 6 • Staging / QA</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="crosshair"></i> DAST</div>
+              </div>
+              <h3 class="devsec-title">Dynamic Application Security Testing</h3>
+              <p class="devsec-desc">
+                Simulates real-world external attack vectors, pen-tests dynamic endpoints, headers, CORS policies, and authentication cookies in staging.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">OWASP ZAP</span>
+                  <span class="tech-pill">StackHawk</span>
+                  <span class="tech-pill">Burp Suite Enterprise</span>
+                  <span class="tech-pill">Postman Security</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Automated staging gate: Fail release if critical OWASP API vulnerabilities are exposed.</span>
+              </div>
+            </div>
+
+            <!-- Stage 7 -->
+            <div class="devsec-card">
+              <div class="devsec-card-header">
+                <div class="devsec-stage-pill stage-runtime">Stage 7 • Production</div>
+                <div class="devsec-status-tag tag-enforced"><i data-lucide="eye"></i> CSPM &amp; Runtime</div>
+              </div>
+              <h3 class="devsec-title">Runtime Defense &amp; Cloud Security Posture</h3>
+              <p class="devsec-desc">
+                Continuous multi-cloud CSPM audits (SOC 2, ISO 27001, HIPAA) and real-time behavioral kernel anomaly detection across live clusters.
+              </p>
+              <div class="devsec-tools-box">
+                <div class="tools-label">Industry Standard Tools:</div>
+                <div class="tools-pills">
+                  <span class="tech-pill">Falco (eBPF)</span>
+                  <span class="tech-pill">Kyverno</span>
+                  <span class="tech-pill">AWS Security Hub</span>
+                  <span class="tech-pill">Prowler / ScoutSuite</span>
+                </div>
+              </div>
+              <div class="devsec-gate-box">
+                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
+                <span class="gate-rule">Automated pod kill on unauthorized exec / shell spawns &amp; instant PagerDuty escalation.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Panel 2: Notification & Escalation Channels -->
+        <div class="devsec-tab-panel" id="panel-notifications">
+          <div class="notifications-layout-grid">
+            <!-- Channel 1: Slack -->
+            <div class="notif-card notif-slack">
+              <div class="notif-card-header">
+                <div class="notif-icon-box"><i data-lucide="message-square"></i></div>
+                <div>
+                  <h4 class="notif-channel-title">Slack Webhook Routing</h4>
+                  <span class="notif-channel-meta">DevSecOps &amp; Engineering Alert Channels</span>
+                </div>
+              </div>
+              <p class="notif-card-desc">
+                Real-time rich card alerts delivered immediately when a security check fails. Includes CVE ID, CVSS score, branch, author, and direct fix PR links.
+              </p>
+              <div class="mock-slack-card">
+                <div class="mock-slack-top">
+                  <span class="mock-slack-bot">🤖 DevSecOps Guardian</span>
+                  <span class="mock-slack-badge">HIGH SEVERITY</span>
+                </div>
+                <div class="mock-slack-body">
+                  <strong>🚨 Vulnerability Detected in PR #142 (`develop`)</strong><br>
+                  &bull; <strong>Component:</strong> `jsonwebtoken &lt; 9.0.0`<br>
+                  &bull; <strong>Vulnerability:</strong> CVE-2022-23529 (Insecure Key Verification)<br>
+                  &bull; <strong>Action:</strong> Quality Gate BLOCKED deployment. Upgrade to `^9.0.0`.
+                </div>
+              </div>
+            </div>
+
+            <!-- Channel 2: Microsoft Teams -->
+            <div class="notif-card notif-teams">
+              <div class="notif-card-header">
+                <div class="notif-icon-box"><i data-lucide="users"></i></div>
+                <div>
+                  <h4 class="notif-channel-title">Microsoft Teams Adaptive Cards</h4>
+                  <span class="notif-channel-meta">Security Operations &amp; Infra Teams</span>
+                </div>
+              </div>
+              <p class="notif-card-desc">
+                Adaptive Cards formatted for Microsoft Teams with interactive buttons to view the SonarQube dashboard, approve exceptions, or view IaC scan reports.
+              </p>
+              <div class="mock-teams-card">
+                <div class="mock-teams-header">
+                  <i data-lucide="shield-alert" style="color: #ec4899; width:16px;"></i> Checkov IaC Security Alert
+                </div>
+                <div class="mock-teams-content">
+                  <strong>Resource:</strong> `aws_s3_bucket.user_uploads`<br>
+                  <strong>Rule CKV_AWS_18:</strong> S3 Bucket Access Logging is not enabled.<br>
+                  <span class="teams-action-pill">Fix Applied in Terraform Blueprint &rarr;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Channel 3: PagerDuty -->
+            <div class="notif-card notif-pagerduty">
+              <div class="notif-card-header">
+                <div class="notif-icon-box"><i data-lucide="siren"></i></div>
+                <div>
+                  <h4 class="notif-channel-title">PagerDuty &amp; OpsGenie Escalation</h4>
+                  <span class="notif-channel-meta">P1 / Critical On-Call Incident Alerts</span>
+                </div>
+              </div>
+              <p class="notif-card-desc">
+                Automated incident trigger for Critical production CVE exposures, cluster runtime privilege escalations (Falco), and secret exposure incidents.
+              </p>
+              <div class="mock-pagerduty-card">
+                <div class="mock-pd-header">
+                  <span class="mock-pd-p1">P1 CRITICAL</span>
+                  <span class="mock-pd-time">Escalated to On-Call DevOps Lead</span>
+                </div>
+                <div class="mock-pd-body">
+                  <strong>Trigger:</strong> Falco Runtime Anomaly in Namespace `production-backend`<br>
+                  <strong>Detail:</strong> Spawned interactive shell in container `api-server-84fb7`. Auto-quarantine initiated.
+                </div>
+              </div>
+            </div>
+
+            <!-- Channel 4: Automated Jira & Email -->
+            <div class="notif-card notif-jira">
+              <div class="notif-card-header">
+                <div class="notif-icon-box"><i data-lucide="check-square"></i></div>
+                <div>
+                  <h4 class="notif-channel-title">Jira Tickets &amp; AWS SNS/SES Digests</h4>
+                  <span class="notif-channel-meta">Issue Tracking &amp; Executive Compliance</span>
+                </div>
+              </div>
+              <p class="notif-card-desc">
+                Automated Jira ticket creation with CVSS triage tags, sprint assignment, and daily executive email digests of multi-cloud compliance health.
+              </p>
+              <div class="mock-jira-card">
+                <div class="mock-jira-row">
+                  <span class="jira-key">SEC-892</span>
+                  <span class="jira-summary">Remediate OpenSSL CVE-2023-0286 on Base Alpine Images</span>
+                </div>
+                <div class="mock-jira-meta">
+                  <span>Priority: High</span> &bull; <span>Status: In Progress</span> &bull; <span>Sprint: Security Sprint 24</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Panel 3: Observability & Quality Gates -->
+        <div class="devsec-tab-panel" id="panel-monitoring-gates">
+          <div class="monitoring-gates-grid">
+            <div class="monitor-card">
+              <div class="monitor-icon-box"><i data-lucide="gauge"></i></div>
+              <h3 class="monitor-title">Prometheus &amp; Grafana Security Telemetry</h3>
+              <p class="monitor-desc">
+                Real-time security dashboards tracking Vulnerability Burndown Rate, Mean Time to Remediate (MTTR), and CI/CD Quality Gate pass percentages.
+              </p>
+              <ul class="monitor-metrics-list">
+                <li><i data-lucide="check-circle"></i> <strong>MTTR Metrics:</strong> Average resolution time &lt; 4 hours for High/Critical CVEs.</li>
+                <li><i data-lucide="check-circle"></i> <strong>Pipeline Health:</strong> 99.4% Automated Security Gate Pass Rate.</li>
+                <li><i data-lucide="check-circle"></i> <strong>Live Dashboard:</strong> Visualized security posture across AWS, Azure, &amp; GCP.</li>
+              </ul>
+            </div>
+
+            <div class="monitor-card">
+              <div class="monitor-icon-box"><i data-lucide="bell"></i></div>
+              <h3 class="monitor-title">AWS CloudWatch &amp; Datadog Security Alarms</h3>
+              <p class="monitor-desc">
+                Automated threshold alarms capturing anomalous 4xx/5xx error spikes, AWS WAF rate-limit triggers, and root IAM account usage.
+              </p>
+              <ul class="monitor-metrics-list">
+                <li><i data-lucide="check-circle"></i> <strong>AWS WAF Rules:</strong> Real-time blocking of SQLi, XSS &amp; bot scraping.</li>
+                <li><i data-lucide="check-circle"></i> <strong>CloudTrail Alarms:</strong> Instant alerts on unauthorized IAM privilege mutations.</li>
+                <li><i data-lucide="check-circle"></i> <strong>Datadog APM:</strong> Distributed latency and error tracing across microservices.</li>
+              </ul>
+            </div>
+
+            <div class="monitor-card">
+              <div class="monitor-icon-box"><i data-lucide="award"></i></div>
+              <h3 class="monitor-title">SonarQube Strict Quality Gate Enforcement</h3>
+              <p class="monitor-desc">
+                Continuous code quality and vulnerability gates blocking release merges if technical debt or security requirements are breached.
+              </p>
+              <ul class="monitor-metrics-list">
+                <li><i data-lucide="check-circle"></i> <strong>0 New Security Vulnerabilities:</strong> Absolute zero-tolerance policy on PRs.</li>
+                <li><i data-lucide="check-circle"></i> <strong>&gt;80% Code Coverage:</strong> Automated unit &amp; integration test validation.</li>
+                <li><i data-lucide="check-circle"></i> <strong>Maintainability Rating A:</strong> Minimal technical debt on newly merged code.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Panel 4: Interactive Production Workflow Code -->
+        <div class="devsec-tab-panel" id="panel-workflow-code">
+          <div class="workflow-code-wrapper">
+            <div class="workflow-code-header">
+              <div class="workflow-code-title">
+                <i data-lucide="file-code" style="color: #c084fc;"></i>
+                <span>.github/workflows/devsecops-ci.yml</span>
+                <span class="workflow-badge">PRODUCTION READY</span>
+              </div>
+              <button class="btn-copy-workflow" id="copy-devsec-code-btn">
+                <i data-lucide="copy"></i> Copy YAML
+              </button>
+            </div>
+            <pre class="workflow-code-block"><code>name: DevSecOps CI/CD Security Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  security-audit:
+    name: Shift-Left Security Scans &amp; Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 1. Secret Scanning with TruffleHog
+      - name: TruffleHog Secret Detection
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+      # 2. SAST Analysis with SonarQube
+      - name: SonarQube Code Quality &amp; Security Gate
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      # 3. SCA Dependency Scanning with Snyk
+      - name: Snyk Dependency Vulnerability Check
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      # 4. Infrastructure as Code (IaC) Scan with Checkov
+      - name: Checkov IaC Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: terraform
+          soft_fail: false
+
+      # 5. Build Docker Image &amp; Scan with Aqua Trivy
+      - name: Build Docker Container
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Aqua Trivy Container Vulnerability Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: myapp:${{ github.sha }}
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+
+      # 6. Automated Slack Notification on Security Failure
+      - name: Send Slack Security Failure Alert
+        if: failure()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "🚨 *DevSecOps Security Gate Failed on PR #${{ github.event.pull_request.number }}*",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🚨 *DevSecOps Security Gate Failed!*\n*Repo:* ${{ github.repository }}\n*Branch:* `${{ github.ref_name }}`\n*Author:* `${{ github.actor }}`\n*Status:* Deployment BLOCKED pending security triage."
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEVSECOPS_WEBHOOK }}</code></pre>
           </div>
         </div>
       </div>

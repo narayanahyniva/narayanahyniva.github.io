@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Back to Top Button
   initBackToTop();
 
+  // DevSecOps Security, Notification & Observability Hub Tabs & Copy
+  initDevSecOpsHub();
+
   // Glassmorphism 2.0 Dynamic Spotlight & 3D Tilt Engine
   initGlassmorphismEngine();
 });
@@ -2119,12 +2122,61 @@ function initBackToTop() {
 }
 
 /* ==========================================================================
+   DevSecOps Security, Notification & Observability Hub
+   ========================================================================== */
+function initDevSecOpsHub() {
+  const tabs = document.querySelectorAll('.btn-devsec-tab');
+  const panels = document.querySelectorAll('.devsec-tab-panel');
+  const copyBtn = document.getElementById('copy-devsec-code-btn');
+
+  if (tabs.length > 0) {
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+
+        // Update active tab button
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update active tab panel
+        panels.forEach(panel => {
+          if (panel.getAttribute('id') === `panel-${targetTab}`) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+      });
+    });
+  }
+
+  // Copy CI/CD Pipeline YAML Snippet
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const codeBlock = document.querySelector('.workflow-code-block code');
+      if (codeBlock) {
+        navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+          const originalHTML = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i data-lucide="check"></i> Copied!';
+          if (window.lucide) lucide.createIcons();
+
+          setTimeout(() => {
+            copyBtn.innerHTML = originalHTML;
+            if (window.lucide) lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+  }
+}
+
+/* ==========================================================================
    Glassmorphism 2.0 Dynamic Spotlight & 3D Interactive Tilt Engine
    ========================================================================== */
 function initGlassmorphismEngine() {
   document.addEventListener('mousemove', (e) => {
     const card = e.target.closest(
-      '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content'
+      '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-card, .notif-card, .monitor-card, .workflow-code-wrapper'
     );
     if (!card) return;
 
@@ -2136,4 +2188,5 @@ function initGlassmorphismEngine() {
     card.style.setProperty('--mouse-y', `${y}px`);
   });
 }
+
 
