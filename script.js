@@ -116,8 +116,9 @@ function initDynamicTyping() {
   if (!typingElement) return;
 
   const phrases = [
-    'Systems Engineer → Cloud Engineer → Cloud DevOps Engineer',
-    'Multi-Cloud Infrastructure: AWS • Azure • GCP',
+    'Systems Engineer → Cloud Engineer → Cloud, DevOps & DevSecOps Engineer',
+    'Multi-Cloud Architect: AWS • Azure • GCP',
+    'DevSecOps & Automated Security Quality Gates',
     'Infrastructure as Code with Terraform, CloudFormation & Ansible',
     'End-to-End CI/CD: GitHub Actions, Jenkins & AWS CodePipeline',
     'Containers & Orchestration: Docker • Kubernetes (Amazon EKS) • ECS Fargate',
@@ -1711,7 +1712,7 @@ function initFreelanceEstimator() {
 
     // Update WhatsApp link with pre-filled message
     const message = encodeURIComponent(
-      `Hello Narayana, I am inquiring about your Cloud DevOps Consulting.\n` +
+      `Hello Narayana, I am inquiring about your Cloud, DevOps & DevSecOps Consulting.\n` +
       `• Selected Scope: ${selectedScope}\n` +
       `• Target Cloud: ${selectedCloud}\n` +
       `• Scale: ${scaleNames[scaleIndex]}\n` +
@@ -1801,15 +1802,8 @@ Available commands:
   <span class="term-cmd">certifications</span> - Target certification roadmap (In Prep)
   <span class="term-cmd">architecture</span>   - Cloud architecture overview
   <span class="term-cmd">projects</span>       - Production projects & case studies
-  <span class="term-cmd">skills</span>         - Complete technology stack & capabilities
   <span class="term-cmd">linux</span>          - 26-Domain Enterprise Linux Administration matrix
   <span class="term-cmd">admin</span>          - Jira, GitHub Org & Microsoft 365 Administration
-  <span class="term-cmd">directory</span>      - 80+ Multi-Cloud & Open-Source Services
-  <span class="term-cmd">projects</span>       - Production enterprise case studies (13 projects)
-  <span class="term-cmd">architecture</span>   - Active production cloud topology designs
-  <span class="term-cmd">certifications</span> - Official certification roadmap & prep
-  <span class="term-cmd">experience</span>     - Professional career at Hyniva (4 yrs 2 mos)
-  <span class="term-cmd">education</span>      - Academic degrees & credentials
   <span class="term-cmd">hire</span>           - Freelance consultation & pricing options ($250-$500)
   <span class="term-cmd">resume</span>         - Summary ATS resume & contact
   <span class="term-cmd">contact</span>        - Direct email, phone, and WhatsApp
@@ -1818,20 +1812,20 @@ Available commands:
   <span class="term-cmd">clear</span>          - Clear terminal output
     `,
     about: () => `
-<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud DevOps Engineer & Administrator at Hyniva (Bengaluru, India).
-4+ years of dedicated experience across System Administration, Cloud Infrastructure, Toolchain Governance, and DevOps Automation.
+<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud, DevOps & DevSecOps Engineer & Administrator at Hyniva (Bengaluru, India).
+4+ years of dedicated experience across System Administration, Cloud Infrastructure, Toolchain Governance, and DevOps & DevSecOps Automation.
 Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for 13 enterprise products:
 • <span class="term-success">FinXServe</span> — Digital banking experience layer (Salesforce-native).
 • <span class="term-success">Claim Pioneer</span> — Automated AI claims lifecycle & tracking.
 • <span class="term-success">AIRA</span> — Autonomous Intelligent Reasoning Agent with OneAPI.
 • <span class="term-success">Hyper</span> — Digital investment journey & portfolio simulation.
-DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Actions, Jira Administration, Microsoft 365 Admin.
+DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Actions, DevSecOps Quality Gates, Jira Administration, Microsoft 365 Admin.
     `,
     experience: () => `
 <span class="term-success">Professional Experience at Hyniva (4 yrs 2 mos · Bengaluru, India):</span>
-1. <span class="term-info">Cloud DevOps Engineer & Systems Administrator</span> (Dec 2024 – Present · 1 yr 9 mos):
+1. <span class="term-info">Cloud, DevOps & DevSecOps Engineer & Systems Administrator</span> (Dec 2024 – Present · 1 yr 9 mos):
    • Multi-tier environments: Development, Pre-Production, UAT, and Production for 13 enterprise products.
-   • Front-end deployments via AWS Amplify; containerized backend on AWS ECS Fargate via GitHub Actions CI/CD.
+   • Front-end deployments via AWS Amplify; containerized backend on AWS ECS Fargate via GitHub Actions CI/CD and DevSecOps security checks.
    • Configured Application Load Balancers (ALB), Route 53 DNS, GoDaddy domains, ACM SSL/TLS certificates.
    • <span class="term-cmd">GitHub Org Administration:</span> Repositories lifecycle, user onboarding/offboarding, team RBAC, branch protection rules, code owners, seat and billing management.
    • <span class="term-cmd">Jira Administration:</span> Custom workflows, issue types, screens, transition validators, Agile Scrum/Kanban boards, executive tracking dashboards, permission schemes.
