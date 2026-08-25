@@ -2122,40 +2122,194 @@ function initBackToTop() {
 }
 
 /* ==========================================================================
-   DevSecOps Security, Notification & Observability Hub
+   DevSecOps Security, Notification & Observability (Slide & Box Engine)
    ========================================================================== */
 function initDevSecOpsHub() {
-  const tabs = document.querySelectorAll('.btn-devsec-tab');
-  const panels = document.querySelectorAll('.devsec-tab-panel');
+  const track = document.getElementById('devsec-slider-track');
+  const stage = document.getElementById('devsec-slider-stage');
+  const slides = document.querySelectorAll('.devsec-slide-item');
+  const stepperPills = document.querySelectorAll('.step-pill');
+  const paginationNav = document.getElementById('devsec-pagination-nav');
+  const slideBadge = document.getElementById('devsec-slide-badge');
+  const slideCategory = document.getElementById('devsec-slide-cat');
+  const prevBtn = document.getElementById('btn-prev-devsec');
+  const nextBtn = document.getElementById('btn-next-devsec');
+  const autoplayBtn = document.getElementById('btn-autoplay-devsec');
+  const autoplayIcon = document.getElementById('devsec-autoplay-icon');
+  const modeBtn = document.getElementById('btn-toggle-devsec-mode');
+  const modeLabel = document.getElementById('devsec-mode-label');
   const copyBtn = document.getElementById('copy-devsec-code-btn');
 
-  if (tabs.length > 0) {
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const targetTab = tab.getAttribute('data-tab');
+  if (!track || slides.length === 0) return;
 
-        // Update active tab button
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+  let autoplayTimer = null;
+  let isAutoplaying = false;
+  let isGridMode = false;
 
-        // Update active tab panel
-        panels.forEach(panel => {
-          if (panel.getAttribute('id') === `panel-${targetTab}`) {
-            panel.classList.add('active');
-          } else {
-            panel.classList.remove('active');
-          }
-        });
+  const categoryTitles = [
+    'Shift-Left (Pre-Commit)',
+    'Build (SAST Analysis)',
+    'Dependencies (SCA & SBOM)',
+    'IaC & Cloud Provisioning',
+    'Artifacts (Containers)',
+    'Staging (DAST Pen-Test)',
+    'Production (CSPM & Runtime)',
+    'Multi-Channel Alert Routing',
+    'Observability & Quality Gates',
+    'CI/CD Automation Pipeline'
+  ];
 
-        // Re-render Lucide icons inside active panel
-        if (window.lucide) {
-          lucide.createIcons();
-        }
-      });
+  // 1. Build pagination dots dynamically
+  if (paginationNav) {
+    paginationNav.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `devsec-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Navigate to stage ${idx + 1}`);
+      dot.addEventListener('click', () => goToSlide(idx));
+      paginationNav.appendChild(dot);
     });
   }
 
-  // Copy CI/CD Pipeline YAML Snippet
+  // 2. Core Go to Slide function
+  function goToSlide(index) {
+    if (isGridMode) {
+      // If in grid mode, switch back to slider mode first
+      toggleMode(false);
+    }
+
+    currentSlide = (index + totalSlides) % totalSlides;
+
+    // Apply track transform
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Update active slide class
+    slides.forEach((slide, idx) => {
+      if (idx === currentSlide) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    // Update Badge & Category Text
+    if (slideBadge) {
+      slideBadge.textContent = `STAGE ${String(currentSlide + 1).padStart(2, '0')} OF ${String(totalSlides).padStart(2, '0')}`;
+    }
+    if (slideCategory) {
+      slideCategory.textContent = categoryTitles[currentSlide] || `Stage ${currentSlide + 1}`;
+    }
+
+    // Update Stepper Ribbon Active State & Auto-scroll
+    stepperPills.forEach((pill, idx) => {
+      if (idx === currentSlide) {
+        pill.classList.add('active');
+        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+
+    // Update Pagination Dots
+    const dots = paginationNav ? paginationNav.querySelectorAll('.devsec-dot') : [];
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentSlide);
+    });
+
+    // Re-render Lucide Icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  // 3. Next / Prev Event Handlers
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentSlide + 1);
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentSlide - 1);
+    });
+  }
+
+  // 4. Stepper Pills Click Event Delegation
+  stepperPills.forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      goToSlide(idx);
+    });
+  });
+
+  // 5. Autoplay Toggle
+  function startAutoplay() {
+    isAutoplaying = true;
+    autoplayBtn.classList.add('playing');
+    autoplayBtn.querySelector('span').textContent = 'Pause';
+    if (autoplayIcon) autoplayIcon.setAttribute('data-lucide', 'pause');
+    if (window.lucide) lucide.createIcons();
+
+    autoplayTimer = setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 5500);
+  }
+
+  function stopAutoplay() {
+    isAutoplaying = false;
+    autoplayBtn.classList.remove('playing');
+    autoplayBtn.querySelector('span').textContent = 'Auto Slide';
+    if (autoplayIcon) autoplayIcon.setAttribute('data-lucide', 'play');
+    if (window.lucide) lucide.createIcons();
+
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  if (autoplayBtn) {
+    autoplayBtn.addEventListener('click', () => {
+      if (isAutoplaying) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+  }
+
+  // 6. Grid Mode vs Slider Mode Toggle
+  function toggleMode(forceGridState) {
+    isGridMode = typeof forceGridState === 'boolean' ? forceGridState : !isGridMode;
+
+    if (isGridMode) {
+      stage.classList.add('grid-mode');
+      if (modeLabel) modeLabel.textContent = 'Slide View';
+      if (modeBtn) {
+        const icon = modeBtn.querySelector('i');
+        if (icon) icon.setAttribute('data-lucide', 'layers');
+      }
+      stopAutoplay();
+    } else {
+      stage.classList.remove('grid-mode');
+      if (modeLabel) modeLabel.textContent = 'Grid View';
+      if (modeBtn) {
+        const icon = modeBtn.querySelector('i');
+        if (icon) icon.setAttribute('data-lucide', 'grid');
+      }
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  if (modeBtn) {
+    modeBtn.addEventListener('click', () => toggleMode());
+  }
+
+  // 7. Copy CI/CD Pipeline YAML Snippet
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const codeBlock = document.querySelector('.workflow-code-block code');
@@ -2173,6 +2327,33 @@ function initDevSecOpsHub() {
       }
     });
   }
+
+  // Touch Swipe Support for Mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    if (isGridMode) return;
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      goToSlide(currentSlide + 1); // Swipe Left -> Next
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      goToSlide(currentSlide - 1); // Swipe Right -> Prev
+    }
+  }
+
+  // Initialize First Slide
+  goToSlide(0);
 }
 
 /* ==========================================================================
@@ -2180,7 +2361,7 @@ function initDevSecOpsHub() {
    ========================================================================== */
 function initGlassmorphismEngine() {
   const cardSelector = 
-    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-card, .notif-card, .monitor-card, .workflow-code-wrapper';
+    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card';
 
   document.addEventListener('mousemove', (e) => {
     const card = e.target.closest(cardSelector);
