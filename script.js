@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Back to Top Button
   initBackToTop();
+
+  // Glassmorphism 2.0 Dynamic Spotlight & 3D Tilt Engine
+  initGlassmorphismEngine();
 });
 
 /* ==========================================================================
@@ -2114,3 +2117,23 @@ function initBackToTop() {
     yearEl.textContent = new Date().getFullYear();
   }
 }
+
+/* ==========================================================================
+   Glassmorphism 2.0 Dynamic Spotlight & 3D Interactive Tilt Engine
+   ========================================================================== */
+function initGlassmorphismEngine() {
+  document.addEventListener('mousemove', (e) => {
+    const card = e.target.closest(
+      '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content'
+    );
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  });
+}
+
