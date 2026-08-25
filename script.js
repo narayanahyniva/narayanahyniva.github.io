@@ -2146,6 +2146,11 @@ function initDevSecOpsHub() {
             panel.classList.remove('active');
           }
         });
+
+        // Re-render Lucide icons inside active panel
+        if (window.lucide) {
+          lucide.createIcons();
+        }
       });
     });
   }
