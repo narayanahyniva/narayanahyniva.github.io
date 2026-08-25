@@ -550,374 +550,619 @@
     </section>
 
     <!-- ==========================================================================
-         DevSecOps Security Checks, Notification Routing & Monitoring Hub
+         DevSecOps Security Checks, Notification Routing & Monitoring (Slide & Box Format)
          ========================================================================== -->
     <section class="devsecops-section" id="devsecops">
       <div class="container">
         <div class="section-header">
-          <div class="section-tag">DevSecOps &amp; Security Observability</div>
+          <div class="section-tag">DevSecOps &amp; Security Architecture</div>
           <h2 class="section-title">Automated Security Checks, <span class="gradient-text">Alert Routing</span> &amp; Monitoring</h2>
           <p class="section-desc">
-            Production-grade DevSecOps architecture integrating automated shift-left code analysis, multi-channel alert routing across Slack, Teams &amp; PagerDuty, and runtime telemetry monitoring.
+            Interactive stage-by-stage DevSecOps showcase. Explore automated shift-left security scans, real-time alert routing, and runtime observability gates.
           </p>
         </div>
 
-        <!-- DevSecOps Navigation Tabs -->
-        <div class="devsecops-tabs-bar">
-          <button class="btn-devsec-tab active" data-tab="security-checks">
-            <i data-lucide="shield-check"></i> Security Checks Matrix (7 Stages)
-          </button>
-          <button class="btn-devsec-tab" data-tab="notifications">
-            <i data-lucide="bell-ring"></i> Notification &amp; Escalation Channels
-          </button>
-          <button class="btn-devsec-tab" data-tab="monitoring-gates">
-            <i data-lucide="activity"></i> Observability &amp; Quality Gates
-          </button>
-          <button class="btn-devsec-tab" data-tab="workflow-code">
-            <i data-lucide="code-2"></i> CI/CD Pipeline Blueprint (YAML)
-          </button>
+        <!-- DevSecOps Interactive Stage Stepper Ribbon -->
+        <div class="devsec-stepper-ribbon" id="devsec-stepper">
+          <button class="step-pill active" data-slide-to="0"><span class="step-num">01</span> Secret Scan</button>
+          <button class="step-pill" data-slide-to="1"><span class="step-num">02</span> SAST</button>
+          <button class="step-pill" data-slide-to="2"><span class="step-num">03</span> SCA &amp; SBOM</button>
+          <button class="step-pill" data-slide-to="3"><span class="step-num">04</span> IaC Security</button>
+          <button class="step-pill" data-slide-to="4"><span class="step-num">05</span> Containers</button>
+          <button class="step-pill" data-slide-to="5"><span class="step-num">06</span> DAST</button>
+          <button class="step-pill" data-slide-to="6"><span class="step-num">07</span> CSPM / Runtime</button>
+          <button class="step-pill" data-slide-to="7"><span class="step-num">08</span> Notifications</button>
+          <button class="step-pill" data-slide-to="8"><span class="step-num">09</span> Observability</button>
+          <button class="step-pill" data-slide-to="9"><span class="step-num">10</span> CI/CD YAML</button>
         </div>
 
-        <!-- Tab Panel 1: Security Checks Matrix -->
-        <div class="devsec-tab-panel active" id="panel-security-checks">
-          <div class="devsecops-grid">
-            <!-- Stage 1 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-shiftleft">Stage 1 • Shift Left</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="lock"></i> Pre-Commit</div>
-              </div>
-              <h3 class="devsec-title">Secret Scanning &amp; Git Hygiene</h3>
-              <p class="devsec-desc">
-                Prevents API keys, private certificates, AWS credentials, and database tokens from ever leaking into Git repositories.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">TruffleHog</span>
-                  <span class="tech-pill">Gitleaks</span>
-                  <span class="tech-pill">GitGuardian</span>
-                  <span class="tech-pill">Husky / Pre-Commit</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Hard fail build &amp; reject PR on regex entropy / secret key matches.</span>
-              </div>
-            </div>
+        <!-- Slide Controls Bar -->
+        <div class="devsec-controls-bar">
+          <div class="devsec-slide-counter">
+            <span class="slide-badge-count" id="devsec-slide-badge">STAGE 01 OF 10</span>
+            <span class="slide-badge-category" id="devsec-slide-cat">Shift-Left (Pre-Commit)</span>
+          </div>
 
-            <!-- Stage 2 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-build">Stage 2 • Build</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="shield"></i> SAST</div>
-              </div>
-              <h3 class="devsec-title">Static Application Security Testing</h3>
-              <p class="devsec-desc">
-                Deep static analysis for OWASP Top 10, SQL injection, XSS, insecure deserialization, and CWE anti-patterns directly in source code.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">SonarQube</span>
-                  <span class="tech-pill">Semgrep</span>
-                  <span class="tech-pill">GitHub CodeQL</span>
-                  <span class="tech-pill">Checkmarx</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Quality Gate enforcement: 0 Critical / High security vulnerabilities allowed.</span>
-              </div>
-            </div>
-
-            <!-- Stage 3 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-deps">Stage 3 • Dependencies</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="package"></i> SCA &amp; SBOM</div>
-              </div>
-              <h3 class="devsec-title">Software Composition Analysis</h3>
-              <p class="devsec-desc">
-                Scans 3rd-party libraries against the National Vulnerability Database (NVD), enforces license compliance, and generates SBOMs.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">Snyk Open Source</span>
-                  <span class="tech-pill">Aqua Trivy</span>
-                  <span class="tech-pill">OWASP Dep-Check</span>
-                  <span class="tech-pill">Syft / CycloneDX</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Block PR on CVSS &ge; 7.0 (High/Critical) and unapproved copyleft AGPL licenses.</span>
-              </div>
-            </div>
-
-            <!-- Stage 4 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-iac">Stage 4 • IaC &amp; Cloud</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="cpu"></i> IaC Security</div>
-              </div>
-              <h3 class="devsec-title">Infrastructure as Code Scanning</h3>
-              <p class="devsec-desc">
-                Automated security compliance for Terraform, CloudFormation, Helm charts, and Kubernetes manifests before cloud provisioning.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">Checkov</span>
-                  <span class="tech-pill">tfsec</span>
-                  <span class="tech-pill">Terrascan</span>
-                  <span class="tech-pill">TFLint / OPA</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Block open 0.0.0.0/0 ingress, unencrypted S3/EBS volumes, and wildcard IAM policies.</span>
-              </div>
-            </div>
-
-            <!-- Stage 5 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-container">Stage 5 • Artifacts</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="box"></i> Container Security</div>
-              </div>
-              <h3 class="devsec-title">Container &amp; Base Image Security</h3>
-              <p class="devsec-desc">
-                Scans Docker base images and OS binaries for unpatched CVEs, enforces non-root execution, and cryptographically signs images.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">Aqua Trivy</span>
-                  <span class="tech-pill">AWS ECR Inspector</span>
-                  <span class="tech-pill">Docker Scout</span>
-                  <span class="tech-pill">Cosign (Sigstore)</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Reject unsigned images and containers running as root in Kubernetes deployment.</span>
-              </div>
-            </div>
-
-            <!-- Stage 6 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-staging">Stage 6 • Staging / QA</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="crosshair"></i> DAST</div>
-              </div>
-              <h3 class="devsec-title">Dynamic Application Security Testing</h3>
-              <p class="devsec-desc">
-                Simulates real-world external attack vectors, pen-tests dynamic endpoints, headers, CORS policies, and authentication cookies in staging.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">OWASP ZAP</span>
-                  <span class="tech-pill">StackHawk</span>
-                  <span class="tech-pill">Burp Suite Enterprise</span>
-                  <span class="tech-pill">Postman Security</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Automated staging gate: Fail release if critical OWASP API vulnerabilities are exposed.</span>
-              </div>
-            </div>
-
-            <!-- Stage 7 -->
-            <div class="devsec-card">
-              <div class="devsec-card-header">
-                <div class="devsec-stage-pill stage-runtime">Stage 7 • Production</div>
-                <div class="devsec-status-tag tag-enforced"><i data-lucide="eye"></i> CSPM &amp; Runtime</div>
-              </div>
-              <h3 class="devsec-title">Runtime Defense &amp; Cloud Security Posture</h3>
-              <p class="devsec-desc">
-                Continuous multi-cloud CSPM audits (SOC 2, ISO 27001, HIPAA) and real-time behavioral kernel anomaly detection across live clusters.
-              </p>
-              <div class="devsec-tools-box">
-                <div class="tools-label">Industry Standard Tools:</div>
-                <div class="tools-pills">
-                  <span class="tech-pill">Falco (eBPF)</span>
-                  <span class="tech-pill">Kyverno</span>
-                  <span class="tech-pill">AWS Security Hub</span>
-                  <span class="tech-pill">Prowler / ScoutSuite</span>
-                </div>
-              </div>
-              <div class="devsec-gate-box">
-                <span class="gate-label"><i data-lucide="shield-alert"></i> Pipeline Gate Policy:</span>
-                <span class="gate-rule">Automated pod kill on unauthorized exec / shell spawns &amp; instant PagerDuty escalation.</span>
-              </div>
-            </div>
+          <div class="devsec-actions-group">
+            <button class="devsec-ctrl-btn" id="btn-prev-devsec" aria-label="Previous Stage">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <button class="devsec-ctrl-btn" id="btn-next-devsec" aria-label="Next Stage">
+              <i data-lucide="chevron-right"></i>
+            </button>
+            <button class="devsec-autoplay-btn" id="btn-autoplay-devsec" title="Toggle Auto Slide">
+              <i data-lucide="play" id="devsec-autoplay-icon"></i>
+              <span>Auto Slide</span>
+            </button>
+            <button class="devsec-mode-btn" id="btn-toggle-devsec-mode">
+              <i data-lucide="grid"></i>
+              <span id="devsec-mode-label">Grid View</span>
+            </button>
           </div>
         </div>
 
-        <!-- Tab Panel 2: Notification & Escalation Channels -->
-        <div class="devsec-tab-panel" id="panel-notifications">
-          <div class="notifications-layout-grid">
-            <!-- Channel 1: Slack -->
-            <div class="notif-card notif-slack">
-              <div class="notif-card-header">
-                <div class="notif-icon-box"><i data-lucide="message-square"></i></div>
-                <div>
-                  <h4 class="notif-channel-title">Slack Webhook Routing</h4>
-                  <span class="notif-channel-meta">DevSecOps &amp; Engineering Alert Channels</span>
-                </div>
-              </div>
-              <p class="notif-card-desc">
-                Real-time rich card alerts delivered immediately when a security check fails. Includes CVE ID, CVSS score, branch, author, and direct fix PR links.
-              </p>
-              <div class="mock-slack-card">
-                <div class="mock-slack-top">
-                  <span class="mock-slack-bot">🤖 DevSecOps Guardian</span>
-                  <span class="mock-slack-badge">HIGH SEVERITY</span>
-                </div>
-                <div class="mock-slack-body">
-                  <strong>🚨 Vulnerability Detected in PR #142 (`develop`)</strong><br>
-                  &bull; <strong>Component:</strong> `jsonwebtoken &lt; 9.0.0`<br>
-                  &bull; <strong>Vulnerability:</strong> CVE-2022-23529 (Insecure Key Verification)<br>
-                  &bull; <strong>Action:</strong> Quality Gate BLOCKED deployment. Upgrade to `^9.0.0`.
-                </div>
-              </div>
-            </div>
+        <!-- Slider Stage Viewport -->
+        <div class="devsec-slider-stage" id="devsec-slider-stage">
+          <div class="devsec-slider-viewport">
+            <div class="devsec-slider-track" id="devsec-slider-track">
 
-            <!-- Channel 2: Microsoft Teams -->
-            <div class="notif-card notif-teams">
-              <div class="notif-card-header">
-                <div class="notif-icon-box"><i data-lucide="users"></i></div>
-                <div>
-                  <h4 class="notif-channel-title">Microsoft Teams Adaptive Cards</h4>
-                  <span class="notif-channel-meta">Security Operations &amp; Infra Teams</span>
-                </div>
-              </div>
-              <p class="notif-card-desc">
-                Adaptive Cards formatted for Microsoft Teams with interactive buttons to view the SonarQube dashboard, approve exceptions, or view IaC scan reports.
-              </p>
-              <div class="mock-teams-card">
-                <div class="mock-teams-header">
-                  <i data-lucide="shield-alert" style="color: #ec4899; width:16px;"></i> Checkov IaC Security Alert
-                </div>
-                <div class="mock-teams-content">
-                  <strong>Resource:</strong> `aws_s3_bucket.user_uploads`<br>
-                  <strong>Rule CKV_AWS_18:</strong> S3 Bucket Access Logging is not enabled.<br>
-                  <span class="teams-action-pill">Fix Applied in Terraform Blueprint &rarr;</span>
-                </div>
-              </div>
-            </div>
+              <!-- Slide 1: Secret Scanning -->
+              <div class="devsec-slide-item active">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 01</span>
+                      <span class="box-phase-tag stage-shiftleft">SHIFT-LEFT • PRE-COMMIT</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: HARD BLOCK</span>
+                      <span class="box-risk-badge badge-critical">CRITICAL RISK</span>
+                    </div>
+                  </div>
 
-            <!-- Channel 3: PagerDuty -->
-            <div class="notif-card notif-pagerduty">
-              <div class="notif-card-header">
-                <div class="notif-icon-box"><i data-lucide="siren"></i></div>
-                <div>
-                  <h4 class="notif-channel-title">PagerDuty &amp; OpsGenie Escalation</h4>
-                  <span class="notif-channel-meta">P1 / Critical On-Call Incident Alerts</span>
+                  <div class="box-content-grid">
+                    <!-- Left Sub-Box -->
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #c084fc; background: rgba(168,85,247,0.15);">
+                          <i data-lucide="key-round"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Secret Scanning &amp; Git Hygiene</h3>
+                          <span class="pane-subtitle">Pre-Commit Hooks &amp; Push Protection</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Intercepts API tokens, database connection strings, AWS access keys, SSH private certificates, and JWT secrets before they can ever be committed to git history.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">TruffleHog</span>
+                          <span class="tech-pill">Gitleaks</span>
+                          <span class="tech-pill">GitGuardian</span>
+                          <span class="tech-pill">Husky Pre-commit</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Immediate local commit abort &amp; PR rejection on high-entropy regex secret signature matches.</div>
+                      </div>
+                    </div>
+
+                    <!-- Right Sub-Box: Live Simulation -->
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-terminal-box">
+                        <div class="sim-terminal-top">
+                          <div class="sim-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+                          <span class="sim-title">trufflehog git file://. --since-commit HEAD~1</span>
+                        </div>
+                        <div class="sim-terminal-body">
+                          <div class="term-line"><span class="term-info">🐷 TruffleHog Engine v3.84: Scanning commit artifacts...</span></div>
+                          <div class="term-line"><span class="term-warn">⚠️ [SCAN] Inspected 48 files across active git staging area</span></div>
+                          <div class="term-line"><span class="term-error">🚨 [DETECTED] AWS Access Key ID exposed in config/db.env:L14</span></div>
+                          <div class="term-line"><span class="term-error">&gt; Signature: AKIAIOSFODNN7EXAMPLE (High Entropy)</span></div>
+                          <div class="term-line"><span class="term-success">🛡️ [POLICY] Pre-commit hook REJECTED commit. Secrets masked.</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p class="notif-card-desc">
-                Automated incident trigger for Critical production CVE exposures, cluster runtime privilege escalations (Falco), and secret exposure incidents.
-              </p>
-              <div class="mock-pagerduty-card">
-                <div class="mock-pd-header">
-                  <span class="mock-pd-p1">P1 CRITICAL</span>
-                  <span class="mock-pd-time">Escalated to On-Call DevOps Lead</span>
-                </div>
-                <div class="mock-pd-body">
-                  <strong>Trigger:</strong> Falco Runtime Anomaly in Namespace `production-backend`<br>
-                  <strong>Detail:</strong> Spawned interactive shell in container `api-server-84fb7`. Auto-quarantine initiated.
+
+              <!-- Slide 2: SAST -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 02</span>
+                      <span class="box-phase-tag stage-build">BUILD • STATIC ANALYSIS</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: 0 CRITICAL</span>
+                      <span class="box-risk-badge badge-high">HIGH RISK</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #38bdf8; background: rgba(56,189,248,0.15);">
+                          <i data-lucide="shield-check"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Static Application Security Testing (SAST)</h3>
+                          <span class="pane-subtitle">Source Code Vulnerability &amp; CWE Analysis</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Deep static analysis scanning source files for OWASP Top 10 vulnerabilities, SQL injections, Cross-Site Scripting (XSS), insecure deserialization, and dangerous sinks.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">SonarQube</span>
+                          <span class="tech-pill">Semgrep</span>
+                          <span class="tech-pill">GitHub CodeQL</span>
+                          <span class="tech-pill">Checkmarx</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Quality Gate failure if New Security Hotspots &gt; 0 or Security Rating &lt; A. Blocks deployment branch merge.</div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-report-card">
+                        <div class="report-header">
+                          <span class="report-brand"><i data-lucide="award"></i> SonarQube Quality Gate</span>
+                          <span class="badge-passed">PASSED</span>
+                        </div>
+                        <div class="report-metrics-grid">
+                          <div class="rep-col"><div class="rep-val text-green">0</div><div class="rep-lbl">Vulnerabilities</div></div>
+                          <div class="rep-col"><div class="rep-val text-green">0</div><div class="rep-lbl">Bugs</div></div>
+                          <div class="rep-col"><div class="rep-val text-cyan">87.4%</div><div class="rep-lbl">Code Coverage</div></div>
+                          <div class="rep-col"><div class="rep-val text-purple">0.0%</div><div class="rep-lbl">Duplications</div></div>
+                        </div>
+                        <div class="report-footer-note">
+                          <i data-lucide="check-circle" style="color: var(--neon-green);"></i> All OWASP Top 10 CWE checks verified with 0 Blocker debt.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Channel 4: Automated Jira & Email -->
-            <div class="notif-card notif-jira">
-              <div class="notif-card-header">
-                <div class="notif-icon-box"><i data-lucide="check-square"></i></div>
-                <div>
-                  <h4 class="notif-channel-title">Jira Tickets &amp; AWS SNS/SES Digests</h4>
-                  <span class="notif-channel-meta">Issue Tracking &amp; Executive Compliance</span>
+              <!-- Slide 3: SCA & SBOM -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 03</span>
+                      <span class="box-phase-tag stage-deps">DEPENDENCIES • SUPPLY CHAIN</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: CVSS &lt; 7.0</span>
+                      <span class="box-risk-badge badge-high">SUPPLY CHAIN</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #818cf8; background: rgba(99,102,241,0.15);">
+                          <i data-lucide="package-search"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Software Composition Analysis &amp; SBOM</h3>
+                          <span class="pane-subtitle">Open-Source Library CVE &amp; License Audits</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Continuously inspects 3rd-party dependencies against the National Vulnerability Database (NVD), blocks AGPL copyleft license violations, and generates CycloneDX/SPDX SBOMs.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Snyk Open Source</span>
+                          <span class="tech-pill">Aqua Trivy</span>
+                          <span class="tech-pill">OWASP Dep-Check</span>
+                          <span class="tech-pill">Syft / CycloneDX</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Fail build on any CVE with CVSS &ge; 7.0 (High/Critical) or unlicensed/viral copyleft dependencies.</div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-table-box">
+                        <div class="sim-table-title"><i data-lucide="package"></i> Snyk Dependency Audit &amp; SBOM Inventory</div>
+                        <div class="sim-table-content">
+                          <div class="table-row row-head"><span>Package</span><span>Version</span><span>Severity</span><span>Status</span></div>
+                          <div class="table-row"><span>express</span><span>4.19.2</span><span class="sev-low">Low</span><span class="text-green">Patched</span></div>
+                          <div class="table-row"><span>jsonwebtoken</span><span>9.0.2</span><span class="sev-none">None</span><span class="text-green">Secure</span></div>
+                          <div class="table-row"><span>axios</span><span>1.7.4</span><span class="sev-none">None</span><span class="text-green">Secure</span></div>
+                          <div class="table-row"><span>lodash</span><span>4.17.21</span><span class="sev-none">None</span><span class="text-green">Secure</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p class="notif-card-desc">
-                Automated Jira ticket creation with CVSS triage tags, sprint assignment, and daily executive email digests of multi-cloud compliance health.
-              </p>
-              <div class="mock-jira-card">
-                <div class="mock-jira-row">
-                  <span class="jira-key">SEC-892</span>
-                  <span class="jira-summary">Remediate OpenSSL CVE-2023-0286 on Base Alpine Images</span>
-                </div>
-                <div class="mock-jira-meta">
-                  <span>Priority: High</span> &bull; <span>Status: In Progress</span> &bull; <span>Sprint: Security Sprint 24</span>
+
+              <!-- Slide 4: IaC Security -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 04</span>
+                      <span class="box-phase-tag stage-iac">INFRASTRUCTURE • PROVISIONING</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: NO 0.0.0.0/0</span>
+                      <span class="box-risk-badge badge-critical">INFRA RISK</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #ff782e; background: rgba(255,120,46,0.15);">
+                          <i data-lucide="cpu"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Infrastructure as Code (IaC) Security</h3>
+                          <span class="pane-subtitle">Terraform, CloudFormation &amp; Helm Manifest Audits</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Scans Terraform modules, CloudFormation templates, and Kubernetes manifests for cloud misconfigurations, open security groups (0.0.0.0/0), unencrypted disks, and wildcard IAM privileges.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Checkov</span>
+                          <span class="tech-pill">tfsec</span>
+                          <span class="tech-pill">Terrascan</span>
+                          <span class="tech-pill">TFLint / OPA</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Blocks `terraform apply` if open public access, unencrypted S3 buckets, or default security group ingress is detected.</div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-iac-box">
+                        <div class="iac-rule-header">
+                          <span class="iac-badge-rule">Checkov CKV_AWS_20</span>
+                          <span class="iac-status-fixed">Remediation Applied</span>
+                        </div>
+                        <div class="iac-code-diff">
+                          <div class="diff-line del">- cidr_blocks = ["0.0.0.0/0"] # Insecure Open Ingress</div>
+                          <div class="diff-line add">+ cidr_blocks = [aws_vpc.primary.cidr_block] # Least-Privilege VPC</div>
+                          <div class="diff-line add">+ kms_key_id  = aws_kms_key.vault_master.arn # Customer Managed Key</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Tab Panel 3: Observability & Quality Gates -->
-        <div class="devsec-tab-panel" id="panel-monitoring-gates">
-          <div class="monitoring-gates-grid">
-            <div class="monitor-card">
-              <div class="monitor-icon-box"><i data-lucide="gauge"></i></div>
-              <h3 class="monitor-title">Prometheus &amp; Grafana Security Telemetry</h3>
-              <p class="monitor-desc">
-                Real-time security dashboards tracking Vulnerability Burndown Rate, Mean Time to Remediate (MTTR), and CI/CD Quality Gate pass percentages.
-              </p>
-              <ul class="monitor-metrics-list">
-                <li><i data-lucide="check-circle"></i> <strong>MTTR Metrics:</strong> Average resolution time &lt; 4 hours for High/Critical CVEs.</li>
-                <li><i data-lucide="check-circle"></i> <strong>Pipeline Health:</strong> 99.4% Automated Security Gate Pass Rate.</li>
-                <li><i data-lucide="check-circle"></i> <strong>Live Dashboard:</strong> Visualized security posture across AWS, Azure, &amp; GCP.</li>
-              </ul>
-            </div>
+              <!-- Slide 5: Containers -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 05</span>
+                      <span class="box-phase-tag stage-container">ARTIFACTS • CONTAINER IMAGES</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: SIGNED &amp; ROOTLESS</span>
+                      <span class="box-risk-badge badge-high">CONTAINER RISK</span>
+                    </div>
+                  </div>
 
-            <div class="monitor-card">
-              <div class="monitor-icon-box"><i data-lucide="bell"></i></div>
-              <h3 class="monitor-title">AWS CloudWatch &amp; Datadog Security Alarms</h3>
-              <p class="monitor-desc">
-                Automated threshold alarms capturing anomalous 4xx/5xx error spikes, AWS WAF rate-limit triggers, and root IAM account usage.
-              </p>
-              <ul class="monitor-metrics-list">
-                <li><i data-lucide="check-circle"></i> <strong>AWS WAF Rules:</strong> Real-time blocking of SQLi, XSS &amp; bot scraping.</li>
-                <li><i data-lucide="check-circle"></i> <strong>CloudTrail Alarms:</strong> Instant alerts on unauthorized IAM privilege mutations.</li>
-                <li><i data-lucide="check-circle"></i> <strong>Datadog APM:</strong> Distributed latency and error tracing across microservices.</li>
-              </ul>
-            </div>
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #10b981; background: rgba(16,185,129,0.15);">
+                          <i data-lucide="box"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Container &amp; Base Image Security</h3>
+                          <span class="pane-subtitle">Trivy Scanning, Rootless Execution &amp; Cosign Attestation</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Scans Docker base layers and OS packages for vulnerabilities, enforces rootless non-root container users, and cryptographically signs images into ECR with Cosign (Sigstore).
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Aqua Trivy</span>
+                          <span class="tech-pill">AWS ECR Inspector</span>
+                          <span class="tech-pill">Docker Scout</span>
+                          <span class="tech-pill">Cosign (Sigstore)</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Rejects unsigned container images and blocks pods running with root user UID 0 in Kubernetes admission controllers.</div>
+                      </div>
+                    </div>
 
-            <div class="monitor-card">
-              <div class="monitor-icon-box"><i data-lucide="award"></i></div>
-              <h3 class="monitor-title">SonarQube Strict Quality Gate Enforcement</h3>
-              <p class="monitor-desc">
-                Continuous code quality and vulnerability gates blocking release merges if technical debt or security requirements are breached.
-              </p>
-              <ul class="monitor-metrics-list">
-                <li><i data-lucide="check-circle"></i> <strong>0 New Security Vulnerabilities:</strong> Absolute zero-tolerance policy on PRs.</li>
-                <li><i data-lucide="check-circle"></i> <strong>&gt;80% Code Coverage:</strong> Automated unit &amp; integration test validation.</li>
-                <li><i data-lucide="check-circle"></i> <strong>Maintainability Rating A:</strong> Minimal technical debt on newly merged code.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab Panel 4: Interactive Production Workflow Code -->
-        <div class="devsec-tab-panel" id="panel-workflow-code">
-          <div class="workflow-code-wrapper">
-            <div class="workflow-code-header">
-              <div class="workflow-code-title">
-                <i data-lucide="file-code" style="color: #c084fc;"></i>
-                <span>.github/workflows/devsecops-ci.yml</span>
-                <span class="workflow-badge">PRODUCTION READY</span>
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-trivy-box">
+                        <div class="trivy-top"><i data-lucide="box"></i> Aqua Trivy Image Scan (myapp:v2.4.0)</div>
+                        <div class="trivy-metrics">
+                          <span class="t-pill t-crit">CRITICAL: 0</span>
+                          <span class="t-pill t-high">HIGH: 0</span>
+                          <span class="t-pill t-med">MED: 2 (Unfixed OS)</span>
+                          <span class="t-pill t-cosign">COSIGN: SIGNED ✓</span>
+                        </div>
+                        <div class="trivy-note">
+                          Base image upgraded to `node:20-alpine3.19` &bull; User set to `USER node` (UID 1000).
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <button class="btn-copy-workflow" id="copy-devsec-code-btn">
-                <i data-lucide="copy"></i> Copy YAML
-              </button>
-            </div>
-            <pre class="workflow-code-block"><code>name: DevSecOps CI/CD Security Pipeline
+
+              <!-- Slide 6: DAST -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 06</span>
+                      <span class="box-phase-tag stage-staging">STAGING • DYNAMIC PEN-TEST</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: STAGING GATE</span>
+                      <span class="box-risk-badge badge-med">RUNTIME PEN-TEST</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #ec4899; background: rgba(236,72,153,0.15);">
+                          <i data-lucide="crosshair"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Dynamic Application Security Testing (DAST)</h3>
+                          <span class="pane-subtitle">Live API Attack Simulation &amp; Header Auditing</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Executes black-box security scanning against live staging environments to validate API authentication, CORS headers, rate-limiting, and SQLi/XSS resilience under active payloads.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">OWASP ZAP</span>
+                          <span class="tech-pill">StackHawk</span>
+                          <span class="tech-pill">Burp Suite Enterprise</span>
+                          <span class="tech-pill">Postman Security</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Automated deployment rollback if live staging penetration scan uncovers exploitable authentication bypass or insecure cookies.</div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-dast-box">
+                        <div class="dast-header"><i data-lucide="activity"></i> OWASP ZAP Automated Staging Scan</div>
+                        <div class="dast-results">
+                          <div class="dast-row"><span class="d-check">✓</span> Strict-Transport-Security (HSTS) Enforced</div>
+                          <div class="dast-row"><span class="d-check">✓</span> Content-Security-Policy (CSP) Active</div>
+                          <div class="dast-row"><span class="d-check">✓</span> JWT Replay Protection Validated</div>
+                          <div class="dast-row"><span class="d-check">✓</span> Rate-Limit 100 req/min Triggered Correctly</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 7: CSPM & Runtime -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 07</span>
+                      <span class="box-phase-tag stage-runtime">PRODUCTION • CSPM &amp; RUNTIME</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="shield-alert"></i> GATE: AUTO-QUARANTINE</span>
+                      <span class="box-risk-badge badge-critical">RUNTIME DEFENSE</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #f59e0b; background: rgba(245,158,11,0.15);">
+                          <i data-lucide="eye"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Runtime Threat Defense &amp; CSPM</h3>
+                          <span class="pane-subtitle">eBPF Kernel Anomaly Detection &amp; Compliance</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Continuous multi-cloud CSPM audits against CIS benchmarks, SOC 2, and ISO 27001, combined with real-time eBPF kernel monitoring for unexpected container shell executions.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Industry Standard Toolchain:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Falco (eBPF)</span>
+                          <span class="tech-pill">Kyverno</span>
+                          <span class="tech-pill">AWS Security Hub</span>
+                          <span class="tech-pill">Prowler / ScoutSuite</span>
+                        </div>
+                      </div>
+                      <div class="pane-gate-card">
+                        <div class="gate-header"><i data-lucide="lock"></i> Quality Gate Enforcement Policy</div>
+                        <div class="gate-body">Automated pod kill and network isolation upon unauthorized shell spawn (`/bin/sh`), triggering an immediate P1 PagerDuty alarm.</div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="sim-falco-box">
+                        <div class="falco-top"><span class="falco-tag">FALCO eBPF RUNTIME SIGNAL</span><span class="badge-passed">AUTO-KILLED</span></div>
+                        <div class="falco-event">
+                          <strong>Event:</strong> Unauthorized Shell Spawned in Pod `payment-service-59d4`<br>
+                          <strong>Namespace:</strong> `production`<br>
+                          <strong>Action Taken:</strong> Network Policy Isolated &amp; Pod Terminated within 120ms.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 8: Notifications -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 08</span>
+                      <span class="box-phase-tag stage-shiftleft">MULTI-CHANNEL ALERTS</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="bell"></i> 4 ROUTING CHANNELS</span>
+                      <span class="box-risk-badge badge-high">INCIDENT ROUTING</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #c084fc; background: rgba(168,85,247,0.15);">
+                          <i data-lucide="bell-ring"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Notification &amp; Escalation Routing</h3>
+                          <span class="pane-subtitle">Slack, MS Teams, PagerDuty &amp; Jira Automation</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Instant notification pipeline routing security signals directly to the responsible engineering and security teams with full context, CVSS triage metadata, and remediation guides.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Notification Endpoints:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Slack Webhooks</span>
+                          <span class="tech-pill">Microsoft Teams</span>
+                          <span class="tech-pill">PagerDuty P1</span>
+                          <span class="tech-pill">Jira / AWS SNS</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="mock-slack-card">
+                        <div class="mock-slack-top">
+                          <span class="mock-slack-bot">🤖 DevSecOps Guardian</span>
+                          <span class="mock-slack-badge">HIGH SEVERITY</span>
+                        </div>
+                        <div class="mock-slack-body">
+                          <strong>🚨 Security Gate Blocked Deployment on PR #142 (`develop`)</strong><br>
+                          &bull; <strong>Component:</strong> `jsonwebtoken &lt; 9.0.0`<br>
+                          &bull; <strong>Vulnerability:</strong> CVE-2022-23529 (Insecure Key Verification)<br>
+                          &bull; <strong>Action:</strong> Automated Jira Ticket <code>SEC-892</code> assigned to author.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 9: Observability -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 09</span>
+                      <span class="box-phase-tag stage-container">OBSERVABILITY &amp; METRICS</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="gauge"></i> 99.4% PASS RATE</span>
+                      <span class="box-risk-badge badge-high">SLA MONITORING</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid">
+                    <div class="box-sub-pane pane-info">
+                      <div class="pane-icon-title">
+                        <div class="pane-icon-wrapper" style="color: #10b981; background: rgba(16,185,129,0.15);">
+                          <i data-lucide="activity"></i>
+                        </div>
+                        <div>
+                          <h3 class="pane-title">Observability &amp; Quality Gate Telemetry</h3>
+                          <span class="pane-subtitle">Prometheus, Grafana, Datadog &amp; CloudWatch</span>
+                        </div>
+                      </div>
+                      <p class="pane-description">
+                        Real-time dashboards monitoring MTTR (Mean Time to Remediate), vulnerability burndown velocities, AWS WAF rate-limit triggers, and CloudTrail IAM mutation logs.
+                      </p>
+                      <div class="pane-toolchain-group">
+                        <div class="toolchain-label">Monitoring Stack:</div>
+                        <div class="toolchain-chips">
+                          <span class="tech-pill">Prometheus</span>
+                          <span class="tech-pill">Grafana</span>
+                          <span class="tech-pill">AWS CloudWatch</span>
+                          <span class="tech-pill">Datadog APM</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="box-sub-pane pane-demo">
+                      <div class="report-metrics-grid" style="padding: 20px; background: rgba(8,6,16,0.9); border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.08);">
+                        <div class="rep-col"><div class="rep-val text-green">&lt; 4h</div><div class="rep-lbl">MTTR for CVEs</div></div>
+                        <div class="rep-col"><div class="rep-val text-green">99.4%</div><div class="rep-lbl">Gate Pass Rate</div></div>
+                        <div class="rep-col"><div class="rep-val text-cyan">100%</div><div class="rep-lbl">WAF Protected</div></div>
+                        <div class="rep-col"><div class="rep-val text-purple">0</div><div class="rep-lbl">Root IAM Uses</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 10: CI/CD Pipeline YAML -->
+              <div class="devsec-slide-item">
+                <div class="devsec-slide-box">
+                  <div class="box-top-hud">
+                    <div class="hud-left">
+                      <span class="box-stage-num">STAGE 10</span>
+                      <span class="box-phase-tag stage-build">AUTOMATION • CI/CD WORKFLOW</span>
+                    </div>
+                    <div class="hud-right">
+                      <span class="box-gate-tag"><i data-lucide="file-code"></i> .github/workflows/devsecops-ci.yml</span>
+                      <span class="box-risk-badge badge-passed">PRODUCTION READY</span>
+                    </div>
+                  </div>
+
+                  <div class="box-content-grid" style="grid-template-columns: 1fr;">
+                    <div class="workflow-code-wrapper">
+                      <div class="workflow-code-header">
+                        <div class="workflow-code-title">
+                          <i data-lucide="file-code" style="color: #c084fc;"></i>
+                          <span>Production-Ready GitHub Actions DevSecOps Pipeline</span>
+                        </div>
+                        <button class="btn-copy-workflow" id="copy-devsec-code-btn">
+                          <i data-lucide="copy"></i> Copy YAML
+                        </button>
+                      </div>
+                      <pre class="workflow-code-block"><code>name: DevSecOps CI/CD Security Pipeline
 
 on:
   push:
@@ -998,7 +1243,18 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEVSECOPS_WEBHOOK }}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
+        </div>
+
+        <!-- Slider Pagination Navigation Dots -->
+        <div class="devsec-pagination-nav" id="devsec-pagination-nav">
+          <!-- Populated dynamically via script.js for all 10 slides -->
         </div>
       </div>
     </section>

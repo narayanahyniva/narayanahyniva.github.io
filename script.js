@@ -2179,10 +2179,11 @@ function initDevSecOpsHub() {
    Glassmorphism 2.0 Dynamic Spotlight & 3D Interactive Tilt Engine
    ========================================================================== */
 function initGlassmorphismEngine() {
+  const cardSelector = 
+    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-card, .notif-card, .monitor-card, .workflow-code-wrapper';
+
   document.addEventListener('mousemove', (e) => {
-    const card = e.target.closest(
-      '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-card, .notif-card, .monitor-card, .workflow-code-wrapper'
-    );
+    const card = e.target.closest(cardSelector);
     if (!card) return;
 
     const rect = card.getBoundingClientRect();
@@ -2191,7 +2192,28 @@ function initGlassmorphismEngine() {
 
     card.style.setProperty('--mouse-x', `${x}px`);
     card.style.setProperty('--mouse-y', `${y}px`);
+
+    // Subtle 3D Perspective Tilt for non-modal elements
+    if (!card.classList.contains('no-tilt') && !card.closest('.terminal-modal-overlay') && !card.closest('.resume-modal-overlay')) {
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const tiltX = (y - centerY) / centerY; // -1 to 1
+      const tiltY = (centerX - x) / centerX; // -1 to 1
+      const maxTilt = 4.0; // degrees
+
+      card.style.transform = `perspective(1000px) rotateX(${tiltX * maxTilt}deg) rotateY(${tiltY * maxTilt}deg) translateY(-4px)`;
+    }
+  });
+
+  // Smooth reset on mouse leave
+  document.querySelectorAll(cardSelector).forEach(card => {
+    card.addEventListener('mouseleave', () => {
+      if (!card.closest('.terminal-modal-overlay') && !card.closest('.resume-modal-overlay')) {
+        card.style.transform = '';
+      }
+    });
   });
 }
+
 
 
