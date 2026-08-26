@@ -2155,6 +2155,23 @@ function initDevSecOpsHub() {
     'CI/CD Automation Pipeline'
   ];
 
+  const viewport = document.querySelector('.devsec-slider-viewport');
+
+  function updateViewportHeight() {
+    if (isGridMode) {
+      if (viewport) viewport.style.height = 'auto';
+      return;
+    }
+    const activeSlideEl = slides[currentSlide];
+    if (activeSlideEl && viewport) {
+      const box = activeSlideEl.querySelector('.devsec-slide-box');
+      const h = box ? box.offsetHeight : activeSlideEl.offsetHeight;
+      if (h > 0) {
+        viewport.style.height = `${h}px`;
+      }
+    }
+  }
+
   // 1. Build pagination dots dynamically
   if (paginationNav) {
     paginationNav.innerHTML = '';
@@ -2186,6 +2203,11 @@ function initDevSecOpsHub() {
       } else {
         slide.classList.remove('active');
       }
+    });
+
+    // Dynamically adjust viewport height to match active slide perfectly
+    requestAnimationFrame(() => {
+      updateViewportHeight();
     });
 
     // Update Badge & Category Text
@@ -2280,6 +2302,7 @@ function initDevSecOpsHub() {
 
     if (isGridMode) {
       stage.classList.add('grid-mode');
+      if (viewport) viewport.style.height = 'auto';
       if (modeLabel) modeLabel.textContent = 'Slide View';
       if (modeBtn) {
         const icon = modeBtn.querySelector('i');
@@ -2294,6 +2317,7 @@ function initDevSecOpsHub() {
         if (icon) icon.setAttribute('data-lucide', 'grid');
       }
       track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      requestAnimationFrame(updateViewportHeight);
     }
 
     if (window.lucide) lucide.createIcons();
@@ -2346,8 +2370,13 @@ function initDevSecOpsHub() {
     }
   }
 
-  // Initialize First Slide
+  window.addEventListener('resize', () => {
+    updateViewportHeight();
+  });
+
+  // Initialize First Slide & height
   goToSlide(0);
+  setTimeout(updateViewportHeight, 150);
 }
 
 /* ==========================================================================
