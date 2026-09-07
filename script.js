@@ -117,7 +117,8 @@ function initDynamicTyping() {
   if (!typingElement) return;
 
   const phrases = [
-    'Systems Engineer → Cloud Engineer → Cloud, DevOps & DevSecOps Engineer',
+    'Senior Cloud DevOps Engineer | AWS, Azure, GCP & Kubernetes',
+    'System Engineering → Cloud Engineer → Cloud DevOps Engineer',
     'Multi-Cloud Architect: AWS • Azure • GCP',
     'DevSecOps & Automated Security Quality Gates',
     'Infrastructure as Code with Terraform, CloudFormation & Ansible',
