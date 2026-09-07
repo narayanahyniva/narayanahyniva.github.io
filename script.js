@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dynamic Typing Subtitle Effect
   initDynamicTyping();
 
-  // Three.js 3D Hero Cloud Mesh
-  initHeroThreeCanvas();
-
   // Cloud & Open-Source Services Directory
   initCloudDirectory();
 
@@ -32,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Flagship Feature: Interactive Architecture Explorer
   initArchitectureExplorer();
+
+  // emp-portal Code-to-Cloud Lab
+  initEmpPortalCloudLab();
 
   // Interactive Project Slider & Grid Showcase Engine
   initProjectSlider();
@@ -157,178 +157,6 @@ function initDynamicTyping() {
   }
 
   type();
-}
-
-/* ==========================================================================
-   Three.js 3D Hero Cloud Mesh & Particle Network
-   ========================================================================== */
-function initHeroThreeCanvas() {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas || !window.THREE) return;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 80;
-
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  // Particles & Connection Points
-  const particleCount = 150;
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const colors = new Float32Array(particleCount * 3);
-  const velocities = [];
-
-  const palette = [
-    new THREE.Color('#ff782e'), // sunset orange
-    new THREE.Color('#ec4899'), // vibrant magenta
-    new THREE.Color('#a855f7'), // electric purple
-    new THREE.Color('#818cf8'), // royal indigo
-    new THREE.Color('#38bdf8')  // sky azure
-  ];
-
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 160;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 120;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
-
-    const chosenColor = palette[Math.floor(Math.random() * palette.length)];
-    colors[i * 3] = chosenColor.r;
-    colors[i * 3 + 1] = chosenColor.g;
-    colors[i * 3 + 2] = chosenColor.b;
-
-    velocities.push({
-      x: (Math.random() - 0.5) * 0.12,
-      y: (Math.random() - 0.5) * 0.12,
-      z: (Math.random() - 0.5) * 0.08
-    });
-  }
-
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-  // Particle Material
-  const pMaterial = new THREE.PointsMaterial({
-    size: 2.4,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.9,
-    blending: THREE.AdditiveBlending
-  });
-
-  const particleSystem = new THREE.Points(geometry, pMaterial);
-  scene.add(particleSystem);
-
-  // Line Mesh for Dynamic Network Connections
-  const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x818cf8,
-    transparent: true,
-    opacity: 0.22,
-    blending: THREE.AdditiveBlending
-  });
-
-  let lineGeometry = new THREE.BufferGeometry();
-  let lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-  scene.add(lineMesh);
-
-  // Floating 3D Geometric Cloud Nodes (representing cloud servers)
-  const cubeGeo = new THREE.IcosahedronGeometry(2.5, 0);
-  const cubeMat = new THREE.MeshBasicMaterial({
-    color: 0xc084fc,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.35
-  });
-
-  const cloudNodes = [];
-  for (let i = 0; i < 8; i++) {
-    const node = new THREE.Mesh(cubeGeo, cubeMat);
-    node.position.set(
-      (Math.random() - 0.5) * 120,
-      (Math.random() - 0.5) * 80,
-      (Math.random() - 0.5) * 40
-    );
-    scene.add(node);
-    cloudNodes.push(node);
-  }
-
-  // Mouse Parallax Interaction
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX - window.innerWidth / 2) * 0.04;
-    mouseY = (e.clientY - window.innerHeight / 2) * 0.04;
-  });
-
-  // Animation Loop
-  function animate() {
-    requestAnimationFrame(animate);
-
-    targetX += (mouseX - targetX) * 0.05;
-    targetY += (mouseY - targetY) * 0.05;
-
-    camera.position.x = targetX;
-    camera.position.y = -targetY;
-    camera.lookAt(scene.position);
-
-    // Update particles position
-    const pos = geometry.attributes.position.array;
-    for (let i = 0; i < particleCount; i++) {
-      pos[i * 3] += velocities[i].x;
-      pos[i * 3 + 1] += velocities[i].y;
-      pos[i * 3 + 2] += velocities[i].z;
-
-      if (pos[i * 3] > 80 || pos[i * 3] < -80) velocities[i].x = -velocities[i].x;
-      if (pos[i * 3 + 1] > 60 || pos[i * 3 + 1] < -60) velocities[i].y = -velocities[i].y;
-      if (pos[i * 3 + 2] > 40 || pos[i * 3 + 2] < -40) velocities[i].z = -velocities[i].z;
-    }
-    geometry.attributes.position.needsUpdate = true;
-
-    // Connect close particles with lines
-    const linePositions = [];
-    for (let i = 0; i < particleCount; i++) {
-      for (let j = i + 1; j < particleCount; j++) {
-        const dx = pos[i * 3] - pos[j * 3];
-        const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
-        const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (dist < 22) {
-          linePositions.push(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]);
-          linePositions.push(pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]);
-        }
-      }
-    }
-
-    lineGeometry.dispose();
-    lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-    lineMesh.geometry = lineGeometry;
-
-    // Rotate geometric cloud nodes
-    cloudNodes.forEach((node, idx) => {
-      node.rotation.x += 0.005 * (idx % 2 === 0 ? 1 : -1);
-      node.rotation.y += 0.008;
-    });
-
-    particleSystem.rotation.y += 0.001;
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // Resize Handler
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
 }
 
 /* ==========================================================================
@@ -766,6 +594,8 @@ function initLinuxMatrix() {
    ========================================================================== */
 const architectureData = {
   'aws-3tier': {
+    group: 'platform',
+    shortLabel: 'AWS 3-Tier Enterprise',
     title: 'Hyniva Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
     budget: '$250 – $500',
     nodes: [
@@ -784,13 +614,13 @@ const architectureData = {
         ],
         codeFile: 'route53_acm.tf',
         code: `resource "aws_acm_certificate" "domain_cert" {
-  domain_name       = "app.hyniva.com"
+  domain_name       = "app.example.com"
   validation_method = "DNS"
 
   subject_alternative_names = [
-    "*.hyniva.com",
-    "dev.hyniva.com",
-    "uat.hyniva.com"
+    "*.example.com",
+    "dev.example.com",
+    "uat.example.com"
   ]
 
   lifecycle {
@@ -921,6 +751,8 @@ const architectureData = {
     ]
   },
   'gitops-cicd': {
+    group: 'platform',
+    shortLabel: 'GitOps & CI/CD Pipeline',
     title: 'Automated GitOps & Zero-Downtime CI/CD Pipeline',
     budget: '$200 – $400',
     nodes: [
@@ -1026,6 +858,8 @@ spec:
     ]
   },
   'k8s-microservices': {
+    group: 'platform',
+    shortLabel: 'Kubernetes Microservices',
     title: 'Enterprise Kubernetes Microservices Architecture',
     budget: '$300 – $500',
     nodes: [
@@ -1128,6 +962,8 @@ spec:
     ]
   },
   'serverless-event': {
+    group: 'platform',
+    shortLabel: 'AWS Serverless Event-Driven',
     title: 'AWS Serverless Event-Driven Microservices Architecture',
     budget: '$200 – $450',
     nodes: [
@@ -1203,6 +1039,8 @@ spec:
     ]
   },
   'multi-region-dr': {
+    group: 'platform',
+    shortLabel: 'Multi-Region Disaster Recovery',
     title: 'Multi-Region High Availability & Disaster Recovery',
     budget: '$350 – $500',
     nodes: [
@@ -1273,6 +1111,8 @@ spec:
     ]
   },
   'emp-portal': {
+    group: 'cloud',
+    shortLabel: 'emp-portal Workforce Platform',
     title: 'Hyniva Enterprise Workforce & Delivery Platform (emp-portal)',
     budget: '$300 – $500',
     nodes: [
@@ -1398,12 +1238,16 @@ alb.addListener('Https', {
         specs: [
           'Secrets: AWS Secrets Manager for DB and app credentials',
           'Access: SSM Session Manager bastion tunnel, no public SSH',
-          'Mail: Amazon SES for leave, approver, and payroll notices'
+          'Mail: Amazon SES from noreply@example.com'
         ],
         codeFile: 'security-ops.ts',
         code: `new secretsmanager.Secret(this, 'EmpPortalSecrets', {
   secretName: 'emp-portal/prod/app',
   description: 'HR, payroll, and session secrets'
+});
+
+new ses.EmailIdentity(this, 'PortalFrom', {
+  identity: ses.Identity.email('noreply@example.com')
 });
 
 new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
@@ -1414,11 +1258,1232 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
 });`
       }
     ]
+  },
+  'hyper': {
+    group: 'fintech',
+    shortLabel: 'Hyper Investment Journeys',
+    title: 'Hyper — Personalized Digital Investment Platform',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'hyper-edge',
+        icon: 'layout',
+        title: 'Amplify Web App',
+        desc: 'Goal Discovery SPA & Edge CDN',
+        badge: 'React SPA',
+        infoTitle: 'AWS Amplify Investor Experience',
+        infoDesc: 'Front-end investment journey hosted on Amplify with global CloudFront caching, advisor-branded what-if simulators, and branch-based previews for UAT.',
+        specs: ['Hosting: Amplify + CloudFront edge', 'UX: Goal discovery to portfolio recommendation', 'CI/CD: Git-connected production branch'],
+        codeFile: 'hyper_amplify.tf',
+        code: `resource "aws_amplify_app" "hyper" {
+  name       = "hyper-investor-spa"
+  repository = "https://github.com/Hyniva-LLC/hyper-web"
+  platform   = "WEB"
+}`
+      },
+      {
+        id: 'hyper-dns',
+        icon: 'globe',
+        title: 'Route 53 & ACM',
+        desc: 'Custom Domain + TLS 1.3',
+        badge: 'GoDaddy ACM',
+        infoTitle: 'Route 53 DNS and ACM Certificates',
+        infoDesc: 'Latency-based DNS for investor traffic with ACM certificates validated against GoDaddy-hosted zones.',
+        specs: ['DNS: Route 53 alias to Amplify and ALB', 'TLS: ACM TLS 1.3 with HTTP redirect', 'Envs: Dev, UAT, Production'],
+        codeFile: 'hyper_dns.tf',
+        code: `resource "aws_route53_record" "hyper_app" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name    = "app.example.com"
+  type    = "A"
+  alias {
+    name                   = aws_lb.hyper.dns_name
+    zone_id                = aws_lb.hyper.zone_id
+    evaluate_target_health = true
+  }
+}`
+      },
+      {
+        id: 'hyper-waf',
+        icon: 'shield',
+        title: 'WAF + ALB',
+        desc: 'PCI-adjacent API Ingress',
+        badge: 'Layer 7',
+        infoTitle: 'AWS WAF and Application Load Balancer',
+        infoDesc: 'WAF rate limits and OWASP managed rules protect scoring APIs. ALB terminates TLS and health-checks ECS sim engines across AZs.',
+        specs: ['WAF: AWS Managed Core + rate-based rules', 'ALB: Multi-AZ target groups /health', 'Security: Drop invalid headers'],
+        codeFile: 'hyper_alb.tf',
+        code: `resource "aws_wafv2_web_acl" "hyper" {
+  name  = "hyper-api-waf"
+  scope = "REGIONAL"
+  default_action { allow {} }
+  visibility_config {
+    cloudwatch_metrics_enabled = true
+    metric_name                = "hyperWaf"
+    sampled_requests_enabled   = true
+  }
+}`
+      },
+      {
+        id: 'hyper-ecs',
+        icon: 'cpu',
+        title: 'Scoring & Sim Engine',
+        desc: 'ECS Fargate Microservices',
+        badge: 'What-If Sims',
+        infoTitle: 'ECS Fargate Scoring and Simulation',
+        infoDesc: 'Advisor-defined scoring models and real-time what-if simulations run on Fargate with GitHub Actions rollouts and target-tracking autoscaling.',
+        specs: ['Compute: ECS Fargate ARM64', 'API: Scoring + portfolio sim workers', 'Deploy: GitHub Actions to ECR'],
+        codeFile: 'hyper_ecs.tf',
+        code: `resource "aws_ecs_service" "hyper_sim" {
+  name            = "hyper-sim-engine"
+  cluster         = aws_ecs_cluster.fintech.id
+  task_definition = aws_ecs_task_definition.hyper.arn
+  desired_count   = 3
+  launch_type     = "FARGATE"
+}`
+      },
+      {
+        id: 'hyper-data',
+        icon: 'database',
+        title: 'Aurora + ElastiCache',
+        desc: 'Portfolios Encrypted Multi-AZ',
+        badge: 'KMS',
+        infoTitle: 'Aurora PostgreSQL and Redis Cache',
+        infoDesc: 'Advisor portfolios and simulation snapshots stored in Aurora PostgreSQL Multi-AZ with Redis for sub-second what-if state.',
+        specs: ['DB: Aurora PostgreSQL Multi-AZ + KMS', 'Cache: ElastiCache Redis', 'Backup: 30-day PITR snapshots'],
+        codeFile: 'hyper_data.tf',
+        code: `resource "aws_rds_cluster" "hyper" {
+  engine                  = "aurora-postgresql"
+  storage_encrypted       = true
+  kms_key_id              = aws_kms_key.hyper.arn
+  backup_retention_period = 30
+}`
+      }
+    ]
+  },
+  'finxserve': {
+    group: 'fintech',
+    shortLabel: 'FinXServe Banking Cloud',
+    title: 'FinXServe — Omnichannel Digital Banking Infrastructure',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'fx-cicd',
+        icon: 'git-branch',
+        title: 'GitHub Actions CI/CD',
+        desc: 'Docker Build, Scan, Deploy',
+        badge: 'Zero-Downtime',
+        infoTitle: 'GitHub Actions Banking Pipeline',
+        infoDesc: 'Builds Docker images, scans with Trivy, pushes to ECR, and rolling-deploys to ECS/EC2 with Slack/SNS release notifications.',
+        specs: ['Trigger: Protected main + release tags', 'Scan: Trivy HIGH/CRITICAL gate', 'Notify: SNS deployment webhooks'],
+        codeFile: 'finxserve_ci.yml',
+        code: `name: FinXServe Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t finxserve:\${{ github.sha }} .`
+      },
+      {
+        id: 'fx-compute',
+        icon: 'server',
+        title: 'EC2 / ECS Docker',
+        desc: 'Containerized Banking APIs',
+        badge: 'Omnichannel',
+        infoTitle: 'EC2 and ECS Docker Runtime',
+        infoDesc: 'Salesforce-native digital banking APIs on ECS with EC2-backed Docker hosts for legacy adapters (lending, cards, deposits).',
+        specs: ['Runtime: ECS services + EC2 Docker hosts', 'Domains: Lending, cards, deposits', 'HA: Multi-AZ desired count >= 2'],
+        codeFile: 'finxserve_ecs.tf',
+        code: `resource "aws_ecs_cluster" "finxserve" {
+  name = "finxserve-prod"
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}`
+      },
+      {
+        id: 'fx-proxy',
+        icon: 'network',
+        title: 'Nginx Reverse Proxy',
+        desc: 'TLS, Path Routing, Rate Limit',
+        badge: 'Edge',
+        infoTitle: 'Nginx Reverse Proxy Tier',
+        infoDesc: 'Nginx terminates TLS on EC2, routes path prefixes to ECS services, and applies request rate limits for core banking APIs.',
+        specs: ['Proxy: Nginx path-based upstreams', 'TLS: ACM / host certificates', 'Limits: Burst + connection throttling'],
+        codeFile: 'nginx.conf',
+        code: `server {
+  listen 443 ssl;
+  location /api/ {
+    proxy_pass http://finxserve-ecs:8080/;
+    limit_req zone=banking burst=40;
+  }
+}`
+      },
+      {
+        id: 'fx-db',
+        icon: 'database',
+        title: 'PostgreSQL + pgAdmin',
+        desc: 'Multi-AZ Encrypted RDS',
+        badge: 'PCI-DSS',
+        infoTitle: 'RDS PostgreSQL and pgAdmin',
+        infoDesc: 'Customer and ledger data on RDS PostgreSQL Multi-AZ with KMS encryption. pgAdmin locked to a private bastion subnet.',
+        specs: ['Engine: RDS PostgreSQL Multi-AZ', 'Admin: pgAdmin in private subnet', 'Encryption: KMS at rest + TLS'],
+        codeFile: 'finxserve_rds.tf',
+        code: `resource "aws_db_instance" "finxserve" {
+  engine                 = "postgres"
+  multi_az               = true
+  storage_encrypted      = true
+  publicly_accessible    = false
+  backup_retention_period = 14
+}`
+      },
+      {
+        id: 'fx-s3',
+        icon: 'hard-drive',
+        title: 'S3 Backups & SNS',
+        desc: 'Assets, Snapshots, Alerts',
+        badge: 'Audit',
+        infoTitle: 'S3 Asset Store and SNS Alerts',
+        infoDesc: 'Document and statement assets in versioned S3 with snapshot exports and SNS alerts on deploy or backup failure.',
+        specs: ['S3: Versioned + SSE-KMS', 'Backup: Nightly RDS snapshot export', 'Alerts: SNS to ops + Slack'],
+        codeFile: 'finxserve_s3.tf',
+        code: `resource "aws_s3_bucket" "finxserve_assets" {
+  bucket = "finxserve-prod-assets"
+}
+resource "aws_sns_topic" "finxserve_ops" {
+  name = "finxserve-ops-alerts"
+}`
+      }
+    ]
+  },
+  'claim-pioneer': {
+    group: 'ai',
+    shortLabel: 'Claim Pioneer AI Dispatch',
+    title: 'Claim Pioneer — AI Claims Lifecycle Uberization',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'cp-ui',
+        icon: 'layout',
+        title: 'Amplify Claims UI',
+        desc: 'Intake + Live Tracking SPA',
+        badge: 'Edge',
+        infoTitle: 'Amplify Claims Experience',
+        infoDesc: 'Adjuster and customer portals on Amplify with real-time claim status boards and authenticated intake forms.',
+        specs: ['Hosting: Amplify CloudFront', 'Apps: Intake, adjuster, live track', 'Auth: Cognito + JWT to API'],
+        codeFile: 'claim_pioneer_amplify.tf',
+        code: `resource "aws_amplify_app" "claim_pioneer" {
+  name     = "claim-pioneer-ui"
+  platform = "WEB"
+}`
+      },
+      {
+        id: 'cp-edge',
+        icon: 'globe',
+        title: 'Route 53 + ALB',
+        desc: 'DNS and Target Groups',
+        badge: 'Health Checks',
+        infoTitle: 'Route 53 and ALB Target Groups',
+        infoDesc: 'Public DNS to ALB with path-based target groups for intake, dispatcher, and tracking APIs and 15s health checks.',
+        specs: ['DNS: Route 53 alias records', 'ALB: Path routing /intake /dispatch', 'Health: /health every 15s'],
+        codeFile: 'claim_pioneer_alb.tf',
+        code: `resource "aws_lb_target_group" "dispatcher" {
+  name     = "cp-dispatcher-tg"
+  port     = 8080
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
+}`
+      },
+      {
+        id: 'cp-ai',
+        icon: 'sparkles',
+        title: 'Bedrock Assignment',
+        desc: 'AI Dispatcher Guardrails',
+        badge: 'Uberization',
+        infoTitle: 'Amazon Bedrock Claims Assignment',
+        infoDesc: 'Bedrock models score adjuster skill, load, and geo to auto-assign claims, removing biased manual routing.',
+        specs: ['Model: Bedrock Claude + guardrails', 'Input: Claim type, SLA, adjuster load', 'Output: Ranked assignment + reason'],
+        codeFile: 'claim_pioneer_bedrock.tf',
+        code: `resource "aws_bedrock_guardrail" "claims" {
+  name                      = "claim-pioneer-guardrail"
+  blocked_input_messaging   = "PII blocked"
+  blocked_outputs_messaging = "Unsafe assignment blocked"
+}`
+      },
+      {
+        id: 'cp-ecs',
+        icon: 'box',
+        title: 'ECS Fargate Dispatcher',
+        desc: 'Workflow Microservices',
+        badge: 'Intake-to-Close',
+        infoTitle: 'ECS Fargate Claims Orchestration',
+        infoDesc: 'Containerized dispatcher, SLA timers, and closure workflows on Fargate with SQS between intake and assignment.',
+        specs: ['Compute: ECS Fargate workers', 'Queue: SQS intake buffer + DLQ', 'Flow: Intake to assignment to close'],
+        codeFile: 'claim_pioneer_ecs.tf',
+        code: `resource "aws_ecs_service" "dispatcher" {
+  name         = "cp-ai-dispatcher"
+  cluster      = aws_ecs_cluster.claims.id
+  launch_type  = "FARGATE"
+  desired_count = 4
+}`
+      },
+      {
+        id: 'cp-search',
+        icon: 'activity',
+        title: 'OpenSearch Live Claims',
+        desc: 'Real-Time Visibility Index',
+        badge: 'Observability',
+        infoTitle: 'OpenSearch Live Claim Index',
+        infoDesc: 'Every claim step is indexed in OpenSearch for live tracking dashboards and CloudWatch anomaly alarms.',
+        specs: ['Index: OpenSearch claims-* daily', 'Dashboards: Adjuster load + SLA', 'Alerts: CloudWatch on SLA breach'],
+        codeFile: 'claim_pioneer_os.tf',
+        code: `resource "aws_opensearch_domain" "claims" {
+  domain_name    = "claim-pioneer-live"
+  engine_version = "OpenSearch_2.11"
+}`
+      }
+    ]
+  },
+  'aira': {
+    group: 'ai',
+    shortLabel: 'AIRA Reasoning Agents',
+    title: 'AIRA — Autonomous Intelligent Reasoning Agent',
+    budget: '$350 – $500',
+    nodes: [
+      {
+        id: 'aira-oneapi',
+        icon: 'link-2',
+        title: 'OneAPI Ingress',
+        desc: 'API Gateway + JWT',
+        badge: 'Weeks not Months',
+        infoTitle: 'OneAPI Integration Gateway',
+        infoDesc: 'API Gateway HTTP APIs with JWT authorizers and partner keys collapse FI/insurance onboarding from months to weeks.',
+        specs: ['Ingress: API Gateway HTTP API', 'Auth: JWT + API keys per partner', 'Throttle: Partner usage plans'],
+        codeFile: 'aira_apigw.tf',
+        code: `resource "aws_apigatewayv2_api" "oneapi" {
+  name          = "aira-oneapi"
+  protocol_type = "HTTP"
+}`
+      },
+      {
+        id: 'aira-edge',
+        icon: 'globe',
+        title: 'Route 53 / ACM / ALB',
+        desc: 'Multi-Env TLS Front Door',
+        badge: 'Dev-UAT-Prod',
+        infoTitle: 'Multi-Environment TLS Front Door',
+        infoDesc: 'Dev, Pre-Prod, UAT, and Prod hostnames with ACM and ALB target groups isolated per environment.',
+        specs: ['DNS: Route 53 per environment', 'TLS: ACM + GoDaddy validation', 'ALB: Isolated target groups'],
+        codeFile: 'aira_edge.tf',
+        code: `resource "aws_lb" "aira" {
+  name               = "aira-prod-alb"
+  load_balancer_type = "application"
+  internal           = false
+}`
+      },
+      {
+        id: 'aira-agents',
+        icon: 'sparkles',
+        title: 'AIRA Agents (Fargate)',
+        desc: 'Multi-Step Reasoning Fleet',
+        badge: 'Bedrock',
+        infoTitle: 'ECS Fargate Agent Fleet + Bedrock',
+        infoDesc: 'Autonomous agents on Fargate call Bedrock for multi-step reasoning with tool-use traces stored for audit.',
+        specs: ['Compute: ECS Fargate agent pool', 'LLM: Bedrock with tool calling', 'Trace: Step logs to CloudWatch'],
+        codeFile: 'aira_agents.tf',
+        code: `resource "aws_ecs_task_definition" "aira_agent" {
+  family                   = "aira-agent"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "1024"
+  memory                   = "2048"
+  network_mode             = "awsvpc"
+}`
+      },
+      {
+        id: 'aira-guard',
+        icon: 'shield-check',
+        title: 'Compliance Guardrails',
+        desc: 'Policy Engine + Audit Trail',
+        badge: 'Regulated',
+        infoTitle: 'Compliance Guardrails and Audit',
+        infoDesc: 'Policy engine blocks unsafe tool calls, redacts PII, and writes immutable decision audits for regulators.',
+        specs: ['Guardrails: Bedrock + custom policy service', 'PII: Redaction before model I/O', 'Audit: Immutable decision log'],
+        codeFile: 'aira_guardrails.tf',
+        code: `resource "aws_cloudwatch_log_group" "aira_audit" {
+  name              = "/aira/prod/audit"
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.aira.arn
+}`
+      },
+      {
+        id: 'aira-data',
+        icon: 'database',
+        title: 'Aurora + OpenSearch',
+        desc: 'Cases, Memory, Retrieval',
+        badge: 'Encrypted',
+        infoTitle: 'Aurora Cases and OpenSearch Memory',
+        infoDesc: 'Case state in Aurora PostgreSQL; retrieval-augmented memory in OpenSearch for agent context.',
+        specs: ['OLTP: Aurora PostgreSQL Multi-AZ', 'RAG: OpenSearch vector k-NN', 'KMS: Encryption at rest'],
+        codeFile: 'aira_data.tf',
+        code: `resource "aws_rds_cluster" "aira" {
+  engine            = "aurora-postgresql"
+  storage_encrypted = true
+  kms_key_id        = aws_kms_key.aira.arn
+}`
+      }
+    ]
+  },
+  'drive30': {
+    group: 'cloud',
+    shortLabel: 'Drive30 Inventory Command',
+    title: 'Drive30 — Automotive Inventory & Command Center',
+    budget: '$350 – $500',
+    nodes: [
+      {
+        id: 'd30-sftp',
+        icon: 'upload-cloud',
+        title: 'Transfer Family SFTP',
+        desc: 'vAuto Inventory Ingest',
+        badge: 'SFTP',
+        infoTitle: 'AWS Transfer Family SFTP',
+        infoDesc: 'Partners drop inventory feeds over SFTP. Custom IdP authenticates against hashed credentials in DynamoDB via API Gateway and Lambda.',
+        specs: ['Ingest: Transfer Family SFTP', 'IdP: API Gateway + Lambda', 'Store: DynamoDB hashed credentials'],
+        codeFile: 'drive30_transfer.tf',
+        code: `resource "aws_transfer_server" "vauto" {
+  identity_provider_type = "AWS_LAMBDA"
+  protocols              = ["SFTP"]
+  endpoint_type          = "PUBLIC"
+}`
+      },
+      {
+        id: 'd30-s3',
+        icon: 'hard-drive',
+        title: 'S3 incoming/vauto/',
+        desc: 'Flat Key Inventory Landing',
+        badge: 'Landing Zone',
+        infoTitle: 'S3 Inventory Landing Zone',
+        infoDesc: 'Authenticated uploads land in s3://bucket/incoming/vauto/ with event notifications into SQS for workers.',
+        specs: ['Prefix: incoming/vauto/', 'Events: S3 ObjectCreated to SQS', 'SSE: KMS bucket key'],
+        codeFile: 'drive30_s3.tf',
+        code: `resource "aws_s3_bucket_notification" "vauto" {
+  bucket = aws_s3_bucket.inventory.id
+  queue {
+    queue_arn     = aws_sqs_queue.inventory.arn
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "incoming/vauto/"
+  }
+}`
+      },
+      {
+        id: 'd30-sqs',
+        icon: 'layers',
+        title: 'SQS + ECS Fargate',
+        desc: 'Python Workers + Alembic',
+        badge: 'Async',
+        infoTitle: 'SQS Workers on ECS Fargate',
+        infoDesc: 'Python workers consume SQS, parse inventory files, and apply Alembic migrations against the operational database.',
+        specs: ['Queue: SQS + DLQ', 'Workers: ECS Fargate Python', 'DB: Alembic migrations'],
+        codeFile: 'drive30_workers.tf',
+        code: `resource "aws_sqs_queue" "inventory" {
+  name                      = "drive30-inventory"
+  visibility_timeout_seconds = 300
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.inventory_dlq.arn
+    maxReceiveCount     = 5
+  })
+}`
+      },
+      {
+        id: 'd30-eb',
+        icon: 'calendar',
+        title: 'EventBridge Sync',
+        desc: 'X3-to-MIS Scheduled Jobs',
+        badge: 'Cron',
+        infoTitle: 'EventBridge X3-to-MIS Sync',
+        infoDesc: 'Scheduled EventBridge rules trigger ECS tasks that synchronize X3 inventory into MIS on a dealer calendar.',
+        specs: ['Scheduler: EventBridge cron', 'Job: X3-to-MIS ECS task', 'Retry: Failed invocations to DLQ'],
+        codeFile: 'drive30_eventbridge.tf',
+        code: `resource "aws_cloudwatch_event_rule" "x3_mis" {
+  name                = "drive30-x3-to-mis"
+  schedule_expression = "cron(0 * * * ? *)"
+}`
+      },
+      {
+        id: 'd30-cc',
+        icon: 'monitor',
+        title: 'Amplify Command Center',
+        desc: 'Next.js + Cognito',
+        badge: 'Ops UI',
+        infoTitle: 'Next.js Command Center on Amplify',
+        infoDesc: 'Real-time dealer operations UI on Amplify with Amazon Cognito authentication and API calls to Fargate workers.',
+        specs: ['UI: Next.js on Amplify', 'Auth: Amazon Cognito user pool', 'API: HTTPS to ALB / workers'],
+        codeFile: 'drive30_amplify.tf',
+        code: `resource "aws_cognito_user_pool" "command_center" {
+  name = "drive30-command-center"
+}
+resource "aws_amplify_app" "command_center" {
+  name     = "drive30-command-center"
+  platform = "WEB"
+}`
+      }
+    ]
+  },
+  'vlf': {
+    group: 'fintech',
+    shortLabel: 'VLF Vehicle Lending',
+    title: 'VLF — Vehicle Loan Origination & Decisioning',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'vlf-ui',
+        icon: 'layout',
+        title: 'Amplify Origination UI',
+        desc: 'Dealer + Borrower Portals',
+        badge: 'Omnichannel',
+        infoTitle: 'Amplify Loan Origination Front-End',
+        infoDesc: 'Borrower and dealer portals on Amplify covering onboarding, vehicle valuation, and application status.',
+        specs: ['Hosting: Amplify SPA', 'Channels: Borrower + dealer', 'CI/CD: GitHub Actions to Amplify'],
+        codeFile: 'vlf_amplify.tf',
+        code: `resource "aws_amplify_app" "vlf" {
+  name     = "vlf-origination"
+  platform = "WEB"
+}`
+      },
+      {
+        id: 'vlf-waf',
+        icon: 'shield',
+        title: 'Route 53 + WAF',
+        desc: 'Latency Routing, OWASP',
+        badge: 'TLS 1.3',
+        infoTitle: 'Route 53 Latency Routing and WAF',
+        infoDesc: 'Latency-based DNS plus regional WAF with PCI-sensitive rate limits in front of the loan ALB.',
+        specs: ['DNS: Route 53 latency policy', 'WAF: OWASP managed + rate limit', 'TLS: ACM certificates'],
+        codeFile: 'vlf_waf.tf',
+        code: `resource "aws_wafv2_web_acl_association" "vlf" {
+  resource_arn = aws_lb.vlf.arn
+  web_acl_arn  = aws_wafv2_web_acl.vlf.arn
+}`
+      },
+      {
+        id: 'vlf-alb',
+        icon: 'network',
+        title: 'ALB Target Groups',
+        desc: 'HTTPS to Loan Engine',
+        badge: 'Multi-AZ',
+        infoTitle: 'Application Load Balancer',
+        infoDesc: 'HTTPS listener with strict headers forwarding to ECS loan-engine target groups across two AZs.',
+        specs: ['Listener: 443 only, HTTP redirect', 'TG: loan-engine /health', 'AZ: Public subnets x2'],
+        codeFile: 'vlf_alb.tf',
+        code: `resource "aws_lb_listener" "vlf_https" {
+  load_balancer_arn = aws_lb.vlf.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = aws_acm_certificate.vlf.arn
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.vlf_engine.arn
+  }
+}`
+      },
+      {
+        id: 'vlf-engine',
+        icon: 'cpu',
+        title: 'Loan Engine (ECS)',
+        desc: 'Sub-Second Credit Decisioning',
+        badge: 'Underwriting',
+        infoTitle: 'ECS Fargate Loan Decision Engine',
+        infoDesc: 'Origination, valuation, and automated underwriting services on Fargate with burst autoscaling at application peaks.',
+        specs: ['Compute: ECS Fargate', 'SLA: Sub-second decision path', 'Scale: CPU target tracking'],
+        codeFile: 'vlf_ecs.tf',
+        code: `resource "aws_ecs_service" "vlf_engine" {
+  name        = "vlf-loan-engine"
+  launch_type = "FARGATE"
+  desired_count = 3
+}`
+      },
+      {
+        id: 'vlf-rds',
+        icon: 'database',
+        title: 'RDS Multi-AZ + KMS',
+        desc: 'Encrypted Loan Records',
+        badge: 'Private VPC',
+        infoTitle: 'Encrypted Multi-AZ RDS',
+        infoDesc: 'Loan applications and decision records in private-subnet RDS PostgreSQL, encrypted with KMS and no public access.',
+        specs: ['Engine: PostgreSQL Multi-AZ', 'Network: PRIVATE_ISOLATED', 'KMS: Storage + snapshot encryption'],
+        codeFile: 'vlf_rds.tf',
+        code: `resource "aws_db_instance" "vlf" {
+  engine              = "postgres"
+  multi_az            = true
+  storage_encrypted   = true
+  publicly_accessible = false
+}`
+      }
+    ]
+  },
+  'eazy-school': {
+    group: 'cloud',
+    shortLabel: 'EAzy School EdTech SaaS',
+    title: 'EAzy School — Multi-Tenant EdTech ERP',
+    budget: '$250 – $450',
+    nodes: [
+      {
+        id: 'ez-cdn',
+        icon: 'globe',
+        title: 'CloudFront / Amplify',
+        desc: 'Parent & Staff Portals',
+        badge: 'Multi-Tenant',
+        infoTitle: 'CloudFront and Amplify Portals',
+        infoDesc: 'Staff ERP and parent apps at the edge via CloudFront/Amplify with tenant hostnames.',
+        specs: ['CDN: CloudFront + Amplify', 'Tenants: School vanity hosts', 'Cache: Static assets, no PII'],
+        codeFile: 'eazy_cdn.tf',
+        code: `resource "aws_cloudfront_distribution" "eazy" {
+  enabled             = true
+  default_root_object = "index.html"
+  origin {
+    domain_name = aws_amplify_app.eazy.default_domain
+    origin_id   = "amplify"
+  }
+}`
+      },
+      {
+        id: 'ez-alb',
+        icon: 'network',
+        title: 'ALB + Nginx',
+        desc: 'Tenant Path Routing',
+        badge: 'Layer 7',
+        infoTitle: 'ALB and Nginx Tenant Routing',
+        infoDesc: 'ALB plus Nginx reverse proxy route tenant and API prefixes into ECS services.',
+        specs: ['ALB: HTTPS listener', 'Nginx: Tenant path / header routing', 'Health: /health on API tasks'],
+        codeFile: 'eazy_alb.tf',
+        code: `resource "aws_lb" "eazy" {
+  name               = "eazy-school-alb"
+  load_balancer_type = "application"
+}`
+      },
+      {
+        id: 'ez-api',
+        icon: 'box',
+        title: 'Node / Python on ECS',
+        desc: 'Admissions, Fees, Attendance',
+        badge: 'ERP APIs',
+        infoTitle: 'ECS Fargate ERP APIs',
+        infoDesc: 'Node.js and Python services for admissions, attendance, fee billing, and parent messaging on ECS.',
+        specs: ['Compute: ECS Fargate mixed runtimes', 'Domains: Admissions, fees, attendance', 'CI/CD: GitHub Actions'],
+        codeFile: 'eazy_ecs.tf',
+        code: `resource "aws_ecs_service" "eazy_api" {
+  name        = "eazy-school-api"
+  launch_type = "FARGATE"
+  desired_count = 2
+}`
+      },
+      {
+        id: 'ez-db',
+        icon: 'database',
+        title: 'PostgreSQL Multi-Tenant',
+        desc: 'Row-Level Tenant Isolation',
+        badge: 'RLS',
+        infoTitle: 'PostgreSQL with Tenant RLS',
+        infoDesc: 'Shared PostgreSQL with row-level security by school_id and nightly snapshot exports to S3.',
+        specs: ['DB: RDS PostgreSQL', 'Isolation: RLS on school_id', 'Backup: Nightly snapshot to S3'],
+        codeFile: 'eazy_rds.tf',
+        code: `resource "aws_db_instance" "eazy" {
+  engine              = "postgres"
+  multi_az            = true
+  storage_encrypted   = true
+  publicly_accessible = false
+}`
+      },
+      {
+        id: 'ez-s3',
+        icon: 'hard-drive',
+        title: 'S3 Snapshots & Media',
+        desc: 'Daily DB + Learning Assets',
+        badge: 'Lifecycle',
+        infoTitle: 'S3 Backups and Learning Media',
+        infoDesc: 'Daily database snapshots and e-learning media in S3 with lifecycle rules to Glacier.',
+        specs: ['Backup: Automated snapshot export', 'Media: Assignments + reports', 'Lifecycle: IA then Glacier'],
+        codeFile: 'eazy_s3.tf',
+        code: `resource "aws_s3_bucket_lifecycle_configuration" "eazy" {
+  bucket = aws_s3_bucket.eazy.id
+  rule {
+    id     = "glacier-after-90"
+    status = "Enabled"
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+  }
+}`
+      }
+    ]
+  },
+  'people-fund': {
+    group: 'fintech',
+    shortLabel: 'People Fund P2P Lending',
+    title: 'People Fund — PCI-DSS Crowdfunding Platform',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'pf-ui',
+        icon: 'users',
+        title: 'Amplify Campaign UI',
+        desc: 'Backer & Creator Portals',
+        badge: 'P2P',
+        infoTitle: 'Amplify Crowdfunding Experience',
+        infoDesc: 'Campaign discovery, pledging, and creator dashboards hosted on Amplify with OAuth 2.0 sign-in.',
+        specs: ['Hosting: Amplify SPA', 'Auth: OAuth 2.0 / Cognito', 'CI/CD: GitHub Actions'],
+        codeFile: 'peoplefund_amplify.tf',
+        code: `resource "aws_amplify_app" "people_fund" {
+  name     = "people-fund-ui"
+  platform = "WEB"
+}`
+      },
+      {
+        id: 'pf-waf',
+        icon: 'shield',
+        title: 'Route 53 / ACM / WAF',
+        desc: 'PCI Edge Controls',
+        badge: 'PCI-DSS',
+        infoTitle: 'PCI-DSS Edge (DNS, TLS, WAF)',
+        infoDesc: 'Public edge with ACM TLS, WAF, and no card data stored in the app tier — tokens only from the processor.',
+        specs: ['DNS: Route 53', 'TLS: ACM', 'PCI: No PAN storage, WAF on ALB'],
+        codeFile: 'peoplefund_waf.tf',
+        code: `resource "aws_wafv2_web_acl" "people_fund" {
+  name  = "people-fund-pci-waf"
+  scope = "REGIONAL"
+  default_action { allow {} }
+}`
+      },
+      {
+        id: 'pf-alb',
+        icon: 'network',
+        title: 'ALB Micro-Lending API',
+        desc: 'HTTPS to ECS Engine',
+        badge: 'Private Subnets',
+        infoTitle: 'ALB to Lending Engine',
+        infoDesc: 'ALB in public subnets forwards to ECS tasks in private subnets with security groups limited to ALB.',
+        specs: ['ALB: Public HTTPS', 'Tasks: Private subnets', 'SG: ALB to ECS 8080 only'],
+        codeFile: 'peoplefund_alb.tf',
+        code: `resource "aws_lb" "people_fund" {
+  name               = "people-fund-alb"
+  load_balancer_type = "application"
+  internal           = false
+}`
+      },
+      {
+        id: 'pf-engine',
+        icon: 'cpu',
+        title: 'Micro-Lending Engine',
+        desc: 'ECS Campaign & Ledger APIs',
+        badge: 'Fargate',
+        infoTitle: 'ECS Fargate Lending Engine',
+        infoDesc: 'Campaign, pledge, and ledger services on Fargate with idempotent webhook handlers.',
+        specs: ['Compute: ECS Fargate', 'APIs: Campaigns, pledges, ledger', 'Idempotency: Webhook keys'],
+        codeFile: 'peoplefund_ecs.tf',
+        code: `resource "aws_ecs_service" "lending" {
+  name        = "people-fund-engine"
+  launch_type = "FARGATE"
+  desired_count = 3
+}`
+      },
+      {
+        id: 'pf-webhooks',
+        icon: 'webhook',
+        title: 'Payment Webhooks',
+        desc: 'EventBridge + SQS + KMS',
+        badge: 'Processor',
+        infoTitle: 'Payment Processor Webhooks',
+        infoDesc: 'Processor callbacks land on API Gateway, fan out on EventBridge, and persist via SQS workers. Secrets stay in KMS/Secrets Manager.',
+        specs: ['Ingress: API Gateway webhook route', 'Bus: EventBridge payment events', 'Secrets: Processor keys in Secrets Manager'],
+        codeFile: 'peoplefund_webhooks.tf',
+        code: `resource "aws_cloudwatch_event_bus" "payments" {
+  name = "people-fund-payments"
+}
+resource "aws_sqs_queue" "settlement" {
+  name = "people-fund-settlement"
+}`
+      }
+    ]
+  },
+  'employee-portal': {
+    group: 'cloud',
+    shortLabel: 'Employee Portal HRMS (India)',
+    title: 'Employee Portal — Entra ID HRMS & Workspace',
+    budget: '$250 – $450',
+    nodes: [
+      {
+        id: 'ep-sso',
+        icon: 'key',
+        title: 'Entra ID SSO',
+        desc: 'SAML / OAuth 2.0',
+        badge: 'Azure AD',
+        infoTitle: 'Microsoft Entra ID Single Sign-On',
+        infoDesc: 'Workforce sign-in via Entra ID SAML and OAuth 2.0 with group claims mapped to portal RBAC roles.',
+        specs: ['IdP: Microsoft Entra ID', 'Protocols: SAML 2.0 + OAuth 2.0', 'Claims: Groups to RBAC roles'],
+        codeFile: 'employee_portal_sso.tf',
+        code: `resource "aws_iam_saml_provider" "entra" {
+  name                   = "entra-id-hyniva"
+  saml_metadata_document = file("entra-metadata.xml")
+}`
+      },
+      {
+        id: 'ep-alb',
+        icon: 'network',
+        title: 'ALB + Nginx',
+        desc: 'TLS and Reverse Proxy',
+        badge: 'Internal',
+        infoTitle: 'ALB and Nginx Reverse Proxy',
+        infoDesc: 'Internet-facing ALB with Nginx on the app hosts routing /api and static workplace assets.',
+        specs: ['ALB: HTTPS + health checks', 'Proxy: Nginx path routing', 'Headers: HSTS + CSRF'],
+        codeFile: 'employee_portal_alb.tf',
+        code: `resource "aws_lb" "employee_portal" {
+  name               = "employee-portal-alb"
+  load_balancer_type = "application"
+}`
+      },
+      {
+        id: 'ep-app',
+        icon: 'box',
+        title: 'Portal App (ECS / Docker)',
+        desc: 'HRMS + Workspace APIs',
+        badge: 'RBAC',
+        infoTitle: 'Containerized HRMS Application',
+        infoDesc: 'Leave, payroll integration, and document access APIs in Docker on ECS with RBAC middleware.',
+        specs: ['Runtime: ECS / Docker', 'Modules: Leave, payroll, documents', 'AuthZ: RBAC from Entra groups'],
+        codeFile: 'employee_portal_ecs.tf',
+        code: `resource "aws_ecs_service" "employee_portal" {
+  name        = "employee-portal-app"
+  launch_type = "FARGATE"
+  desired_count = 2
+}`
+      },
+      {
+        id: 'ep-db',
+        icon: 'database',
+        title: 'PostgreSQL HR Data',
+        desc: 'Private Encrypted RDS',
+        badge: 'No Public IP',
+        infoTitle: 'Private RDS PostgreSQL',
+        infoDesc: 'HR records in private RDS PostgreSQL, encrypted, with automated snapshots.',
+        specs: ['Engine: PostgreSQL', 'Network: Private subnets only', 'Backup: Automated snapshots'],
+        codeFile: 'employee_portal_rds.tf',
+        code: `resource "aws_db_instance" "employee_portal" {
+  engine              = "postgres"
+  storage_encrypted   = true
+  publicly_accessible = false
+}`
+      },
+      {
+        id: 'ep-backup',
+        icon: 'hard-drive',
+        title: 'S3 Backup Vault',
+        desc: 'DB Snapshots + Docs',
+        badge: 'KMS',
+        infoTitle: 'S3 Encrypted Backup Vault',
+        infoDesc: 'Nightly database dumps and workplace documents in KMS-encrypted S3 with versioning.',
+        specs: ['S3: Versioning + SSE-KMS', 'Jobs: Nightly pg_dump export', 'Retention: 30-day versions'],
+        codeFile: 'employee_portal_s3.tf',
+        code: `resource "aws_s3_bucket" "hr_backups" {
+  bucket = "hyniva-employee-portal-backups"
+}`
+      }
+    ]
+  },
+  'document-manager': {
+    group: 'cloud',
+    shortLabel: 'Document Manager Vault',
+    title: 'Document Manager — KMS Encrypted Cloud Archival',
+    budget: '$250 – $450',
+    nodes: [
+      {
+        id: 'dm-ui',
+        icon: 'layout',
+        title: 'Upload UI',
+        desc: 'Presigned Upload Portal',
+        badge: 'SPA',
+        infoTitle: 'Document Upload Experience',
+        infoDesc: 'Operators request presigned URLs and upload contracts directly to S3 without streaming files through the API.',
+        specs: ['UI: Amplify / CloudFront', 'Uploads: S3 presigned PUT', 'Auth: Cognito / session JWT'],
+        codeFile: 'docmgr_ui.tf',
+        code: `resource "aws_amplify_app" "docmgr" {
+  name     = "document-manager-ui"
+  platform = "WEB"
+}`
+      },
+      {
+        id: 'dm-alb',
+        icon: 'network',
+        title: 'ALB API',
+        desc: 'Metadata + Presign Service',
+        badge: 'HTTPS',
+        infoTitle: 'ALB Document API',
+        infoDesc: 'HTTPS API issues presigned URLs, writes metadata, and kicks off virus-scan workflows.',
+        specs: ['ALB: Multi-AZ HTTPS', 'API: Presign + metadata', 'Auth: Signed cookies / JWT'],
+        codeFile: 'docmgr_alb.tf',
+        code: `resource "aws_lb" "docmgr" {
+  name               = "document-manager-alb"
+  load_balancer_type = "application"
+}`
+      },
+      {
+        id: 'dm-scan',
+        icon: 'shield-alert',
+        title: 'ClamAV Workers',
+        desc: 'ECS Virus Scan Pipeline',
+        badge: 'Security',
+        infoTitle: 'ClamAV ECS Scan Pipeline',
+        infoDesc: 'S3 ObjectCreated events queue ECS Fargate tasks that scan with ClamAV and quarantine infected objects.',
+        specs: ['Trigger: S3 to SQS', 'Scan: ClamAV on Fargate', 'Action: Quarantine prefix + alert'],
+        codeFile: 'docmgr_scan.tf',
+        code: `resource "aws_ecs_task_definition" "clamav" {
+  family                   = "docmgr-clamav"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "1024"
+  memory                   = "2048"
+  network_mode             = "awsvpc"
+}`
+      },
+      {
+        id: 'dm-s3',
+        icon: 'lock',
+        title: 'S3 KMS Vault',
+        desc: 'Versioned SSE-KMS Store',
+        badge: 'Encrypted',
+        infoTitle: 'S3 Vault with KMS and Versioning',
+        infoDesc: 'Canonical vault with bucket versioning, SSE-KMS, and block public access. OCR text stored as sidecar objects.',
+        specs: ['SSE: AWS KMS CMK', 'Versioning: Enabled', 'Public: Block all public access'],
+        codeFile: 'docmgr_s3.tf',
+        code: `resource "aws_s3_bucket_server_side_encryption_configuration" "vault" {
+  bucket = aws_s3_bucket.vault.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.vault.arn
+    }
+  }
+}`
+      },
+      {
+        id: 'dm-life',
+        icon: 'archive',
+        title: 'Lifecycle Archival',
+        desc: 'IA to Glacier Policies',
+        badge: 'Compliance',
+        infoTitle: 'S3 Lifecycle Archival',
+        infoDesc: 'Retention policies move cold contracts to Infrequent Access then Glacier while legal holds skip transition.',
+        specs: ['IA: 30 days', 'Glacier: 180 days', 'Holds: Object Lock / legal hold'],
+        codeFile: 'docmgr_lifecycle.tf',
+        code: `resource "aws_s3_bucket_lifecycle_configuration" "vault" {
+  bucket = aws_s3_bucket.vault.id
+  rule {
+    id     = "archive"
+    status = "Enabled"
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+  }
+}`
+      }
+    ]
+  },
+  'buildzbit': {
+    group: 'ai',
+    shortLabel: 'Buildzbit Site Builder',
+    title: 'Buildzbit — Modular Builder & Edge Publish',
+    budget: '$250 – $450',
+    nodes: [
+      {
+        id: 'bz-studio',
+        icon: 'layout-grid',
+        title: 'Builder Studio',
+        desc: 'Visual Authoring SPA',
+        badge: 'Low-Code',
+        infoTitle: 'Buildzbit Studio on Amplify',
+        infoDesc: 'Visual builder studio on Amplify where users compose pages, preview, and trigger publish pipelines.',
+        specs: ['Hosting: Amplify studio SPA', 'Preview: Per-user sandbox hosts', 'Auth: Cognito builders'],
+        codeFile: 'buildzbit_studio.tf',
+        code: `resource "aws_amplify_app" "studio" {
+  name     = "buildzbit-studio"
+  platform = "WEB"
+}`
+      },
+      {
+        id: 'bz-engine',
+        icon: 'cpu',
+        title: 'Template Engine',
+        desc: 'ECS Render + AI Assist',
+        badge: 'Fargate',
+        infoTitle: 'ECS Template Engine',
+        infoDesc: 'Fargate renderers compile visual trees to static assets. Optional Bedrock calls suggest layouts and copy.',
+        specs: ['Compute: ECS Fargate renderers', 'AI: Optional Bedrock assist', 'Queue: SQS build jobs'],
+        codeFile: 'buildzbit_engine.tf',
+        code: `resource "aws_ecs_service" "template_engine" {
+  name        = "buildzbit-engine"
+  launch_type = "FARGATE"
+  desired_count = 2
+}`
+      },
+      {
+        id: 'bz-docker',
+        icon: 'box',
+        title: 'Docker Builder',
+        desc: 'Isolated Site Builds',
+        badge: 'Immutable',
+        infoTitle: 'Isolated Docker Site Builds',
+        infoDesc: 'Each publish runs in an isolated Docker build task, producing hashed artifacts pushed to S3.',
+        specs: ['Builder: ECS/CodeBuild Docker', 'Artifacts: Content-hashed bundles', 'Isolation: One task per site'],
+        codeFile: 'buildzbit_builder.tf',
+        code: `resource "aws_codebuild_project" "site_builder" {
+  name         = "buildzbit-site-builder"
+  service_role = aws_iam_role.codebuild.arn
+  artifacts { type = "S3" }
+  environment {
+    compute_type = "BUILD_GENERAL1_SMALL"
+    image        = "aws/codebuild/standard:7.0"
+    type         = "LINUX_CONTAINER"
+  }
+  source { type = "NO_SOURCE" }
+}`
+      },
+      {
+        id: 'bz-cdn',
+        icon: 'globe',
+        title: 'S3 + CloudFront',
+        desc: 'Instant Edge Publish',
+        badge: 'CDN',
+        infoTitle: 'S3 Origin and CloudFront CDN',
+        infoDesc: 'Published sites live in S3 and CloudFront with invalidations on each successful build.',
+        specs: ['Origin: S3 static site bucket', 'CDN: CloudFront', 'Cache: Invalidate on publish'],
+        codeFile: 'buildzbit_cdn.tf',
+        code: `resource "aws_cloudfront_distribution" "sites" {
+  enabled = true
+  origin {
+    domain_name = aws_s3_bucket.sites.bucket_regional_domain_name
+    origin_id   = "sites"
+  }
+}`
+      },
+      {
+        id: 'bz-dns',
+        icon: 'link',
+        title: 'Route 53 + ACM',
+        desc: 'Auto Custom Domains',
+        badge: 'DNS',
+        infoTitle: 'Automated Custom Domains',
+        infoDesc: 'Route 53 records and ACM certificates provisioned per customer domain when they map a hostname.',
+        specs: ['DNS: Automated alias records', 'TLS: ACM DNS validation', 'Map: Customer CNAME onboarding'],
+        codeFile: 'buildzbit_dns.tf',
+        code: `resource "aws_acm_certificate" "site" {
+  domain_name       = var.customer_domain
+  validation_method = "DNS"
+}`
+      }
+    ]
+  },
+  'elog': {
+    group: 'cloud',
+    shortLabel: 'ELog Audit & Observability',
+    title: 'ELog — High-Throughput Logging & Audit Trail',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'elog-agents',
+        icon: 'scroll-text',
+        title: 'FluentBit Agents',
+        desc: 'Cluster Log Shippers',
+        badge: 'DaemonSet',
+        infoTitle: 'FluentBit / Logstash Shippers',
+        infoDesc: 'FluentBit daemonsets and Logstash collectors ship application, audit, and infra logs with tenant labels.',
+        specs: ['Agents: FluentBit DaemonSet', 'Enrich: Cluster / app / tenant labels', 'Buffer: Local disk then forward'],
+        codeFile: 'elog_fluentbit.yaml',
+        code: `apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit
+spec:
+  selector:
+    matchLabels:
+      app: fluent-bit`
+      },
+      {
+        id: 'elog-kafka',
+        icon: 'layers',
+        title: 'MSK / Kafka Queue',
+        desc: 'Durable Ingest Buffer',
+        badge: 'High Throughput',
+        infoTitle: 'Amazon MSK Log Bus',
+        infoDesc: 'MSK (Kafka) absorbs bursty multi-cloud log volume before indexing so origin apps are never blocked.',
+        specs: ['Bus: Amazon MSK Kafka', 'Topics: app, audit, infra', 'Retention: 7-day topic retention'],
+        codeFile: 'elog_msk.tf',
+        code: `resource "aws_msk_cluster" "elog" {
+  cluster_name           = "elog-audit"
+  kafka_version          = "3.6.0"
+  number_of_broker_nodes = 3
+}`
+      },
+      {
+        id: 'elog-os',
+        icon: 'search',
+        title: 'OpenSearch Index',
+        desc: 'Immutable Audit Search',
+        badge: 'Compliance',
+        infoTitle: 'OpenSearch Audit Index',
+        infoDesc: 'Indexed logs with ISM policies. Audit indices are append-only for compliance investigators.',
+        specs: ['Engine: OpenSearch', 'ISM: Hot-warm-delete', 'Audit: Append-only aliases'],
+        codeFile: 'elog_opensearch.tf',
+        code: `resource "aws_opensearch_domain" "elog" {
+  domain_name    = "elog-audit"
+  engine_version = "OpenSearch_2.11"
+}`
+      },
+      {
+        id: 'elog-cw',
+        icon: 'line-chart',
+        title: 'CloudWatch + Grafana',
+        desc: 'Metrics and Dashboards',
+        badge: 'SLO',
+        infoTitle: 'CloudWatch Metrics and Grafana',
+        infoDesc: 'CloudWatch metrics plus Grafana dashboards for ingest lag, error rates, and executive audit views.',
+        specs: ['Metrics: CloudWatch ingest/lag', 'UX: Grafana dashboards', 'SLO: < 60s search delay'],
+        codeFile: 'elog_grafana.tf',
+        code: `resource "aws_grafana_workspace" "elog" {
+  name                     = "elog-observability"
+  account_access_type      = "CURRENT_ACCOUNT"
+  authentication_providers = ["AWS_SSO"]
+  permission_type          = "SERVICE_MANAGED"
+}`
+      },
+      {
+        id: 'elog-alert',
+        icon: 'bell',
+        title: 'Anomaly Alerts',
+        desc: 'SNS / Pager Routing',
+        badge: 'Realtime',
+        infoTitle: 'Anomaly Detection and Alert Routing',
+        infoDesc: 'OpenSearch alerting and CloudWatch anomaly detectors fan out to SNS, PagerDuty, and Slack.',
+        specs: ['Detect: Anomaly + threshold', 'Route: SNS to PagerDuty/Slack', 'Purge: Retention Lambda'],
+        codeFile: 'elog_alerts.tf',
+        code: `resource "aws_sns_topic" "elog_pager" {
+  name = "elog-anomaly-alerts"
+}
+resource "aws_cloudwatch_metric_alarm" "ingest_lag" {
+  alarm_name          = "elog-ingest-lag"
+  comparison_operator = "GreaterThanThreshold"
+  threshold           = 60
+  alarm_actions       = [aws_sns_topic.elog_pager.arn]
+}`
+      }
+    ]
+  },
+  'awt': {
+    group: 'ai',
+    shortLabel: 'AWT Workflow Engine',
+    title: 'AWT — Automated Workflow Technology Engine',
+    budget: '$250 – $450',
+    nodes: [
+      {
+        id: 'awt-trigger',
+        icon: 'zap',
+        title: 'Event Triggers',
+        desc: 'EventBridge + Schedules',
+        badge: 'Event-Driven',
+        infoTitle: 'EventBridge Workflow Triggers',
+        infoDesc: 'API events, S3 notifications, and cron schedules enter EventBridge and start AWT orchestrations.',
+        specs: ['Bus: EventBridge custom bus', 'Schedules: Cron batch jobs', 'Sources: API, S3, SaaS events'],
+        codeFile: 'awt_events.tf',
+        code: `resource "aws_cloudwatch_event_bus" "awt" {
+  name = "awt-orchestrator"
+}
+resource "aws_cloudwatch_event_rule" "nightly" {
+  name                = "awt-nightly-batch"
+  schedule_expression = "cron(0 2 * * ? *)"
+}`
+      },
+      {
+        id: 'awt-orch',
+        icon: 'workflow',
+        title: 'AWT Orchestrator',
+        desc: 'ECS Control Plane',
+        badge: 'Multi-Step',
+        infoTitle: 'ECS Fargate Orchestrator',
+        infoDesc: 'Control plane on Fargate expands workflow graphs, persists state, and fans work to SQS worker queues.',
+        specs: ['Compute: ECS Fargate orchestrator', 'State: Workflow step store', 'Fan-out: Per-step SQS queues'],
+        codeFile: 'awt_orchestrator.tf',
+        code: `resource "aws_ecs_service" "awt" {
+  name        = "awt-orchestrator"
+  launch_type = "FARGATE"
+  desired_count = 2
+}`
+      },
+      {
+        id: 'awt-sqs',
+        icon: 'layers',
+        title: 'SQS Worker Pools',
+        desc: 'Fargate + DLQ Healing',
+        badge: 'Self-Healing',
+        infoTitle: 'SQS Workers and Dead-Letter Queues',
+        infoDesc: 'Step workers scale on queue depth. Failures retry then land on DLQs with webhook alerts and replay.',
+        specs: ['Queues: Per-step SQS + DLQ', 'Scale: Queue-depth tracking', 'Heal: Replay from DLQ'],
+        codeFile: 'awt_sqs.tf',
+        code: `resource "aws_sqs_queue" "awt_steps" {
+  name = "awt-step-workers"
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.awt_dlq.arn
+    maxReceiveCount     = 5
+  })
+}`
+      },
+      {
+        id: 'awt-handlers',
+        icon: 'plug',
+        title: 'Integration Handlers',
+        desc: 'Lambda + Partner APIs',
+        badge: 'Connectors',
+        infoTitle: 'Lambda Integration Handlers',
+        infoDesc: 'Lambda connectors call partner APIs, transform payloads, and write results back to the orchestrator.',
+        specs: ['Runtime: Lambda Python 3.11', 'Secrets: Secrets Manager per connector', 'Timeout: 29s with async continue'],
+        codeFile: 'awt_lambda.tf',
+        code: `resource "aws_lambda_function" "awt_handler" {
+  function_name = "awt-integration-handler"
+  runtime       = "python3.11"
+  handler       = "handler.main"
+  timeout       = 29
+}`
+      },
+      {
+        id: 'awt-obs',
+        icon: 'bell',
+        title: 'Failure Webhooks',
+        desc: 'SNS + CloudWatch',
+        badge: 'Ops',
+        infoTitle: 'Failure Notifications',
+        infoDesc: 'CloudWatch alarms and SNS fan-out notify Slack/email when a workflow exhausts retries.',
+        specs: ['Metrics: Step fail rate', 'Notify: SNS webhooks', 'Trace: X-Ray on handlers'],
+        codeFile: 'awt_alerts.tf',
+        code: `resource "aws_sns_topic" "awt_failures" {
+  name = "awt-workflow-failures"
+}`
+      }
+    ]
   }
 };
 
+const ARCH_GROUP_LABELS = {
+  platform: 'Platform Patterns',
+  fintech: 'FinTech & Banking',
+  ai: 'AI & Automation',
+  cloud: 'Enterprise & Cloud'
+};
+
+const ARCH_GROUP_ORDER = ['platform', 'fintech', 'ai', 'cloud'];
+
 function initArchitectureExplorer() {
-  const tabs = document.querySelectorAll('.tab-arch-btn');
   const nodesContainer = document.getElementById('arch-nodes-container');
   const diagramTitle = document.getElementById('arch-diagram-title');
   const inspectorTitle = document.getElementById('inspector-title');
@@ -1427,46 +2492,103 @@ function initArchitectureExplorer() {
   const codeFilename = document.getElementById('code-filename');
   const iacCodeDisplay = document.getElementById('iac-code-display');
   const btnCopyIaC = document.getElementById('btn-copy-iac');
+  const archSelect = document.getElementById('arch-project-select');
+  const filterGroup = document.getElementById('arch-filter-group');
 
   if (!nodesContainer) return;
+
+  let currentGroup = 'all';
+  let currentArchKey = 'aws-3tier';
+
+  function keysForGroup(group) {
+    return Object.keys(architectureData).filter((key) => {
+      if (group === 'all') return true;
+      return architectureData[key].group === group;
+    });
+  }
+
+  function populateSelect(group, selectedKey) {
+    if (!archSelect) return;
+    const keys = keysForGroup(group);
+    const grouped = {};
+    keys.forEach((key) => {
+      const g = architectureData[key].group || 'platform';
+      if (!grouped[g]) grouped[g] = [];
+      grouped[g].push(key);
+    });
+
+    archSelect.innerHTML = '';
+    ARCH_GROUP_ORDER.forEach((g) => {
+      if (!grouped[g] || grouped[g].length === 0) return;
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = ARCH_GROUP_LABELS[g] || g;
+      grouped[g].forEach((key) => {
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = architectureData[key].shortLabel || architectureData[key].title;
+        optgroup.appendChild(opt);
+      });
+      archSelect.appendChild(optgroup);
+    });
+
+    const fallback = keys[0] || 'aws-3tier';
+    const nextKey = keys.includes(selectedKey) ? selectedKey : fallback;
+    archSelect.value = nextKey;
+    return nextKey;
+  }
 
   function loadArchitecture(archKey) {
     const arch = architectureData[archKey];
     if (!arch) return;
 
-    diagramTitle.innerHTML = `<i data-lucide="shield"></i> ${arch.title}`;
+    currentArchKey = archKey;
+
+    if (diagramTitle) {
+      diagramTitle.innerHTML = `<i data-lucide="shield"></i> ${arch.title}`;
+    }
 
     const budgetBadge = document.getElementById('arch-budget-badge');
     if (budgetBadge && arch.budget) {
       budgetBadge.textContent = `● Est. Setup: ${arch.budget}`;
     }
 
-    // Render nodes
+    const groupBadge = document.getElementById('arch-group-badge');
+    if (groupBadge) {
+      groupBadge.textContent = ARCH_GROUP_LABELS[arch.group] || arch.group || 'Architecture';
+    }
+
     nodesContainer.innerHTML = '';
     arch.nodes.forEach((node, index) => {
       const nodeEl = document.createElement('div');
       nodeEl.className = `arch-node ${index === 0 ? 'selected' : ''}`;
       nodeEl.setAttribute('data-node-id', node.id);
-
       nodeEl.innerHTML = `
         <div class="arch-node-icon"><i data-lucide="${node.icon}"></i></div>
         <div class="arch-node-title">${node.title}</div>
         <div class="arch-node-desc">${node.desc}</div>
         <div class="arch-node-badge">${node.badge}</div>
       `;
-
       nodeEl.addEventListener('click', () => {
         document.querySelectorAll('.arch-node').forEach((n) => n.classList.remove('selected'));
         nodeEl.classList.add('selected');
         updateInspector(node);
       });
-
       nodesContainer.appendChild(nodeEl);
     });
 
-    // Select first node by default
     if (arch.nodes.length > 0) {
       updateInspector(arch.nodes[0]);
+    }
+
+    if (archSelect && archSelect.value !== archKey) {
+      if (![...archSelect.options].some((o) => o.value === archKey)) {
+        populateSelect('all', archKey);
+        currentGroup = 'all';
+        document.querySelectorAll('.arch-filter-pill').forEach((pill) => {
+          pill.classList.toggle('active', pill.getAttribute('data-arch-group') === 'all');
+        });
+      }
+      archSelect.value = archKey;
     }
 
     if (window.lucide) {
@@ -1495,17 +2617,50 @@ function initArchitectureExplorer() {
     }
   }
 
-  // Tab click handler
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
-      const archKey = tab.getAttribute('data-arch');
-      loadArchitecture(archKey);
+  function openProjectArchitecture(archKey) {
+    if (!architectureData[archKey]) return false;
+    currentGroup = 'all';
+    populateSelect('all', archKey);
+    document.querySelectorAll('.arch-filter-pill').forEach((pill) => {
+      pill.classList.toggle('active', pill.getAttribute('data-arch-group') === 'all');
     });
+    loadArchitecture(archKey);
+    const section = document.getElementById('architectures');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    return true;
+  }
+
+  window.openProjectArchitecture = openProjectArchitecture;
+
+  if (filterGroup) {
+    filterGroup.addEventListener('click', (e) => {
+      const pill = e.target.closest('.arch-filter-pill');
+      if (!pill) return;
+      currentGroup = pill.getAttribute('data-arch-group') || 'all';
+      filterGroup.querySelectorAll('.arch-filter-pill').forEach((p) => p.classList.remove('active'));
+      pill.classList.add('active');
+      const nextKey = populateSelect(currentGroup, currentArchKey);
+      loadArchitecture(nextKey);
+    });
+  }
+
+  if (archSelect) {
+    archSelect.addEventListener('change', () => {
+      loadArchitecture(archSelect.value);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('[data-open-arch]');
+    if (!link) return;
+    const key = link.getAttribute('data-open-arch');
+    if (key && architectureData[key]) {
+      openProjectArchitecture(key);
+    }
   });
 
-  // Copy IaC code snippet button
   if (btnCopyIaC) {
     btnCopyIaC.addEventListener('click', () => {
       const code = iacCodeDisplay.textContent;
@@ -1520,8 +2675,15 @@ function initArchitectureExplorer() {
     });
   }
 
-  // Load initial default architecture
-  loadArchitecture('aws-3tier');
+  let initialKey = 'aws-3tier';
+  const hash = (window.location.hash || '').replace('#', '');
+  if (hash.startsWith('arch-')) {
+    const fromHash = hash.slice(5);
+    if (architectureData[fromHash]) initialKey = fromHash;
+  }
+
+  populateSelect('all', initialKey);
+  loadArchitecture(initialKey);
 }
 
 /* ==========================================================================
@@ -1943,7 +3105,7 @@ Available commands:
   <span class="term-cmd">skills</span>         - Technical skills and tools matrix
   <span class="term-cmd">directory</span>      - Full 80+ AWS, Azure, GCP & Open-Source stack
   <span class="term-cmd">certifications</span> - Target certification roadmap (In Prep)
-  <span class="term-cmd">architecture</span>   - Cloud architecture overview
+  <span class="term-cmd">architecture</span>   - List all diagrams; <span class="term-cmd">architecture &lt;key&gt;</span> opens one
   <span class="term-cmd">projects</span>       - Production projects & case studies
   <span class="term-cmd">linux</span>          - 26-Domain Enterprise Linux Administration matrix
   <span class="term-cmd">admin</span>          - Jira, GitHub Org & Microsoft 365 Administration
@@ -2079,15 +3241,50 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 13. <span class="term-info">AWT:</span> Automated Workflow Technology engine for enterprise task scheduling and event queues.
 14. <span class="term-info">emp-portal:</span> Hyniva Enterprise Workforce & Delivery Platform — Amplify SPA, Beanstalk FastAPI, private Multi-AZ RDS MySQL 8 (India + US).
     `,
-    architecture: () => `
-Active production architectures:
-1. AWS 3-Tier Enterprise Web Application (ALB + ECS + Aurora Multi-AZ)
-2. Automated GitOps CI/CD Pipeline (GitHub + SonarQube + Docker + ArgoCD)
-3. Kubernetes Microservices Mesh (Istio + Ingress + HPA Autoscaling)
-4. AWS Serverless Event-Driven (API Gateway + Lambda + DynamoDB)
-5. Multi-Region Disaster Recovery (Route 53 DNS Failover + Aurora Global DB)
-6. Enterprise Workforce Cloud emp-portal (Amplify + ALB + Elastic Beanstalk FastAPI + Private RDS MySQL 8)
-    `,
+    architecture: (arg) => {
+      const key = (arg || '').trim().toLowerCase();
+      if (key) {
+        if (architectureData[key] && typeof window.openProjectArchitecture === 'function') {
+          const modal = document.getElementById('terminal-modal');
+          if (modal) modal.classList.remove('open');
+          window.openProjectArchitecture(key);
+          return `<span class="term-success">Opening interactive diagram:</span> ${architectureData[key].title}`;
+        }
+        return `<span class="term-error">Unknown architecture key '${key}'.</span> Type <span class="term-cmd">architecture</span> to list keys.`;
+      }
+
+      const lines = [
+        '<span class="term-success">Interactive AWS Architecture Catalog (type architecture &lt;key&gt; to open):</span>',
+        '',
+        '<span class="term-info">Platform Patterns:</span>',
+        '  aws-3tier            AWS 3-Tier Enterprise (Amplify + ALB + ECS + Aurora)',
+        '  gitops-cicd          GitOps CI/CD (GitHub + Trivy + ECR + ArgoCD)',
+        '  k8s-microservices    Kubernetes Microservices Mesh (Istio + HPA)',
+        '  serverless-event     AWS Serverless Event-Driven (APIGW + Lambda + DDB)',
+        '  multi-region-dr      Multi-Region Disaster Recovery (Route 53 + Global DB)',
+        '',
+        '<span class="term-info">FinTech (4):</span>',
+        '  hyper                Hyper — Digital investment journeys',
+        '  finxserve            FinXServe — Omnichannel digital banking',
+        '  vlf                  VLF — Vehicle loan origination',
+        '  people-fund         People Fund — PCI-DSS P2P crowdfunding',
+        '',
+        '<span class="term-info">AI &amp; Automation (4):</span>',
+        '  claim-pioneer        Claim Pioneer — AI claims dispatcher',
+        '  aira                 AIRA — Autonomous reasoning agents',
+        '  buildzbit            Buildzbit — Modular builder + edge publish',
+        '  awt                  AWT — Event-driven workflow engine',
+        '',
+        '<span class="term-info">Enterprise &amp; Cloud (6):</span>',
+        '  drive30              Drive30 — SFTP inventory command center',
+        '  eazy-school          EAzy School — Multi-tenant EdTech ERP',
+        '  employee-portal      Employee Portal — Entra ID HRMS (India)',
+        '  document-manager     Document Manager — KMS archival vault',
+        '  elog                 ELog — Kafka + OpenSearch audit trail',
+        '  emp-portal           emp-portal — Workforce &amp; delivery platform (India + US)'
+      ];
+      return lines.join('\n');
+    },
     hire: () => `
 Freelance & Consultancy Services (Budget: $250 – $500):
 • IaC & Cloud Architecture Setup (Terraform): $250 – $500
@@ -2148,18 +3345,22 @@ Type 'contact' to reach Narayana directly at <span class="term-cmd">kanakanaraya
       line.innerHTML = `<span class="term-user">narayana</span>@<span class="term-host">cloud-devops</span>:~$ <span class="term-cmd">${rawCmd}</span>`;
       output.appendChild(line);
 
+      const parts = cmd.split(/\s+/);
+      const base = parts[0];
+      const arg = parts.slice(1).join(' ');
+
       // Execute command
-      if (cmd === 'clear') {
+      if (base === 'clear') {
         commands.clear();
-      } else if (commands[cmd]) {
-        const res = commands[cmd]();
+      } else if (commands[base]) {
+        const res = commands[base](arg);
         if (res) {
           const resLine = document.createElement('div');
           resLine.className = 'term-line';
           resLine.innerHTML = res;
           output.appendChild(resLine);
         }
-        if (cmd === 'resume') {
+        if (base === 'resume') {
           const resumeModal = document.getElementById('resume-modal');
           if (resumeModal) resumeModal.classList.add('open');
         }
@@ -2529,7 +3730,7 @@ function initDevSecOpsHub() {
    ========================================================================== */
 function initGlassmorphismEngine() {
   const cardSelector = 
-    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card, .case-study-stage, .case-study-panel';
+    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card, .case-study-stage, .case-study-panel, .c2c-pipeline-stage, .c2c-vpc-stage, .c2c-node, .c2c-step';
 
   document.addEventListener('mousemove', (e) => {
     const card = e.target.closest(cardSelector);
@@ -2562,6 +3763,432 @@ function initGlassmorphismEngine() {
       }
     });
   });
+}
+
+
+/* ==========================================================================
+   emp-portal Code-to-Cloud Lab — Architecture Stage + Deployment Simulator
+   ========================================================================== */
+
+const EMP_PORTAL_C2C_NODES = {
+  amplify: {
+    title: 'AWS Amplify Hosting (CloudFront CDN)',
+    desc: 'React 18 SPA for emp-portal served from Amplify with CloudFront edge caching, SPA rewrites, and TLS on the production web app.',
+    specs: [
+      'Host: Production web application',
+      'Stack: React 18 SPA + hashed production bundles',
+      'CDN: CloudFront global edge with instant invalidation',
+      'Security: Managed SSL, HSTS, SPA 200 rewrites'
+    ],
+    codeFile: 'amplify-stack.ts',
+    code: `new amplify.CfnApp(this, 'EmpPortalFrontend', {
+  name: 'emp-portal-spa',
+  platform: 'WEB',
+  customRules: [{
+    source: '/<*>',
+    target: '/index.html',
+    status: '200'
+  }]
+});`
+  },
+  r53: {
+    title: 'Route 53 DNS + ACM Certificates',
+    desc: 'Custom domain records alias Amplify and the API ALB. ACM issues TLS 1.3 certificates with DNS validation.',
+    specs: [
+      'Zone: Production hosted zone',
+      'Records: Web app (Amplify) and API (ALB)',
+      'TLS: ACM TLS 1.3, HTTP to HTTPS redirect',
+      'Region: Primary AWS region for ALB, edge region for CloudFront'
+    ],
+    codeFile: 'dns-stack.ts',
+    code: `new route53.ARecord(this, 'EmpPortalAlias', {
+  zone: hostedZone,
+  recordName: 'app',
+  target: route53.RecordTarget.fromAlias(
+    new targets.CloudFrontTarget(amplifyDistro)
+  )
+});`
+  },
+  alb: {
+    title: 'Application Load Balancer',
+    desc: 'Internet-facing ALB in public subnets terminates TLS for the production API and health-checks the Elastic Beanstalk FastAPI origin.',
+    specs: [
+      'DNS: Production API hostname',
+      'Listener: 443 HTTPS, HTTP 80 redirect',
+      'Health: GET /health every 15s',
+      'AZ: Public subnets across two availability zones'
+    ],
+    codeFile: 'alb-stack.ts',
+    code: `const alb = new elbv2.ApplicationLoadBalancer(this, 'EmpPortalAlb', {
+  vpc,
+  internetFacing: true,
+  loadBalancerName: 'emp-portal-alb',
+  vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC }
+});`
+  },
+  apigw: {
+    title: 'API Gateway HTTP Facade',
+    desc: 'HTTP API facade in front of the ALB origin with JWT authorizer for partner and browser sessions.',
+    specs: [
+      'Type: API Gateway HTTP API',
+      'Auth: JWT authorizer (httpOnly cookie session)',
+      'Origin: HTTPS to ALB / FastAPI',
+      'Throttle: Burst protection on /api/*'
+    ],
+    codeFile: 'apigw-stack.ts',
+    code: `new apigwv2.HttpApi(this, 'EmpPortalFacade', {
+  apiName: 'emp-portal-http',
+  corsPreflight: { allowOrigins: [portalOrigin] }
+});`
+  },
+  nat: {
+    title: 'NAT Gateways (Multi-AZ)',
+    desc: 'NAT gateways in public subnets provide egress for Elastic Beanstalk tasks in private subnets (patches, SES, Secrets Manager) without inbound exposure.',
+    specs: [
+      'Placement: Public subnets, one per AZ',
+      'Use: Private compute egress only',
+      'Inbound: None',
+      'HA: Multi-AZ redundant'
+    ],
+    codeFile: 'nat-stack.ts',
+    code: `new ec2.Vpc(this, 'EmpPortalVpc', {
+  natGateways: 2,
+  maxAzs: 2
+});`
+  },
+  eb: {
+    title: 'Elastic Beanstalk FastAPI Origin',
+    desc: 'Python 3.11 on Amazon Linux 2023 running FastAPI with Uvicorn on port 8000. Roughly 900 API endpoints. Tasks stay in private subnets; ingress only from the ALB security group.',
+    specs: [
+      'Runtime: Python 3.11 / AL2023',
+      'Server: Uvicorn ASGI :8000',
+      'Surface: ~900 FastAPI endpoints',
+      'Network: Private subnets, no public exposure'
+    ],
+    codeFile: 'api-stack.ts',
+    code: `new elasticbeanstalk.CfnEnvironment(this, 'EmpPortalApiEnv', {
+  applicationName: 'emp-portal-api',
+  solutionStackName: '64bit Amazon Linux 2023 v4.3 running Python 3.11',
+  optionSettings: [{
+    namespace: 'aws:elasticbeanstalk:application:environment',
+    optionName: 'PORT',
+    value: '8000'
+  }]
+});`
+  },
+  rds: {
+    title: 'Amazon RDS MySQL 8 (Private Isolated)',
+    desc: 'Multi-AZ MySQL 8 with storage encryption. Port 3306 accepts traffic only from the Elastic Beanstalk security group. Zero public internet exposure.',
+    specs: [
+      'Engine: MySQL 8 Multi-AZ',
+      'Network: PRIVATE_ISOLATED subnets',
+      'SG: 3306 from EB only',
+      'Encryption: KMS at rest, TLS in transit'
+    ],
+    codeFile: 'database-stack.ts',
+    code: `new rds.DatabaseInstance(this, 'EmpPortalMysql', {
+  engine: rds.DatabaseInstanceEngine.mysql({
+    version: rds.MysqlEngineVersion.VER_8_0
+  }),
+  vpc,
+  vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+  multiAz: true,
+  storageEncrypted: true,
+  publiclyAccessible: false
+});`
+  },
+  ssm: {
+    title: 'SSM Session Manager + VPC-Peered Bastion',
+    desc: 'Operators reach the private database through SSM Session Manager and a VPC-peered bastion. No inbound SSH security-group rules exist.',
+    specs: [
+      'Access: ssm:StartSession only',
+      'Bastion: VPC-peered, no public SSH',
+      'Access: No inbound SSH from the public internet',
+      'Audit: Session logs to CloudWatch'
+    ],
+    codeFile: 'ssm-bastion.ts',
+    code: `new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
+  statements: [new iam.PolicyStatement({
+    actions: ['ssm:StartSession'],
+    resources: ['arn:aws:ec2:*:*:instance/*']
+  })]
+});`
+  },
+  secrets: {
+    title: 'AWS Secrets Manager',
+    desc: 'JWT signing keys, RDS credentials, and integration tokens are KMS-wrapped in Secrets Manager and injected into Beanstalk at deploy time.',
+    specs: [
+      'Secret: emp-portal/prod/app',
+      'Contents: JWT, RDS, integration tokens',
+      'Rotation: RDS credentials enabled',
+      'IAM: EB instance role GetSecretValue only'
+    ],
+    codeFile: 'secrets-stack.ts',
+    code: `new secretsmanager.Secret(this, 'EmpPortalSecrets', {
+  secretName: 'emp-portal/prod/app',
+  description: 'JWT keys, RDS credentials, integration tokens'
+});`
+  },
+  ses: {
+    title: 'Amazon SES + S3 Assets',
+    desc: 'SES sends leave, approver, and payroll-adjacent mail from a generic sender identity. S3 holds static assets and Elastic Beanstalk / Amplify deploy zips.',
+    specs: [
+      'From: noreply@example.com',
+      'Mail: SES transactional notifications',
+      'Bucket: emp-portal-prod-artifacts',
+      'Access: TLS only, block public access'
+    ],
+    codeFile: 'ops-stack.ts',
+    code: `new ses.EmailIdentity(this, 'PortalFrom', {
+  identity: ses.Identity.email('noreply@example.com')
+});
+
+new s3.Bucket(this, 'EmpPortalArtifacts', {
+  bucketName: 'emp-portal-prod-artifacts',
+  blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+  encryption: s3.BucketEncryption.S3_MANAGED
+});`
+  }
+};
+
+const C2C_FLOW_PAIRS = [
+  ['amplify', 'r53'],
+  ['r53', 'alb'],
+  ['alb', 'apigw'],
+  ['apigw', 'eb'],
+  ['eb', 'rds'],
+  ['nat', 'eb'],
+  ['ssm', 'rds'],
+  ['secrets', 'eb'],
+  ['ses', 'amplify']
+];
+
+const C2C_STEP_NODES = {
+  1: [],
+  2: [],
+  3: ['secrets', 'ssm'],
+  4: ['ses', 'eb', 'amplify'],
+  5: ['alb', 'eb', 'amplify', 'rds']
+};
+
+const C2C_STEP_LOGS = {
+  1: [
+    ['info', 'git push origin main'],
+    ['ok', 'Branch protection satisfied. Local STS caller identity verified.']
+  ],
+  2: [
+    ['info', 'GitHub Actions: gitleaks, pytest (MySQL 8 container), alembic check'],
+    ['ok', 'CI gates passed. Artifact emp-portal-api.zip published.']
+  ],
+  3: [
+    ['warn', 'OIDC federation assuming the production deploy role'],
+    ['ok', 'Deploy role verified. CDK synth Network / Database / API stacks.']
+  ],
+  4: [
+    ['info', 'Parallel rollout: S3 artifacts, Elastic Beanstalk, Amplify release'],
+    ['ok', 'Beanstalk environment updated. Amplify CloudFront invalidating.']
+  ],
+  5: [
+    ['info', 'GET /health on the production API'],
+    ['ok', '200 OK. Production web app is live.']
+  ]
+};
+
+function initEmpPortalCloudLab() {
+  const stage = document.getElementById('c2c-vpc-stage');
+  const diagram = document.getElementById('c2c-diagram');
+  const runBtn = document.getElementById('c2c-run-btn');
+  if (!stage || !diagram || !runBtn) return;
+
+  const flowGroup = document.getElementById('c2c-flow-paths');
+  const beam = document.getElementById('c2c-pipe-beam');
+  const logEl = document.getElementById('c2c-sim-log');
+  const copyBtn = document.getElementById('c2c-copy-iac');
+  const nodes = Array.from(document.querySelectorAll('.c2c-node[data-c2c-node]'));
+  let running = false;
+  let timers = [];
+
+  function selectNode(key) {
+    const data = EMP_PORTAL_C2C_NODES[key];
+    if (!data) return;
+    nodes.forEach((n) => n.classList.toggle('is-selected', n.getAttribute('data-c2c-node') === key));
+    document.getElementById('c2c-inspector-title').textContent = data.title;
+    document.getElementById('c2c-inspector-desc').textContent = data.desc;
+    const specs = document.getElementById('c2c-inspector-specs');
+    specs.innerHTML = '';
+    data.specs.forEach((spec) => {
+      const [label, val] = spec.split(': ');
+      const el = document.createElement('div');
+      el.className = 'spec-item';
+      el.innerHTML = `<strong>${label}:</strong> ${val || ''}`;
+      specs.appendChild(el);
+    });
+    document.getElementById('c2c-code-filename').innerHTML =
+      `<i data-lucide="file-code" style="width:12px; display:inline-block; vertical-align:middle;"></i> ${data.codeFile}`;
+    document.getElementById('c2c-iac-display').textContent = data.code;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function drawFlows() {
+    if (!flowGroup) return;
+    const wrap = diagram.getBoundingClientRect();
+    if (wrap.width < 8 || wrap.height < 8) return;
+    flowGroup.innerHTML = '';
+    const svg = document.getElementById('c2c-flow-svg');
+    if (svg) {
+      svg.setAttribute('viewBox', `0 0 ${Math.round(wrap.width)} ${Math.round(wrap.height)}`);
+    }
+    C2C_FLOW_PAIRS.forEach(([from, to], idx) => {
+      const a = document.getElementById(`c2c-node-${from}`);
+      const b = document.getElementById(`c2c-node-${to}`);
+      if (!a || !b) return;
+      const ra = a.getBoundingClientRect();
+      const rb = b.getBoundingClientRect();
+      const x1 = ra.left + ra.width / 2 - wrap.left;
+      const y1 = ra.top + ra.height / 2 - wrap.top;
+      const x2 = rb.left + rb.width / 2 - wrap.left;
+      const y2 = rb.top + rb.height / 2 - wrap.top;
+      const cx = (x1 + x2) / 2;
+      const cy = (y1 + y2) / 2 - 24;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+      path.setAttribute('class', 'c2c-flow-path');
+      path.setAttribute('data-c2c-flow', `${from}-${to}`);
+      path.style.animationDelay = `${idx * 0.12}s`;
+      flowGroup.appendChild(path);
+    });
+  }
+
+  function setPill(step, state, text) {
+    const pill = document.querySelector(`[data-c2c-pill="${step}"]`);
+    const card = document.querySelector(`[data-c2c-step="${step}"]`);
+    if (!pill || !card) return;
+    pill.classList.remove('is-running', 'is-ok');
+    card.classList.remove('is-active', 'is-passed');
+    if (state === 'running') {
+      pill.classList.add('is-running');
+      card.classList.add('is-active');
+    } else if (state === 'ok') {
+      pill.classList.add('is-ok');
+      card.classList.add('is-passed');
+    }
+    pill.textContent = text;
+  }
+
+  function heatNodes(keys) {
+    nodes.forEach((n) => {
+      const id = n.getAttribute('data-c2c-node');
+      n.classList.toggle('is-hot', keys.includes(id));
+    });
+    document.querySelectorAll('.c2c-flow-path').forEach((p) => {
+      const pair = p.getAttribute('data-c2c-flow') || '';
+      const hit = keys.some((k) => pair.startsWith(`${k}-`) || pair.endsWith(`-${k}`));
+      p.classList.toggle('is-hot', hit);
+    });
+  }
+
+  function logLine(kind, message) {
+    if (!logEl) return;
+    const muted = logEl.querySelector('.c2c-log-line.muted');
+    if (muted) muted.remove();
+    const row = document.createElement('div');
+    row.className = `c2c-log-line ${kind}`;
+    const ts = new Date().toISOString().substring(11, 19);
+    row.textContent = `[${ts}] ${message}`;
+    logEl.appendChild(row);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function clearTimers() {
+    timers.forEach((t) => clearTimeout(t));
+    timers = [];
+  }
+
+  function resetVisuals(keepLog) {
+    for (let i = 1; i <= 5; i++) setPill(i, 'idle', 'Pending');
+    heatNodes([]);
+    if (beam) {
+      beam.classList.remove('is-on');
+      beam.setAttribute('cx', '10');
+    }
+    if (!keepLog && logEl) {
+      logEl.innerHTML = '<div class="c2c-log-line muted">Ready. Press <span class="c2c-mono">Run Live Deployment Simulation</span> to push main into production.</div>';
+    }
+  }
+
+  function runSimulation() {
+    if (running) return;
+    running = true;
+    clearTimers();
+    resetVisuals(true);
+    if (logEl) logEl.innerHTML = '';
+    runBtn.classList.add('is-running');
+    const label = document.getElementById('c2c-run-label');
+    const icon = document.getElementById('c2c-run-icon');
+    if (label) label.textContent = 'Deploying to production…';
+    if (icon) icon.setAttribute('data-lucide', 'loader');
+    if (window.lucide) lucide.createIcons();
+    logLine('info', 'Simulation started. Tracing commit through CI/CD into the production VPC.');
+
+    const cadence = 1550;
+    for (let step = 1; step <= 5; step++) {
+      timers.push(setTimeout(() => {
+        for (let prev = 1; prev < step; prev++) setPill(prev, 'ok', 'Passed');
+        setPill(step, 'running', 'In-Progress');
+        if (beam) {
+          beam.classList.add('is-on');
+          beam.setAttribute('cx', String(10 + ((step - 1) / 4) * 980));
+        }
+        heatNodes(C2C_STEP_NODES[step] || []);
+        (C2C_STEP_LOGS[step] || []).forEach(([kind, msg]) => logLine(kind, msg));
+        if (C2C_STEP_NODES[step] && C2C_STEP_NODES[step][0]) {
+          selectNode(C2C_STEP_NODES[step][0]);
+        }
+      }, (step - 1) * cadence));
+    }
+
+    timers.push(setTimeout(() => {
+      for (let i = 1; i <= 5; i++) setPill(i, 'ok', i === 5 ? '200 OK' : 'Passed');
+      if (beam) beam.setAttribute('cx', '990');
+      heatNodes(['amplify', 'alb', 'eb', 'rds']);
+      logLine('ok', 'Zero-downtime rollout complete. Workforce platform is live.');
+      if (label) label.textContent = 'Replay Live Deployment';
+      if (icon) icon.setAttribute('data-lucide', 'refresh-cw');
+      runBtn.classList.remove('is-running');
+      running = false;
+      if (window.lucide) lucide.createIcons();
+    }, 5 * cadence + 400));
+  }
+
+  nodes.forEach((node) => {
+    node.addEventListener('click', () => {
+      selectNode(node.getAttribute('data-c2c-node'));
+    });
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const code = document.getElementById('c2c-iac-display').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        copyBtn.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
+        if (window.lucide) lucide.createIcons();
+        setTimeout(() => {
+          copyBtn.innerHTML = `<i data-lucide="copy" style="width:12px;"></i> Copy IaC`;
+          if (window.lucide) lucide.createIcons();
+        }, 1800);
+      });
+    });
+  }
+
+  runBtn.addEventListener('click', runSimulation);
+
+  const draw = () => requestAnimationFrame(drawFlows);
+  window.addEventListener('resize', draw);
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(draw).observe(diagram);
+  }
+  drawFlows();
+  selectNode('amplify');
 }
 
 

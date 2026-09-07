@@ -33,7 +33,7 @@
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260907">
+  <link rel="stylesheet" href="styles.css?v=20260907e">
 
   <!-- Lucide Icons & Three.js CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -133,11 +133,9 @@
 
   <main>
     <!-- ==========================================================================
-         Hero Section with Three.js 3D Cloud Environment
+         Hero Section
          ========================================================================== -->
     <section class="hero-section" id="home">
-      <canvas id="hero-canvas"></canvas>
-
       <div class="container hero-content-wrapper">
         <div class="hero-text-content">
           <div class="hero-badge-pill">
@@ -2180,30 +2178,24 @@ jobs:
           <div class="section-tag">Interactive Topology Explorer</div>
           <h2 class="section-title">Production <span class="gradient-text">Cloud Architectures</span></h2>
           <p class="section-desc">
-            Explore interactive production architecture designs. Click on any infrastructure node to inspect security blueprints, high-availability parameters, and Terraform IaC code snippets.
+            Explore interactive production architecture designs for all 14 platforms plus reusable cloud patterns. Select a project, then click any infrastructure node to inspect security blueprints, data flow, and Terraform / CDK snippets.
           </p>
         </div>
 
-        <!-- Architecture Switcher Tabs -->
-        <div class="arch-navigation-tabs">
-          <button class="tab-arch-btn active" data-arch="aws-3tier">
-            <i data-lucide="server"></i> AWS 3-Tier Enterprise
-          </button>
-          <button class="tab-arch-btn" data-arch="gitops-cicd">
-            <i data-lucide="git-pull-request"></i> GitOps &amp; CI/CD Pipeline
-          </button>
-          <button class="tab-arch-btn" data-arch="k8s-microservices">
-            <i data-lucide="box"></i> Kubernetes Microservices
-          </button>
-          <button class="tab-arch-btn" data-arch="serverless-event">
-            <i data-lucide="zap"></i> AWS Serverless Event-Driven
-          </button>
-          <button class="tab-arch-btn" data-arch="multi-region-dr">
-            <i data-lucide="shield-alert"></i> Multi-Region Disaster Recovery
-          </button>
-          <button class="tab-arch-btn" data-arch="emp-portal">
-            <i data-lucide="users"></i> Enterprise Workforce Cloud (emp-portal)
-          </button>
+        <!-- Architecture Selector: category pills + project dropdown -->
+        <div class="arch-selector-bar">
+          <div class="arch-filter-group" id="arch-filter-group">
+            <button type="button" class="arch-filter-pill active" data-arch-group="all">All Diagrams</button>
+            <button type="button" class="arch-filter-pill" data-arch-group="platform">Platform Patterns</button>
+            <button type="button" class="arch-filter-pill" data-arch-group="fintech">FinTech</button>
+            <button type="button" class="arch-filter-pill" data-arch-group="ai">AI &amp; Automation</button>
+            <button type="button" class="arch-filter-pill" data-arch-group="cloud">Enterprise &amp; Cloud</button>
+          </div>
+          <label class="arch-select-wrap">
+            <span>Inspect project</span>
+            <select id="arch-project-select" class="arch-project-select" aria-label="Select architecture diagram">
+            </select>
+          </label>
         </div>
 
         <!-- Interactive Architecture Stage -->
@@ -2215,6 +2207,9 @@ jobs:
               </div>
               <div id="arch-budget-badge" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: var(--radius-full); background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: var(--neon-green); font-weight: 600;">
                 ● Est. Setup: $250 – $500
+              </div>
+              <div id="arch-group-badge" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: var(--radius-full); background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.3); color: #c084fc; font-weight: 600;">
+                Platform Patterns
               </div>
             </div>
             <div class="arch-legend">
@@ -2329,13 +2324,16 @@ jobs:
             <div class="projects-slider-track" id="projects-slider-track">
               
               <!-- Slide 1: Hyper -->
-              <div class="project-slide-item active" data-cat="fintech" data-index="0">
+              <div class="project-slide-item active" data-cat="fintech" data-index="0" data-arch="hyper">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Wealth Management &bull; Digital Investment &bull; Portfolio Planning</div>
                     <div class="project-arch-flow">
                       Amplify Web App <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Scoring &amp; Sim Engine (ECS) <span>&rarr;</span> Advisor Portfolios
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="hyper">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2359,13 +2357,16 @@ jobs:
               </div>
 
               <!-- Slide 2: FinXServe -->
-              <div class="project-slide-item" data-cat="fintech" data-index="1">
+              <div class="project-slide-item" data-cat="fintech" data-index="1" data-arch="finxserve">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">AWS EC2 &bull; ECS &bull; Nginx &bull; Docker &bull; PostgreSQL</div>
                     <div class="project-arch-flow">
                       GitHub Actions <span>&rarr;</span> EC2 / ECS Docker <span>&rarr;</span> Nginx Proxy <span>&rarr;</span> PostgreSQL / pgAdmin <span>&rarr;</span> S3 &amp; Alerts
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="finxserve">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2390,13 +2391,16 @@ jobs:
               </div>
 
               <!-- Slide 3: Claim Pioneer (Uberization) -->
-              <div class="project-slide-item" data-cat="ai" data-index="2">
+              <div class="project-slide-item" data-cat="ai" data-index="2" data-arch="claim-pioneer">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Insurance &bull; Workflow Automation &bull; Uberization</div>
                     <div class="project-arch-flow">
                       Amplify UI <span>&rarr;</span> Route 53 DNS <span>&rarr;</span> ALB Target Groups <span>&rarr;</span> AI Dispatcher (ECS) <span>&rarr;</span> Live Claims
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="claim-pioneer">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2420,13 +2424,16 @@ jobs:
               </div>
 
               <!-- Slide 4: AIRA -->
-              <div class="project-slide-item" data-cat="ai" data-index="3">
+              <div class="project-slide-item" data-cat="ai" data-index="3" data-arch="aira">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Financial Institutions &bull; Insurance &bull; Enterprise AI</div>
                     <div class="project-arch-flow">
                       OneAPI Ingress <span>&rarr;</span> Route 53 / ACM <span>&rarr;</span> ALB <span>&rarr;</span> AIRA Agents (ECS Fargate) <span>&rarr;</span> Compliance Engine
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="aira">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2450,13 +2457,16 @@ jobs:
               </div>
 
               <!-- Slide 5: Drive30 -->
-              <div class="project-slide-item" data-cat="cloud" data-index="4">
+              <div class="project-slide-item" data-cat="cloud" data-index="4" data-arch="drive30">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">AWS Transfer Family &bull; S3 &bull; SQS &bull; ECS Fargate &bull; Next.js &bull; Amplify</div>
                     <div class="project-arch-flow">
                       SFTP (Transfer Family) <span>&rarr;</span> Lambda / DynamoDB IdP <span>&rarr;</span> S3 (vAuto) <span>&rarr;</span> SQS <span>&rarr;</span> ECS Fargate <span>&rarr;</span> Command Center
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="drive30">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2481,13 +2491,16 @@ jobs:
               </div>
 
               <!-- Slide 6: VLF -->
-              <div class="project-slide-item" data-cat="fintech" data-index="5">
+              <div class="project-slide-item" data-cat="fintech" data-index="5" data-arch="vlf">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">FinTech &bull; Vehicle Loan &amp; Finance &bull; Automated Underwriting</div>
                     <div class="project-arch-flow">
                       Amplify Frontend <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Loan Engine (ECS) <span>&rarr;</span> RDS Multi-AZ
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="vlf">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2511,13 +2524,16 @@ jobs:
               </div>
 
               <!-- Slide 7: EAzy School -->
-              <div class="project-slide-item" data-cat="cloud" data-index="6">
+              <div class="project-slide-item" data-cat="cloud" data-index="6" data-arch="eazy-school">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">EdTech &bull; School Management ERP &bull; Multi-Tenant SaaS</div>
                     <div class="project-arch-flow">
                       CloudFront / Amplify <span>&rarr;</span> ALB <span>&rarr;</span> Node.js / Python API (ECS) <span>&rarr;</span> PostgreSQL &amp; S3
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="eazy-school">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2541,13 +2557,16 @@ jobs:
               </div>
 
               <!-- Slide 8: People Fund -->
-              <div class="project-slide-item" data-cat="fintech" data-index="7">
+              <div class="project-slide-item" data-cat="fintech" data-index="7" data-arch="people-fund">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">FinTech &bull; P2P Lending &bull; Crowdfunding Architecture</div>
                     <div class="project-arch-flow">
                       Amplify UI <span>&rarr;</span> Route 53 / ACM <span>&rarr;</span> ALB <span>&rarr;</span> Micro-Lending Engine (ECS) <span>&rarr;</span> Payment Webhooks
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="people-fund">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2571,13 +2590,16 @@ jobs:
               </div>
 
               <!-- Slide 9: Employee Portal -->
-              <div class="project-slide-item" data-cat="cloud" data-index="8">
+              <div class="project-slide-item" data-cat="cloud" data-index="8" data-arch="employee-portal">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Enterprise Workspace &bull; HRMS &bull; Microsoft Entra ID / SSO</div>
                     <div class="project-arch-flow">
                       Entra ID (Azure AD) SSO <span>&rarr;</span> ALB <span>&rarr;</span> Portal App (ECS / Docker) <span>&rarr;</span> PostgreSQL
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="employee-portal">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2601,13 +2623,16 @@ jobs:
               </div>
 
               <!-- Slide 10: Document Manager -->
-              <div class="project-slide-item" data-cat="cloud" data-index="9">
+              <div class="project-slide-item" data-cat="cloud" data-index="9" data-arch="document-manager">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Cloud Archival &bull; Document Security &bull; AWS S3 &amp; KMS</div>
                     <div class="project-arch-flow">
                       Upload UI <span>&rarr;</span> ALB <span>&rarr;</span> Processing Worker (ECS) <span>&rarr;</span> AWS S3 KMS Encrypted
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="document-manager">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2631,13 +2656,16 @@ jobs:
               </div>
 
               <!-- Slide 11: Buildzbit -->
-              <div class="project-slide-item" data-cat="ai" data-index="10">
+              <div class="project-slide-item" data-cat="ai" data-index="10" data-arch="buildzbit">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">No-Code / Low-Code &bull; Web Builder &bull; Dynamic CI/CD Engine</div>
                     <div class="project-arch-flow">
                       Builder Studio <span>&rarr;</span> Template Engine (ECS) <span>&rarr;</span> Docker Builder <span>&rarr;</span> S3 / CloudFront
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="buildzbit">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2661,13 +2689,16 @@ jobs:
               </div>
 
               <!-- Slide 12: ELog -->
-              <div class="project-slide-item" data-cat="cloud" data-index="11">
+              <div class="project-slide-item" data-cat="cloud" data-index="11" data-arch="elog">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Observability &bull; Electronic Logging &bull; OpenSearch &bull; Kafka</div>
                     <div class="project-arch-flow">
                       App Log Streams <span>&rarr;</span> FluentBit / Logstash <span>&rarr;</span> Kafka Queue <span>&rarr;</span> OpenSearch / CloudWatch
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="elog">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2691,13 +2722,16 @@ jobs:
               </div>
 
               <!-- Slide 13: AWT -->
-              <div class="project-slide-item" data-cat="ai" data-index="12">
+              <div class="project-slide-item" data-cat="ai" data-index="12" data-arch="awt">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Workflow Automation &bull; Task Scheduling &bull; Event-Driven Microservices</div>
                     <div class="project-arch-flow">
                       Event Trigger <span>&rarr;</span> AWT Orchestrator (ECS) <span>&rarr;</span> Worker SQS <span>&rarr;</span> Integration Handlers
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="awt">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2721,13 +2755,16 @@ jobs:
               </div>
 
               <!-- Slide 14: Hyniva Enterprise Workforce & Delivery Platform (emp-portal) -->
-              <div class="project-slide-item" data-cat="cloud" data-index="13">
+              <div class="project-slide-item" data-cat="cloud" data-index="13" data-arch="emp-portal">
                 <div class="project-card">
                   <div class="project-preview-banner">
                     <div class="project-category-tag">Enterprise Cloud &amp; HR Ops</div>
                     <div class="project-arch-flow">
                       Amplify (SPA) <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Elastic Beanstalk (FastAPI) <span>&rarr;</span> Private RDS MySQL 8
                     </div>
+                    <a href="#architectures" class="arch-inspect-chip" data-open-arch="emp-portal">
+                      <i data-lucide="network"></i> Inspect Architecture
+                    </a>
                   </div>
                   <div class="project-body">
                     <div>
@@ -2745,6 +2782,9 @@ jobs:
                     <div class="project-footer">
                       <a href="#emp-portal-case-study" class="project-link">
                         <span>Read Case Study</span> <i data-lucide="arrow-right"></i>
+                      </a>
+                      <a href="#emp-portal-cloud" class="project-link">
+                        <span>Live Cloud Lab</span> <i data-lucide="play"></i>
                       </a>
                     </div>
                   </div>
@@ -2835,9 +2875,252 @@ jobs:
               <h3>Looking to build a scalable, secure enterprise portal or modern AWS cloud infrastructure?</h3>
               <p>Let's talk. Architecture, CDK, CI/CD, and production hardening &mdash; scoped to your stack.</p>
             </div>
-            <a href="#contact" class="btn btn-primary">
-              <i data-lucide="zap"></i> Let's Talk
-            </a>
+            <div class="case-study-cta-actions">
+              <a href="#emp-portal-cloud" class="btn btn-secondary">
+                <i data-lucide="play"></i> Run Live Simulation
+              </a>
+              <a href="#contact" class="btn btn-primary">
+                <i data-lucide="zap"></i> Let's Talk
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         emp-portal AWS Cloud Architecture & Code-to-Cloud Lab
+         ========================================================================== -->
+    <section class="c2c-section" id="emp-portal-cloud">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Code-to-Cloud Lab</div>
+          <h2 class="section-title">emp-portal <span class="gradient-text">AWS Architecture</span> &amp; Live Deploy</h2>
+          <p class="section-desc">
+            Interactive multi-tier production topology for the Hyniva Enterprise Workforce Platform &mdash; then watch a Git commit travel through CI/CD gates into a live AWS VPC.
+          </p>
+        </div>
+
+        <!-- CODE-TO-CLOUD PIPELINE -->
+        <div class="c2c-pipeline-stage">
+          <div class="c2c-pipeline-hud">
+            <div>
+              <div class="c2c-kicker"><i data-lucide="git-commit"></i> Code-to-Cloud Deployment Simulator</div>
+              <h3>From <span class="gradient-text">git push</span> to live production</h3>
+              <p>OIDC-guarded GitHub Actions &rarr; secure deploy role &rarr; CDK synth &amp; parallel AWS rollout.</p>
+            </div>
+            <button type="button" class="btn btn-primary c2c-run-btn" id="c2c-run-btn">
+              <i data-lucide="play" id="c2c-run-icon"></i>
+              <span id="c2c-run-label">Run Live Deployment Simulation</span>
+            </button>
+          </div>
+
+          <div class="c2c-pipeline-track" id="c2c-pipeline-track">
+            <svg class="c2c-pipeline-svg" viewBox="0 0 1000 8" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="c2c-pipe-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="50%" stop-color="#a855f7"/>
+                  <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+              </defs>
+              <path class="c2c-pipe-line" d="M10 4 H990"/>
+              <circle class="c2c-pipe-beam" id="c2c-pipe-beam" r="5" cx="10" cy="4"/>
+            </svg>
+
+            <article class="c2c-step no-tilt" data-c2c-step="1">
+              <div class="c2c-step-index">01</div>
+              <div class="c2c-step-icon"><i data-lucide="git-commit"></i></div>
+              <h4>Git Commit</h4>
+              <p>git push origin main &middot; branch guard &middot; local STS check</p>
+              <span class="c2c-pill" data-c2c-pill="1">Pending</span>
+            </article>
+            <article class="c2c-step no-tilt" data-c2c-step="2">
+              <div class="c2c-step-index">02</div>
+              <div class="c2c-step-icon"><i data-lucide="cpu"></i></div>
+              <h4>GitHub Actions CI</h4>
+              <p>Gitleaks &middot; pytest vs MySQL 8 &middot; Alembic check</p>
+              <span class="c2c-pill" data-c2c-pill="2">Pending</span>
+            </article>
+            <article class="c2c-step no-tilt" data-c2c-step="3">
+              <div class="c2c-step-index">03</div>
+              <div class="c2c-step-icon"><i data-lucide="key-round"></i></div>
+              <h4>Secure Cloud Auth</h4>
+              <p>OIDC assume role &middot; deploy role verified &middot; CDK synth</p>
+              <span class="c2c-pill" data-c2c-pill="3">Pending</span>
+            </article>
+            <article class="c2c-step no-tilt" data-c2c-step="4">
+              <div class="c2c-step-index">04</div>
+              <div class="c2c-step-icon"><i data-lucide="cloud"></i></div>
+              <h4>Parallel AWS Rollout</h4>
+              <p>S3 upload &rarr; Elastic Beanstalk &rarr; Amplify release</p>
+              <span class="c2c-pill" data-c2c-pill="4">Pending</span>
+            </article>
+            <article class="c2c-step no-tilt" data-c2c-step="5">
+              <div class="c2c-step-index">05</div>
+              <div class="c2c-step-icon"><i data-lucide="rocket"></i></div>
+              <h4>Live Production</h4>
+              <p>GET /health 200 OK &middot; production web app live</p>
+              <span class="c2c-pill" data-c2c-pill="5">Pending</span>
+            </article>
+          </div>
+
+          <div class="c2c-sim-log" id="c2c-sim-log" aria-live="polite">
+            <div class="c2c-log-line muted">Ready. Press <span class="c2c-mono">Run Live Deployment Simulation</span> to push main into production.</div>
+          </div>
+        </div>
+
+        <!-- MULTI-TIER AWS STAGE -->
+        <div class="c2c-vpc-stage" id="c2c-vpc-stage">
+          <div class="c2c-vpc-hud">
+            <div>
+              <div class="c2c-kicker"><i data-lucide="cloud-lightning"></i> Production Topology &middot; Multi-AZ</div>
+              <h3>Hyniva Enterprise Workforce Platform VPC</h3>
+            </div>
+            <div class="c2c-vpc-chips">
+              <span class="c2c-meta-chip gold">Private VPC</span>
+              <span class="c2c-meta-chip">Multi-AZ</span>
+              <span class="c2c-meta-chip">Production AWS</span>
+            </div>
+          </div>
+
+          <div class="c2c-diagram" id="c2c-diagram">
+            <svg class="c2c-flow-svg" id="c2c-flow-svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="c2c-flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#a855f7"/>
+                </linearGradient>
+                <linearGradient id="c2c-flow-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#38bdf8"/>
+                </linearGradient>
+              </defs>
+              <g id="c2c-flow-paths"></g>
+            </svg>
+
+            <div class="c2c-tier" data-tier="edge">
+              <div class="c2c-tier-label">Tier 1 &middot; Edge &amp; DNS</div>
+              <div class="c2c-tier-grid edge">
+                <button type="button" class="c2c-node no-tilt" id="c2c-node-amplify" data-c2c-node="amplify">
+                  <span class="c2c-node-glow"></span>
+                  <span class="c2c-node-icon"><i data-lucide="layout"></i></span>
+                  <strong>AWS Amplify Hosting</strong>
+                  <em>React 18 SPA + CloudFront CDN</em>
+                  <span class="c2c-node-badge">Production Web App</span>
+                </button>
+                <button type="button" class="c2c-node no-tilt" id="c2c-node-r53" data-c2c-node="r53">
+                  <span class="c2c-node-glow"></span>
+                  <span class="c2c-node-icon"><i data-lucide="globe"></i></span>
+                  <strong>Route 53 + ACM</strong>
+                  <em>Custom domain DNS &amp; TLS 1.3</em>
+                  <span class="c2c-node-badge">SSL Certificates</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="c2c-vpc-frame">
+              <div class="c2c-vpc-ribbon">
+                <i data-lucide="box"></i> AWS VPC &middot; Isolated Network &middot; Multi-AZ
+              </div>
+
+              <div class="c2c-tier public">
+                <div class="c2c-tier-label gold">Public Subnets</div>
+                <div class="c2c-tier-grid public">
+                  <button type="button" class="c2c-node no-tilt" id="c2c-node-alb" data-c2c-node="alb">
+                    <span class="c2c-node-glow"></span>
+                    <span class="c2c-node-icon"><i data-lucide="network"></i></span>
+                    <strong>Application Load Balancer</strong>
+                    <em>HTTPS for the production API</em>
+                    <span class="c2c-node-badge">TLS Termination</span>
+                  </button>
+                  <button type="button" class="c2c-node no-tilt" id="c2c-node-apigw" data-c2c-node="apigw">
+                    <span class="c2c-node-glow"></span>
+                    <span class="c2c-node-icon"><i data-lucide="share-2"></i></span>
+                    <strong>API Gateway HTTP</strong>
+                    <em>HTTPS façade to FastAPI origin</em>
+                    <span class="c2c-node-badge">JWT Authorizer</span>
+                  </button>
+                  <button type="button" class="c2c-node no-tilt" id="c2c-node-nat" data-c2c-node="nat">
+                    <span class="c2c-node-glow"></span>
+                    <span class="c2c-node-icon"><i data-lucide="upload-cloud"></i></span>
+                    <strong>NAT Gateways</strong>
+                    <em>Egress for private compute</em>
+                    <span class="c2c-node-badge">Multi-AZ</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="c2c-tier compute">
+                <div class="c2c-tier-label cyan">Private Compute Tier</div>
+                <div class="c2c-tier-grid single">
+                  <button type="button" class="c2c-node wide no-tilt" id="c2c-node-eb" data-c2c-node="eb">
+                    <span class="c2c-node-glow"></span>
+                    <span class="c2c-node-icon"><i data-lucide="cpu"></i></span>
+                    <strong>Elastic Beanstalk &middot; FastAPI</strong>
+                    <em>Python 3.11 on Amazon Linux 2023 &middot; ~900 endpoints &middot; Uvicorn :8000</em>
+                    <span class="c2c-node-badge">Private only</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="c2c-tier data">
+                <div class="c2c-tier-label rose">Private Data Tier &middot; Zero Public Access</div>
+                <div class="c2c-tier-grid single">
+                  <button type="button" class="c2c-node wide no-tilt" id="c2c-node-rds" data-c2c-node="rds">
+                    <span class="c2c-node-glow"></span>
+                    <span class="c2c-node-icon"><i data-lucide="database"></i></span>
+                    <strong>Amazon RDS MySQL 8</strong>
+                    <em>Multi-AZ &middot; encrypted at rest &middot; port 3306 locked to EB security group</em>
+                    <span class="c2c-node-badge">PRIVATE_ISOLATED</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="c2c-tier" data-tier="ops">
+              <div class="c2c-tier-label">Tier 3 &middot; Security &amp; Operator Plane</div>
+              <div class="c2c-tier-grid ops">
+                <button type="button" class="c2c-node no-tilt" id="c2c-node-ssm" data-c2c-node="ssm">
+                  <span class="c2c-node-glow"></span>
+                  <span class="c2c-node-icon"><i data-lucide="shield"></i></span>
+                  <strong>SSM + Peered Bastion</strong>
+                  <em>Private DB access, no open SSH</em>
+                  <span class="c2c-node-badge">Session Manager</span>
+                </button>
+                <button type="button" class="c2c-node no-tilt" id="c2c-node-secrets" data-c2c-node="secrets">
+                  <span class="c2c-node-glow"></span>
+                  <span class="c2c-node-icon"><i data-lucide="key-round"></i></span>
+                  <strong>Secrets Manager</strong>
+                  <em>JWT keys, RDS creds, tokens</em>
+                  <span class="c2c-node-badge">KMS wrapped</span>
+                </button>
+                <button type="button" class="c2c-node no-tilt" id="c2c-node-ses" data-c2c-node="ses">
+                  <span class="c2c-node-glow"></span>
+                  <span class="c2c-node-icon"><i data-lucide="mail"></i></span>
+                  <strong>SES + S3</strong>
+                  <em>noreply@example.com &amp; deploy zips</em>
+                  <span class="c2c-node-badge">Generic sender</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="c2c-inspector" id="c2c-inspector">
+            <div class="inspector-info">
+              <h4 id="c2c-inspector-title">AWS Amplify Hosting</h4>
+              <p id="c2c-inspector-desc">Select a node in the topology to inspect production specs, security rules, and IaC.</p>
+              <div class="inspector-specs" id="c2c-inspector-specs"></div>
+            </div>
+            <div class="code-preview-box">
+              <div class="code-header">
+                <span id="c2c-code-filename"><i data-lucide="file-code" style="width:12px; display:inline-block; vertical-align:middle;"></i> amplify-stack.ts</span>
+                <button type="button" class="btn-copy-code" id="c2c-copy-iac">
+                  <i data-lucide="copy" style="width:12px;"></i> Copy IaC
+                </button>
+              </div>
+              <pre><code id="c2c-iac-display"></code></pre>
+            </div>
           </div>
         </div>
       </div>
@@ -3481,7 +3764,7 @@ jobs:
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="script.js?v=20260907"></script>
+  <script src="script.js?v=20260907f"></script>
 </body>
 
 </html>
