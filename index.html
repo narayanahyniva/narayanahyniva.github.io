@@ -33,7 +33,7 @@
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260907_cover">
+  <link rel="stylesheet" href="styles.css?v=20260908_restore">
 
   <!-- Lucide Icons, Three.js & Mermaid CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -95,7 +95,7 @@
           <i data-lucide="cloud-lightning"></i>
         </div>
         <div class="logo-text">
-          Narayana<span class="logo-cyan">K</span><span class="logo-magenta">;</span>
+          Narayana
         </div>
       </a>
 
@@ -129,14 +129,156 @@
     <!-- ==========================================================================
          Hero Section
          ========================================================================== -->
-    <section class="hero-section hero-cover" id="home">
-      <div class="container hero-cover-wrap">
-        <div class="hero-glass-panel">
-          <p class="hero-kicker">Narayana K. &bull; Senior Cloud DevOps Engineer &bull; Bengaluru, India</p>
-          <h1 class="hero-cover-title">Let’s Review Your Infrastructure And Identify Risks &amp; Opportunities.</h1>
-          <p class="hero-cover-lead">Get a comprehensive assessment of your current setup and a clear roadmap for improvement — AWS, Azure, GCP, Kubernetes, Terraform, and GitOps.</p>
-          <a href="#freelance" class="btn btn-review">Book a Free Infrastructure Review</a>
-          <p id="dynamic-typing-text" class="hero-cover-skills">Senior Cloud DevOps Engineer | AWS, Azure, GCP &amp; Kubernetes</p>
+    <section class="hero-section" id="home">
+      <div class="container hero-content-wrapper">
+        <div class="hero-text-content">
+          <div class="hero-badge-pill">
+            <i data-lucide="map-pin" style="color: var(--neon-green);"></i>
+            <span>Bengaluru, India &bull; Cloud, DevOps &amp; DevSecOps Engineer (4+ Yrs)</span>
+          </div>
+
+          <h1 class="hero-title">
+            Architecting Scalable <span class="gradient-text">Multi-Cloud, DevOps &amp; DevSecOps</span> Systems
+          </h1>
+
+          <div class="hero-subtitle">
+            <span id="dynamic-typing-text">Systems Engineer &rarr; Cloud Engineer &rarr; Cloud, DevOps &amp; DevSecOps Engineer</span>
+            <span class="typing-cursor"></span>
+          </div>
+
+          <p class="hero-description">
+            Cloud, DevOps &amp; DevSecOps Engineer with 4+ years of hands-on experience across system administration, cloud infrastructure, automated shift-left security quality gates, and end-to-end DevOps automation on AWS, Microsoft Azure, and Google Cloud Platform. Managing scalable, secure multi-cloud environments, Terraform IaC, EKS Kubernetes, GitHub Actions, and Microsoft Entra ID.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#freelance" class="btn btn-primary btn-cta-stack">
+              <span class="btn-cta-main"><i data-lucide="briefcase"></i> Book Free Consultation</span>
+              <span class="btn-cta-sub">100% Free · 0 Upfront Cost</span>
+            </a>
+            <a href="#projects" class="btn btn-secondary">
+              <i data-lucide="layers"></i> View Work
+            </a>
+          </div>
+
+          <!-- Breadcrumb Decision Support Bar (Inspired by Executive Dashboard) -->
+          <div class="decision-flow-bar">
+            <span class="flow-step active"><i data-lucide="check-circle" style="width:12px; display:inline-block; vertical-align:middle; color:var(--neon-green);"></i> Pre-Audit</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step">IaC Blueprint</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step">GitOps CI/CD</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-step" style="color:var(--cyber-cyan);">Zero-Downtime Live</span>
+          </div>
+
+          <!-- Hero Metrics HUD Ribbon -->
+          <div class="hero-metrics-ribbon" style="margin-top: 24px;">
+            <div class="metric-item">
+              <div class="metric-value">4+</div>
+              <div class="metric-label">Years Exp.</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">99.99%</div>
+              <div class="metric-label">Uptime SLA</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">50+</div>
+              <div class="metric-label">Deployments</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">35%+</div>
+              <div class="metric-label">Cost Reduced</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Executive Pulse HUD Card (Inspired by Modern Executive Dashboard) -->
+        <div class="hero-pulse-card">
+          <div class="pulse-top-header">
+            <span class="pulse-header-title">INFRASTRUCTURE PULSE &bull; MULTI-CLOUD</span>
+            <span class="pulse-live-tag">Live signals</span>
+          </div>
+
+          <div class="pulse-hero-body">
+            <div class="pulse-icon-box">
+              <i data-lucide="trending-up"></i>
+            </div>
+            <div>
+              <div class="pulse-hero-title">High Availability Advantage</div>
+              <div class="pulse-hero-desc">
+                Deploy resilient multi-cloud architectures with automated failovers, zero-downtime releases, and sub-20ms edge latency.
+              </div>
+            </div>
+          </div>
+
+          <div class="pulse-metrics-grid">
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="clock" style="width:12px;"></i> Latency</div>
+              <div class="pulse-metric-val">18ms</div>
+              <div class="pulse-metric-delta delta-green">&darr; -40% vs default</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="shield-check" style="width:12px;"></i> Availability</div>
+              <div class="pulse-metric-val" style="color: var(--accent-emerald);">99.99%</div>
+              <div class="pulse-metric-delta delta-cyan">&uarr; +100% automated</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="handshake" style="width:12px;"></i> Consultation</div>
+              <div class="pulse-metric-val" style="font-size: 16px; color: var(--accent-emerald);">100% Free</div>
+              <div class="pulse-metric-delta delta-green">$0 upfront</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="wallet" style="width:12px;"></i> Projects</div>
+              <div class="pulse-metric-val" style="font-size: 16px;">$100–$250</div>
+              <div class="pulse-metric-delta delta-gold">Pay on Delivery</div>
+            </div>
+          </div>
+
+          <!-- Floating Cloud Provider Badges -->
+          <div class="cloud-badges-grid" style="margin-top: 20px; margin-bottom: 16px;">
+            <div class="cloud-badge-card aws">
+              <div class="badge-icon">☁️</div>
+              <div class="badge-name" style="color: var(--aws-gold);">AWS (32+ Serv.)</div>
+              <div class="badge-status">● Active Node</div>
+            </div>
+            <div class="cloud-badge-card azure">
+              <div class="badge-icon">🔷</div>
+              <div class="badge-name" style="color: var(--azure-blue);">Azure (14+ Serv.)</div>
+              <div class="badge-status">● Synced</div>
+            </div>
+            <div class="cloud-badge-card gcp">
+              <div class="badge-icon">🌐</div>
+              <div class="badge-name" style="color: var(--gcp-red);">GCP (12+ Serv.)</div>
+              <div class="badge-status">● Redundant</div>
+            </div>
+          </div>
+
+          <!-- Interactive Pipeline Mini-Simulator -->
+          <div class="pipeline-sim">
+            <div class="pipeline-sim-header">
+              <span><i data-lucide="git-merge" style="display:inline-block; vertical-align:middle; width:14px;"></i> GitOps Deployment Pipeline</span>
+              <span style="color: var(--neon-green);">Status: Active</span>
+            </div>
+
+            <div class="pipeline-stages">
+              <div class="pipeline-stage">
+                <div class="stage-node"><i data-lucide="code-2" style="width:14px;"></i></div>
+                <div class="stage-name">Commit</div>
+              </div>
+              <div class="pipeline-stage">
+                <div class="stage-node"><i data-lucide="shield-check" style="width:14px;"></i></div>
+                <div class="stage-name">SonarQube</div>
+              </div>
+              <div class="pipeline-stage">
+                <div class="stage-node"><i data-lucide="box" style="width:14px;"></i></div>
+                <div class="stage-name">Docker</div>
+              </div>
+              <div class="pipeline-stage">
+                <div class="stage-node pulse"><i data-lucide="play" style="width:14px;"></i></div>
+                <div class="stage-name">EKS Live</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -3598,38 +3740,23 @@ jobs:
   <!-- ==========================================================================
        Site Footer
        ========================================================================== -->
-  <footer class="site-footer footer-simple">
-    <div class="container">
-      <div class="footer-simple-grid">
-        <a href="#home" class="footer-brand-lockup">
-          Narayana<span class="logo-cyan">K</span><span class="logo-magenta">;</span>
-        </a>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <a href="#ecosystem">Cloud Ecosystem</a>
-          <a href="#services">DevOps Consultancy</a>
-          <a href="#devsecops">DevSecOps</a>
-        </div>
-        <div class="footer-col">
-          <h4>Work</h4>
-          <a href="#projects">Projects</a>
-          <a href="#architectures">Architectures</a>
-          <a href="#skills">Skills</a>
-        </div>
-        <div class="footer-col">
-          <h4>Get in Touch</h4>
-          <a href="#contact">Contact</a>
-          <a href="#freelance">Free Review</a>
-          <a href="#about">About</a>
-        </div>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-copy">
+        &copy; <span id="footer-year">2026</span> Narayana Kanaka &bull; Cloud DevOps Architect &amp; Consultant. All rights reserved.
       </div>
-      <div class="footer-legal">
-        <span>Privacy-first consulting &bull; Bengaluru, India</span>
-        <span>&copy; <span id="footer-year">2026</span> Narayana Kanaka. All rights reserved.</span>
-        <button class="btn-back-top" id="btn-back-top" aria-label="Back to top">
-          <i data-lucide="arrow-up"></i>
-        </button>
+
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#projects">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </div>
+
+      <button class="btn-back-top" id="btn-back-top" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   </footer>
 
@@ -3799,7 +3926,7 @@ jobs:
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="script.js?v=20260907_cover"></script>
+  <script src="script.js?v=20260908_restore"></script>
 </body>
 
 </html>
