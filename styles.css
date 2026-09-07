@@ -727,6 +727,26 @@ button {
   color: #06080f;
 }
 
+.btn-cta-stack {
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 24px;
+  align-items: center;
+}
+
+.btn-cta-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-cta-sub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
 .btn-secondary {
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -968,7 +988,7 @@ button {
 
 .pulse-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.35);
@@ -3960,6 +3980,46 @@ button {
   position: relative;
 }
 
+.consult-guarantee {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 980px;
+  margin: 0 auto 36px;
+}
+
+.consult-step {
+  background: var(--glass-surface-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  text-align: left;
+  box-shadow: var(--shadow-glass-sm);
+}
+
+.consult-step span {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #06080f;
+  background: var(--grad-aws);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+
+.consult-step h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.consult-step p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 .calculator-wrapper-card {
   background: var(--glass-surface-card);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -4115,11 +4175,13 @@ button {
 
 .estimate-cost-range {
   font-family: var(--font-heading);
-  font-size: 34px;
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 800;
+  line-height: 1.25;
   color: var(--text-primary);
-  background: var(--grad-primary);
+  background: var(--grad-headline);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -5179,6 +5241,10 @@ button {
   }
 
   .calculator-wrapper-card {
+    grid-template-columns: 1fr;
+  }
+
+  .consult-guarantee {
     grid-template-columns: 1fr;
   }
 

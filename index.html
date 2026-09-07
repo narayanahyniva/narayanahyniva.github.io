@@ -33,7 +33,7 @@
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260907c">
+  <link rel="stylesheet" href="styles.css?v=20260907e">
 
   <!-- Lucide Icons, Three.js & Mermaid CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -122,7 +122,7 @@
         </button>
 
         <a href="#contact" class="btn btn-primary" style="padding: 9px 18px; font-size: 13px;">
-          <i data-lucide="zap"></i> Hire Me
+          <i data-lucide="zap"></i> Free Consultation
         </a>
 
         <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Navigation">
@@ -158,8 +158,9 @@
           </p>
 
           <div class="hero-cta-group">
-            <a href="#freelance" class="btn btn-primary">
-              <i data-lucide="briefcase"></i> Book Consultation ($250-$500)
+            <a href="#freelance" class="btn btn-primary btn-cta-stack">
+              <span class="btn-cta-main"><i data-lucide="briefcase"></i> Book Free Consultation</span>
+              <span class="btn-cta-sub">100% Free · 0 Upfront Cost</span>
             </a>
             <a href="#architectures" class="btn btn-secondary">
               <i data-lucide="layers"></i> View 3D Architectures
@@ -235,9 +236,14 @@
               <div class="pulse-metric-delta delta-cyan">&uarr; +100% automated</div>
             </div>
             <div class="pulse-metric-col">
-              <div class="pulse-metric-label"><i data-lucide="dollar-sign" style="width:12px;"></i> Setup Scope</div>
-              <div class="pulse-metric-val" style="font-size: 18px;">$250–$500</div>
-              <div class="pulse-metric-delta delta-gold">&darr; -35% cost save</div>
+              <div class="pulse-metric-label"><i data-lucide="handshake" style="width:12px;"></i> Consultation</div>
+              <div class="pulse-metric-val" style="font-size: 16px;">100% Free</div>
+              <div class="pulse-metric-delta delta-green">$0 upfront</div>
+            </div>
+            <div class="pulse-metric-col">
+              <div class="pulse-metric-label"><i data-lucide="wallet" style="width:12px;"></i> Projects</div>
+              <div class="pulse-metric-val" style="font-size: 16px;">$100–$250</div>
+              <div class="pulse-metric-delta delta-gold">Pay on Delivery</div>
             </div>
           </div>
 
@@ -2207,7 +2213,7 @@ jobs:
                 <i data-lucide="shield"></i> AWS 3-Tier Enterprise Web Application Architecture
               </div>
               <div id="arch-budget-badge" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: var(--radius-full); background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: var(--neon-green); font-weight: 600;">
-                ● Est. Setup: $250 – $500
+                ● Est. Setup: $100 - $250 (Pay on Delivery)
               </div>
               <div id="arch-group-badge" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: var(--radius-full); background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.3); color: #c084fc; font-weight: 600;">
                 Platform Patterns
@@ -2218,19 +2224,14 @@ jobs:
               <div class="legend-item"><span class="legend-color" style="background: var(--neon-green);"></span> Healthy Node</div>
               <div class="legend-item"><span class="legend-color" style="background: var(--aws-gold);"></span> Multi-AZ Redundancy</div>
               <a href="#freelance" class="btn btn-primary" style="padding: 6px 14px; font-size: 11.5px; border-radius: var(--radius-sm);">
-                <i data-lucide="zap" style="width:12px;"></i> Request Setup ($250–$500)
+                <i data-lucide="zap" style="width:12px;"></i> Request Setup (Free Consultation)
               </a>
             </div>
           </div>
 
           <div class="visual-architecture-stage">
             <div class="visual-arch-kicker"><i data-lucide="network"></i> Visual AWS topology &middot; nested VPC, subnets, and traffic arrows</div>
-            <div class="mermaid" id="project-mermaid-diagram">flowchart TB
-  users[End Users India and US] --> amplify[AWS Amplify Hosting]
-  amplify --> alb[Application Load Balancer]
-  alb --> eb[Elastic Beanstalk FastAPI]
-  eb --> rds[Amazon RDS MySQL 8]
-            </div>
+            <div class="mermaid" id="project-mermaid-diagram"></div>
           </div>
 
           <!-- Service inspector chips -->
@@ -3146,8 +3147,25 @@ jobs:
           <div class="section-tag">Hire Cloud DevOps Consultant</div>
           <h2 class="section-title">Freelance Scope &amp; <span class="gradient-text">Project Estimator</span></h2>
           <p class="section-desc">
-            Select your requirements to generate an instant estimate of project timeline, key deliverables, and consult directly.
+            Select your requirements to generate an instant estimate of project timeline and key deliverables.
           </p>
+          <div class="consult-guarantee">
+            <article class="consult-step">
+              <span>01</span>
+              <h4>100% Free Consultation</h4>
+              <p>$0 upfront. Scope, architecture, and timeline at no charge.</p>
+            </article>
+            <article class="consult-step">
+              <span>02</span>
+              <h4>Clear Scope</h4>
+              <p>$100–$250 for standard setups. Custom or hourly for large projects.</p>
+            </article>
+            <article class="consult-step">
+              <span>03</span>
+              <h4>Pay Only When Live</h4>
+              <p>Pay on delivery when it is live and working. Zero risk.</p>
+            </article>
+          </div>
         </div>
 
         <div class="calculator-wrapper-card">
@@ -3158,19 +3176,19 @@ jobs:
             <div class="calc-group">
               <label class="calc-label">Select Core Service Scope</label>
               <div class="scope-chips-grid">
-                <div class="scope-chip selected" data-scope="iac-setup" data-time="1-2 Weeks" data-cost="$250 - $500">
+                <div class="scope-chip selected" data-scope="iac-setup" data-time="1-2 Weeks" data-cost="$100 – $250 (Pay on Delivery)">
                   <i data-lucide="layers"></i> IaC &amp; Cloud Setup (Terraform)
                 </div>
-                <div class="scope-chip" data-scope="cicd-pipeline" data-time="1-2 Weeks" data-cost="$200 - $400">
+                <div class="scope-chip" data-scope="cicd-pipeline" data-time="1-2 Weeks" data-cost="$100 – $250 (Pay on Delivery)">
                   <i data-lucide="git-branch"></i> Zero-Downtime CI/CD Pipeline
                 </div>
-                <div class="scope-chip" data-scope="k8s-migration" data-time="2-3 Weeks" data-cost="$300 - $500">
+                <div class="scope-chip" data-scope="k8s-migration" data-time="2-3 Weeks" data-cost="$100 – $250 (Pay on Delivery)">
                   <i data-lucide="box"></i> Kubernetes / EKS Cluster Migration
                 </div>
-                <div class="scope-chip" data-scope="cost-audit" data-time="3-5 Days" data-cost="$150 - $300">
+                <div class="scope-chip" data-scope="cost-audit" data-time="3-5 Days" data-cost="$100 – $250 (Pay on Delivery)">
                   <i data-lucide="dollar-sign"></i> Cloud Cost &amp; Security Audit
                 </div>
-                <div class="scope-chip" data-scope="full-consulting" data-time="Monthly Retainer" data-cost="$350 - $500 / Month">
+                <div class="scope-chip" data-scope="full-consulting" data-time="Monthly Retainer" data-cost="$100 – $250 (Pay on Delivery)">
                   <i data-lucide="users"></i> Dedicated DevOps Retainer
                 </div>
               </div>
@@ -3206,7 +3224,7 @@ jobs:
 
               <div class="estimate-display">
                 <div class="estimate-timeline" id="est-timeline">Estimated Delivery: 1 - 2 Weeks</div>
-                <div class="estimate-cost-range" id="est-cost">$250 – $500</div>
+                <div class="estimate-cost-range" id="est-cost">Free Consult · $100–$250 on Delivery</div>
               </div>
 
               <ul class="deliverables-checklist" id="est-deliverables">
@@ -3775,7 +3793,7 @@ jobs:
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="script.js?v=20260907c"></script>
+  <script src="script.js?v=20260907e"></script>
 </body>
 
 </html>

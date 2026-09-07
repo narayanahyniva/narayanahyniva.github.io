@@ -598,7 +598,7 @@ const architectureData = {
     group: 'platform',
     shortLabel: 'AWS 3-Tier Enterprise',
     title: 'Hyniva Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
-    budget: '$250 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-user',
@@ -755,7 +755,7 @@ const architectureData = {
     group: 'platform',
     shortLabel: 'GitOps & CI/CD Pipeline',
     title: 'Automated GitOps & Zero-Downtime CI/CD Pipeline',
-    budget: '$200 – $400',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-git',
@@ -862,7 +862,7 @@ spec:
     group: 'platform',
     shortLabel: 'Kubernetes Microservices',
     title: 'Enterprise Kubernetes Microservices Architecture',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-ingress',
@@ -966,7 +966,7 @@ spec:
     group: 'platform',
     shortLabel: 'AWS Serverless Event-Driven',
     title: 'AWS Serverless Event-Driven Microservices Architecture',
-    budget: '$200 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-api',
@@ -1043,7 +1043,7 @@ spec:
     group: 'platform',
     shortLabel: 'Multi-Region Disaster Recovery',
     title: 'Multi-Region High Availability & Disaster Recovery',
-    budget: '$350 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-dns',
@@ -1115,7 +1115,7 @@ spec:
     group: 'cloud',
     shortLabel: 'emp-portal Workforce Platform',
     title: 'Hyniva Enterprise Workforce & Delivery Platform (emp-portal)',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-amplify',
@@ -1264,7 +1264,7 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
     group: 'fintech',
     shortLabel: 'Hyper Investment Journeys',
     title: 'Hyper — Personalized Digital Investment Platform',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'hyper-edge',
@@ -1365,7 +1365,7 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
     group: 'fintech',
     shortLabel: 'FinXServe Banking Cloud',
     title: 'FinXServe — Omnichannel Digital Banking Infrastructure',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'fx-cicd',
@@ -1465,7 +1465,7 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'ai',
     shortLabel: 'Claim Pioneer AI Dispatch',
     title: 'Claim Pioneer — AI Claims Lifecycle Uberization',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'cp-ui',
@@ -1553,7 +1553,7 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'ai',
     shortLabel: 'AIRA Reasoning Agents',
     title: 'AIRA — Autonomous Intelligent Reasoning Agent',
-    budget: '$350 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'aira-oneapi',
@@ -1642,7 +1642,7 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'cloud',
     shortLabel: 'Drive30 Inventory Command',
     title: 'Drive30 — Automotive Inventory & Command Center',
-    budget: '$350 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'd30-sftp',
@@ -1737,7 +1737,7 @@ resource "aws_amplify_app" "command_center" {
     group: 'fintech',
     shortLabel: 'VLF Vehicle Lending',
     title: 'VLF — Vehicle Loan Origination & Decisioning',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'vlf-ui',
@@ -1830,7 +1830,7 @@ resource "aws_amplify_app" "command_center" {
     group: 'cloud',
     shortLabel: 'EAzy School EdTech SaaS',
     title: 'EAzy School — Multi-Tenant EdTech ERP',
-    budget: '$250 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'ez-cdn',
@@ -1927,7 +1927,7 @@ resource "aws_amplify_app" "command_center" {
     group: 'fintech',
     shortLabel: 'People Fund P2P Lending',
     title: 'People Fund — PCI-DSS Crowdfunding Platform',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'pf-ui',
@@ -2015,7 +2015,7 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'Employee Portal HRMS (India)',
     title: 'Employee Portal — Entra ID HRMS & Workspace',
-    budget: '$250 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'ep-sso',
@@ -2099,7 +2099,7 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'Document Manager Vault',
     title: 'Document Manager — KMS Encrypted Cloud Archival',
-    budget: '$250 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'dm-ui',
@@ -2197,7 +2197,7 @@ resource "aws_sqs_queue" "settlement" {
     group: 'ai',
     shortLabel: 'Buildzbit Site Builder',
     title: 'Buildzbit — Modular Builder & Edge Publish',
-    budget: '$250 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'bz-studio',
@@ -2291,7 +2291,7 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'ELog Audit & Observability',
     title: 'ELog — High-Throughput Logging & Audit Trail',
-    budget: '$300 – $500',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'elog-agents',
@@ -2386,7 +2386,7 @@ resource "aws_cloudwatch_metric_alarm" "ingest_lag" {
     group: 'ai',
     shortLabel: 'AWT Workflow Engine',
     title: 'AWT — Automated Workflow Technology Engine',
-    budget: '$250 – $450',
+    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'awt-trigger',
@@ -2485,68 +2485,56 @@ const ARCH_GROUP_LABELS = {
 const ARCH_GROUP_ORDER = ['platform', 'fintech', 'ai', 'cloud'];
 
 const mermaidDiagrams = {
-  'emp-portal': `flowchart TB
-    users["End Users (India + US)"]
-    gha["GitHub Actions CI/CD (OIDC)"]
+  'emp-portal': `flowchart TD
+    Users["End Users India and US"]
+    DevOps["GitHub Actions CI/CD OIDC"]
 
-    subgraph EDGE["Edge and DNS"]
-      amplify["AWS Amplify Hosting<br/>React 18 SPA + CloudFront CDN"]
-      r53["Route 53 DNS"]
+    subgraph EdgeLayer ["Edge and DNS Layer"]
+      R53["Route 53 DNS"]
+      Amplify["AWS Amplify Hosting React 18 SPA"]
     end
 
-    subgraph ADMIN["Operator / Admin Plane"]
-      ssm["AWS SSM Session Manager"]
-      bastion["VPC-Peered Bastion Host"]
-    end
-
-    subgraph VPC["AWS VPC  ap-south-1  10.16.0.0/16"]
-      direction TB
-      subgraph PUB["Public Subnets Multi-AZ"]
-        direction LR
-        nat["NAT Gateways"]
-        apigw["API Gateway<br/>HTTP API Facade"]
-        alb["Application Load Balancer<br/>ACM SSL/TLS"]
+    subgraph VPC ["AWS VPC ap-south-1"]
+      subgraph PublicSubnets ["Public Subnets Multi-AZ"]
+        ALB["Application Load Balancer ALB"]
+        APIGW["API Gateway HTTP Facade"]
+        NAT["NAT Gateways"]
       end
 
-      subgraph COMP["Private Subnets - Compute Tier"]
-        eb["Elastic Beanstalk<br/>AL2023 / Python 3.11<br/>FastAPI about 900 endpoints + Uvicorn"]
+      subgraph PrivateCompute ["Private Subnets Compute Tier"]
+        EB["Elastic Beanstalk FastAPI Python 3.11"]
       end
 
-      subgraph DATA["Private Subnets - Data Tier<br/>No Public Access"]
-        rds["Amazon RDS MySQL 8<br/>Multi-AZ Encrypted at Rest"]
+      subgraph PrivateData ["Private Subnets Data Tier"]
+        RDS[("Amazon RDS MySQL 8 Multi-AZ")]
       end
     end
 
-    subgraph SUPPORT["Supporting AWS Cloud Services"]
-      ses["Amazon SES<br/>Transactional Emails"]
-      cw["CloudWatch Logs<br/>VPC Flow Logs and Health"]
-      s3["Amazon S3<br/>Assets and Deploy Zips"]
-      sm["AWS Secrets Manager<br/>JWT, DB and Integration Keys"]
+    subgraph OperatorPlane ["Operator and Admin Plane"]
+      SSM["AWS SSM Session Manager"]
+      Bastion["VPC-Peered Bastion Host"]
     end
 
-    users -->|"1. HTTPS / SPA"| amplify
-    amplify -->|"2. API Requests"| r53
-    r53 --> apigw
-    apigw --> alb
-    users -->|"3. Forward :8000"| alb
-    alb --> eb
-    eb -->|"4. SQL Query :3306"| rds
-    gha -->|"Web Deploy"| amplify
-    gha -->|"CDK Deploy Network / DB / API"| eb
-    ssm --> bastion
-    bastion -->|"Secure Tunnel :3306"| rds
-    eb -->|"Send Notifications"| ses
-    eb --> cw
-    eb -->|"Store / Read Assets"| s3
-    eb -->|"Fetch Secrets"| sm
-    eb --> nat
+    subgraph SupportingServices ["Supporting AWS Services"]
+      S3[("Amazon S3 Assets and Deploy Zips")]
+      Secrets["AWS Secrets Manager"]
+      SES["Amazon SES Transactional Email"]
+      CW["CloudWatch Logs"]
+    end
 
-    classDef client fill:#3b0764,stroke:#c084fc,color:#f8fafc
-    classDef cicd fill:#4c0519,stroke:#fb7185,color:#f8fafc
-    classDef aws fill:#1e1b4b,stroke:#818cf8,color:#f8fafc
-    class users client
-    class gha cicd
-    class amplify,r53,ssm,bastion,nat,apigw,alb,eb,rds,ses,cw,s3,sm aws`,
+    Users -->|"1. HTTPS SPA"| Amplify
+    Amplify -->|"2. API Requests"| R53
+    R53 --> ALB
+    ALB -->|"3. Forward port 8000"| EB
+    EB -->|"4. SQL Query port 3306"| RDS
+    EB -->|"Fetch Secrets"| Secrets
+    EB -->|"Uploads"| S3
+    EB -->|"Alerts"| SES
+    EB -.->|"Outbound"| NAT
+    SSM --> Bastion
+    Bastion -->|"Secure Tunnel port 3306"| RDS
+    DevOps -->|"CDK Deploy"| EB
+    DevOps -->|"Web Deploy"| Amplify`,
 
   'aws-3tier': `flowchart TB
     users["End Users"]
@@ -2747,7 +2735,7 @@ const mermaidDiagrams = {
 function initMermaidEngine() {
   if (!window.mermaid) return;
   mermaid.initialize({
-    startOnLoad: true,
+    startOnLoad: false,
     theme: 'dark',
     securityLevel: 'loose',
     themeVariables: {
@@ -2763,24 +2751,23 @@ function initMermaidEngine() {
   });
 }
 
-let mermaidRenderSeq = 0;
+async function renderMermaidDiagram(containerId, diagramCode) {
+  const container = document.getElementById(containerId);
+  if (!container || !window.mermaid || !diagramCode) return;
+  container.removeAttribute('data-processed');
+  try {
+    const id = 'mermaid-svg-' + Math.floor(Math.random() * 100000);
+    const { svg } = await mermaid.render(id, diagramCode);
+    container.innerHTML = svg;
+  } catch (err) {
+    container.textContent = 'Architecture diagram failed to render.';
+    console.error('Mermaid render error:', err);
+  }
+}
 
 async function renderProjectMermaid(archKey) {
-  const host = document.getElementById('project-mermaid-diagram');
-  if (!host || !window.mermaid) return;
-
   const source = mermaidDiagrams[archKey] || mermaidDiagrams['emp-portal'];
-  host.removeAttribute('data-processed');
-  host.classList.add('mermaid');
-
-  try {
-    mermaidRenderSeq += 1;
-    const { svg } = await mermaid.render(`arch-mermaid-${mermaidRenderSeq}`, source);
-    host.innerHTML = svg;
-  } catch (err) {
-    host.textContent = 'Architecture diagram failed to render.';
-    console.error(err);
-  }
+  await renderMermaidDiagram('project-mermaid-diagram', source);
 }
 
 function initArchitectureExplorer() {
@@ -3244,7 +3231,6 @@ function initFreelanceEstimator() {
   if (!slider) return;
 
   const scaleNames = ['Small (Dev + Staging)', 'Medium (Dev + Stage + Prod)', 'Enterprise (Multi-Region / High Scale)'];
-  const scaleMultipliers = [0.85, 1.0, 1.25];
 
   let selectedScope = 'iac-setup';
   let selectedCloud = 'AWS';
@@ -3284,27 +3270,18 @@ function initFreelanceEstimator() {
   };
 
   const basePricing = {
-    'iac-setup': { time: '1 - 2 Weeks', minCost: 250, maxCost: 500 },
-    'cicd-pipeline': { time: '1 - 2 Weeks', minCost: 200, maxCost: 400 },
-    'k8s-migration': { time: '2 - 3 Weeks', minCost: 300, maxCost: 500 },
-    'cost-audit': { time: '3 - 5 Days', minCost: 150, maxCost: 300 },
-    'full-consulting': { time: 'Monthly Retainer', minCost: 350, maxCost: 500, isMonthly: true }
+    'iac-setup': { time: '1 - 2 Weeks' },
+    'cicd-pipeline': { time: '1 - 2 Weeks' },
+    'k8s-migration': { time: '2 - 3 Weeks' },
+    'cost-audit': { time: '3 - 5 Days' },
+    'full-consulting': { time: 'Monthly Retainer' }
   };
 
   function updateCalculation() {
     const scopeData = basePricing[selectedScope];
-    const mult = scaleMultipliers[scaleIndex];
-
-    const minC = Math.round(scopeData.minCost * mult);
-    const maxC = Math.round(scopeData.maxCost * mult);
 
     estTimeline.textContent = `Estimated Delivery: ${scopeData.time}`;
-
-    if (scopeData.isMonthly) {
-      estCost.textContent = `$${minC.toLocaleString()} / Month`;
-    } else {
-      estCost.textContent = `$${minC.toLocaleString()} – $${maxC.toLocaleString()}`;
-    }
+    estCost.textContent = 'Free Consult · $100–$250 on Delivery';
 
     // Update Deliverables
     const deliverables = deliverablesMap[selectedScope] || [];
@@ -3323,7 +3300,7 @@ function initFreelanceEstimator() {
       `• Selected Scope: ${selectedScope}\n` +
       `• Target Cloud: ${selectedCloud}\n` +
       `• Scale: ${scaleNames[scaleIndex]}\n` +
-      `• Estimated Budget: ${estCost.textContent}\n` +
+      `• Commercial model: 100% Free Consultation. Standard setups $100-$250 pay on delivery.\n` +
       `Let's discuss my project details.`
     );
     btnWhatsApp.href = `https://wa.me/919666143335?text=${message}`;
@@ -3411,7 +3388,7 @@ Available commands:
   <span class="term-cmd">projects</span>       - Production projects & case studies
   <span class="term-cmd">linux</span>          - 26-Domain Enterprise Linux Administration matrix
   <span class="term-cmd">admin</span>          - Jira, GitHub Org & Microsoft 365 Administration
-  <span class="term-cmd">hire</span>           - Freelance consultation & pricing options ($250-$500)
+  <span class="term-cmd">hire</span>           - Freelance: 100% free consultation + pay on delivery
   <span class="term-cmd">resume</span>         - Summary ATS resume & contact
   <span class="term-cmd">contact</span>        - Direct email, phone, and WhatsApp
   <span class="term-cmd">neofetch</span>       - System specs HUD banner
@@ -3588,12 +3565,15 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
       return lines.join('\n');
     },
     hire: () => `
-Freelance & Consultancy Services (Budget: $250 – $500):
-• IaC & Cloud Architecture Setup (Terraform): $250 – $500
-• Zero-Downtime CI/CD Pipeline Automation: $200 – $400
-• Kubernetes / EKS Cluster Migration: $300 – $500
-• Cloud Cost (FinOps) & Security Audits: $150 – $300
-• Dedicated Monthly DevOps Retainer: $350 – $500 / Month
+Freelance & Consultancy Services:
+• Step 1: 100% Free Consultation ($0 upfront)
+• Step 2: Clear Scope ($100-$250 standard; custom/hourly for large projects)
+• Step 3: Pay Only When Live and Working (zero risk)
+• IaC & Cloud Architecture Setup (Terraform)
+• Zero-Downtime CI/CD Pipeline Automation
+• Kubernetes / EKS Cluster Migration
+• Cloud Cost (FinOps) & Security Audits
+• Dedicated Monthly DevOps Retainer
 Direct WhatsApp: <a href="https://wa.me/919666143335" target="_blank" style="color:var(--cyber-cyan); text-decoration:underline;">+91 9666143335</a>
     `,
     resume: () => `
