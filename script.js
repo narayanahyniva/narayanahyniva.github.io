@@ -355,7 +355,7 @@ function initTechSphere() {
     { text: 'AWS Cloud', color: '#ff9900', size: 16 },
     { text: 'Kubernetes', color: '#326ce5', size: 16 },
     { text: 'Terraform', color: '#844fba', size: 15 },
-    { text: 'Docker', color: '#00f0ff', size: 15 },
+    { text: 'Docker', color: '#5e6ad2', size: 15 },
     { text: 'Azure', color: '#0089d6', size: 15 },
     { text: 'GCP', color: '#ea4335', size: 14 },
     { text: 'CI/CD', color: '#10b981', size: 15 },
@@ -371,14 +371,14 @@ function initTechSphere() {
     { text: 'Redis', color: '#dc2626', size: 13 },
     { text: 'ArgoCD', color: '#ff7c00', size: 13 },
     { text: 'CloudWatch', color: '#ff9900', size: 13 },
-    { text: 'DevSecOps', color: '#00f0ff', size: 14 },
+    { text: 'DevSecOps', color: '#5e6ad2', size: 14 },
     { text: 'AWS ECS', color: '#ff9900', size: 14 },
     { text: 'AWS Lambda', color: '#ff9900', size: 13 },
     { text: 'Azure AKS', color: '#0089d6', size: 13 },
     { text: 'Google GKE', color: '#ea4335', size: 13 },
     { text: 'Istio Mesh', color: '#466bb0', size: 13 },
     { text: 'Vanta Compliance', color: '#10b981', size: 14 },
-    { text: 'Bitdefender', color: '#00f0ff', size: 14 },
+    { text: 'Bitdefender', color: '#5e6ad2', size: 14 },
     { text: 'MS Defender', color: '#38bdf8', size: 14 },
     { text: 'Web Filtering', color: '#f59e0b', size: 13 }
   ];
@@ -2740,13 +2740,13 @@ function initMermaidEngine() {
     securityLevel: 'loose',
     themeVariables: {
       darkMode: true,
-      background: '#070a13',
-      primaryColor: '#0f1523',
-      primaryTextColor: '#ffffff',
-      primaryBorderColor: '#00f0ff',
-      lineColor: '#00f0ff',
-      secondaryColor: '#0a0e17',
-      tertiaryColor: '#06080f'
+      background: '#09090b',
+      primaryColor: '#18181b',
+      primaryTextColor: '#fafafa',
+      primaryBorderColor: '#5e6ad2',
+      lineColor: '#5e6ad2',
+      secondaryColor: '#111113',
+      tertiaryColor: '#09090b'
     }
   });
 }
