@@ -33,11 +33,12 @@
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260907e">
+  <link rel="stylesheet" href="styles.css?v=20260907g">
 
-  <!-- Lucide Icons & Three.js CDN -->
+  <!-- Lucide Icons, Three.js & Mermaid CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -2178,7 +2179,7 @@ jobs:
           <div class="section-tag">Interactive Topology Explorer</div>
           <h2 class="section-title">Production <span class="gradient-text">Cloud Architectures</span></h2>
           <p class="section-desc">
-            Explore interactive production architecture designs for all 14 platforms plus reusable cloud patterns. Select a project, then click any infrastructure node to inspect security blueprints, data flow, and Terraform / CDK snippets.
+            Explore real multi-tier AWS architecture diagrams with VPC boxes, subnets, and labeled traffic flows. Select a project, then click any service node below the diagram to inspect security blueprints and Terraform / CDK snippets.
           </p>
         </div>
 
@@ -2222,7 +2223,17 @@ jobs:
             </div>
           </div>
 
-          <!-- Dynamic SVG / HTML Diagram Viewport -->
+          <div class="visual-architecture-stage">
+            <div class="visual-arch-kicker"><i data-lucide="network"></i> Visual AWS topology &middot; nested VPC, subnets, and traffic arrows</div>
+            <div class="mermaid" id="project-mermaid-diagram">flowchart TB
+  users[End Users India and US] --> amplify[AWS Amplify Hosting]
+  amplify --> alb[Application Load Balancer]
+  alb --> eb[Elastic Beanstalk FastAPI]
+  eb --> rds[Amazon RDS MySQL 8]
+            </div>
+          </div>
+
+          <!-- Service inspector chips -->
           <div class="diagram-viewport" id="diagram-viewport">
             <div class="arch-flow-container" id="arch-nodes-container">
               <!-- Nodes populated dynamically by JS -->
@@ -3764,7 +3775,7 @@ jobs:
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="script.js?v=20260907f"></script>
+  <script src="script.js?v=20260907g"></script>
 </body>
 
 </html>

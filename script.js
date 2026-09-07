@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLinuxMatrix();
 
   // Flagship Feature: Interactive Architecture Explorer
+  initMermaidEngine();
   initArchitectureExplorer();
 
   // emp-portal Code-to-Cloud Lab
@@ -2483,6 +2484,305 @@ const ARCH_GROUP_LABELS = {
 
 const ARCH_GROUP_ORDER = ['platform', 'fintech', 'ai', 'cloud'];
 
+const mermaidDiagrams = {
+  'emp-portal': `flowchart TB
+    users["End Users (India + US)"]
+    gha["GitHub Actions CI/CD (OIDC)"]
+
+    subgraph EDGE["Edge and DNS"]
+      amplify["AWS Amplify Hosting<br/>React 18 SPA + CloudFront CDN"]
+      r53["Route 53 DNS"]
+    end
+
+    subgraph ADMIN["Operator / Admin Plane"]
+      ssm["AWS SSM Session Manager"]
+      bastion["VPC-Peered Bastion Host"]
+    end
+
+    subgraph VPC["AWS VPC  ap-south-1  10.16.0.0/16"]
+      direction TB
+      subgraph PUB["Public Subnets Multi-AZ"]
+        direction LR
+        nat["NAT Gateways"]
+        apigw["API Gateway<br/>HTTP API Facade"]
+        alb["Application Load Balancer<br/>ACM SSL/TLS"]
+      end
+
+      subgraph COMP["Private Subnets - Compute Tier"]
+        eb["Elastic Beanstalk<br/>AL2023 / Python 3.11<br/>FastAPI about 900 endpoints + Uvicorn"]
+      end
+
+      subgraph DATA["Private Subnets - Data Tier<br/>No Public Access"]
+        rds["Amazon RDS MySQL 8<br/>Multi-AZ Encrypted at Rest"]
+      end
+    end
+
+    subgraph SUPPORT["Supporting AWS Cloud Services"]
+      ses["Amazon SES<br/>Transactional Emails"]
+      cw["CloudWatch Logs<br/>VPC Flow Logs and Health"]
+      s3["Amazon S3<br/>Assets and Deploy Zips"]
+      sm["AWS Secrets Manager<br/>JWT, DB and Integration Keys"]
+    end
+
+    users -->|"1. HTTPS / SPA"| amplify
+    amplify -->|"2. API Requests"| r53
+    r53 --> apigw
+    apigw --> alb
+    users -->|"3. Forward :8000"| alb
+    alb --> eb
+    eb -->|"4. SQL Query :3306"| rds
+    gha -->|"Web Deploy"| amplify
+    gha -->|"CDK Deploy Network / DB / API"| eb
+    ssm --> bastion
+    bastion -->|"Secure Tunnel :3306"| rds
+    eb -->|"Send Notifications"| ses
+    eb --> cw
+    eb -->|"Store / Read Assets"| s3
+    eb -->|"Fetch Secrets"| sm
+    eb --> nat
+
+    classDef client fill:#3b0764,stroke:#c084fc,color:#f8fafc
+    classDef cicd fill:#4c0519,stroke:#fb7185,color:#f8fafc
+    classDef aws fill:#1e1b4b,stroke:#818cf8,color:#f8fafc
+    class users client
+    class gha cicd
+    class amplify,r53,ssm,bastion,nat,apigw,alb,eb,rds,ses,cw,s3,sm aws`,
+
+  'aws-3tier': `flowchart TB
+    users["End Users"]
+    subgraph EDGE["Edge and DNS"]
+      r53["Route 53 + ACM"]
+      amp["AWS Amplify SPA"]
+    end
+    subgraph VPC["AWS VPC Multi-AZ"]
+      subgraph PUB["Public Subnets"]
+        alb["Application Load Balancer"]
+      end
+      subgraph COMP["Private Compute"]
+        ecs["ECS Fargate Microservices"]
+      end
+      subgraph DATA["Private Data"]
+        aurora["Aurora RDS + Redis"]
+      end
+    end
+    users -->|"HTTPS"| r53
+    r53 --> amp
+    r53 --> alb
+    alb --> ecs
+    ecs --> aurora`,
+
+  'gitops-cicd': `flowchart LR
+    pr["GitHub PR / Commit"] --> gates["SonarQube and Trivy"]
+    gates --> build["Docker Build + ECR"]
+    build --> argo["ArgoCD GitOps Sync"]
+    argo --> k8s["Kubernetes Cluster"]
+    k8s -->|"Zero drift"| live["Live Workloads"]`,
+
+  'k8s-microservices': `flowchart TB
+    users["Clients"] --> ing["NGINX Ingress"]
+    subgraph CLUSTER["Kubernetes Cluster"]
+      mesh["Istio Service Mesh"]
+      pods["Microservices Pods"]
+      redis["Redis Cluster"]
+    end
+    ing --> mesh
+    mesh --> pods
+    pods --> redis`,
+
+  'serverless-event': `flowchart TB
+    clients["Clients"] --> apigw["API Gateway"]
+    apigw --> lambda["AWS Lambda Functions"]
+    lambda --> bus["EventBridge + SQS"]
+    lambda --> ddb["Amazon DynamoDB"]
+    bus --> lambda`,
+
+  'multi-region-dr': `flowchart TB
+    users["Global Users"] --> r53["Route 53 DNS Failover"]
+    subgraph PRI["Primary Region"]
+      papp["Primary App + Data"]
+    end
+    subgraph STBY["Standby Region"]
+      sapp["Standby App + Data"]
+    end
+    r53 -->|"Active"| papp
+    r53 -->|"Failover"| sapp
+    papp -->|"Async replication"| sapp`,
+
+  'hyper': `flowchart TB
+    investors["Investors"] --> amp["Amplify Web App"]
+    amp --> r53["Route 53 + ACM"]
+    r53 --> waf["WAF + ALB"]
+    subgraph VPC["AWS VPC"]
+      eng["Scoring and Sim Engine"]
+      data["Aurora + ElastiCache"]
+    end
+    waf --> eng
+    eng --> data`,
+
+  'finxserve': `flowchart TB
+    gha["GitHub Actions CI/CD"] --> ecs["EC2 / ECS Docker"]
+    clients["Banking Clients"] --> ngx["Nginx Reverse Proxy"]
+    ngx --> ecs
+    subgraph DATA["Private Data"]
+      pg["PostgreSQL + pgAdmin"]
+      s3["S3 Backups + SNS"]
+    end
+    ecs --> pg
+    ecs --> s3`,
+
+  'claim-pioneer': `flowchart TB
+    adj["Adjusters"] --> ui["Amplify Claims UI"]
+    ui --> r53["Route 53 + ALB"]
+    subgraph VPC["AWS VPC"]
+      br["Bedrock Assignment"]
+      ecs["ECS Fargate Dispatcher"]
+      os["OpenSearch Live Claims"]
+    end
+    r53 --> ecs
+    ecs --> br
+    ecs --> os`,
+
+  'aira': `flowchart TB
+    api["OneAPI Ingress"] --> r53["Route 53 / ACM / ALB"]
+    subgraph VPC["AWS VPC"]
+      agents["AIRA Agents Fargate"]
+      guard["Compliance Guardrails"]
+      mem["Aurora + OpenSearch"]
+    end
+    r53 --> agents
+    agents --> guard
+    agents --> mem`,
+
+  'drive30': `flowchart TB
+    oem["Dealer / OEM feeds"] --> sftp["Transfer Family SFTP"]
+    sftp --> s3["S3 incoming"]
+    s3 --> sqs["SQS + ECS Fargate"]
+    sqs --> evb["EventBridge Sync"]
+    evb --> ui["Amplify Command Center"]`,
+
+  'vlf': `flowchart TB
+    borrowers["Borrowers"] --> ui["Amplify Origination UI"]
+    ui --> r53["Route 53 + WAF"]
+    r53 --> alb["ALB Target Groups"]
+    subgraph VPC["AWS VPC"]
+      eng["Loan Engine ECS"]
+      rds["RDS Multi-AZ + KMS"]
+    end
+    alb --> eng
+    eng --> rds`,
+
+  'eazy-school': `flowchart TB
+    staff["Staff and Parents"] --> cdn["CloudFront / Amplify"]
+    cdn --> alb["ALB + Nginx"]
+    subgraph VPC["AWS VPC"]
+      app["Node / Python on ECS"]
+      pg["PostgreSQL Multi-Tenant"]
+      s3["S3 Snapshots and Media"]
+    end
+    alb --> app
+    app --> pg
+    app --> s3`,
+
+  'people-fund': `flowchart TB
+    donors["Campaign visitors"] --> ui["Amplify Campaign UI"]
+    ui --> edge["Route 53 / ACM / WAF"]
+    edge --> alb["ALB Micro-Lending API"]
+    subgraph VPC["AWS VPC"]
+      eng["Micro-Lending Engine"]
+      pay["Payment Webhooks"]
+    end
+    alb --> eng
+    eng --> pay`,
+
+  'employee-portal': `flowchart TB
+    staff["Employees"] --> sso["Entra ID SSO"]
+    sso --> alb["ALB + Nginx"]
+    subgraph VPC["AWS VPC"]
+      app["Portal App ECS / Docker"]
+      db["PostgreSQL HR Data"]
+      s3["S3 Backup Vault"]
+    end
+    alb --> app
+    app --> db
+    app --> s3`,
+
+  'document-manager': `flowchart TB
+    users["Staff"] --> ui["Amplify / CloudFront"]
+    ui --> api["Document APIs"]
+    subgraph VPC["AWS VPC"]
+      app["Document Service"]
+      s3["S3 Object Store"]
+      db["Metadata Database"]
+    end
+    api --> app
+    app --> s3
+    app --> db`,
+
+  'buildzbit': `flowchart TB
+    builders["Builders"] --> studio["Builder Studio Amplify"]
+    studio --> eng["Template Engine Fargate"]
+    eng --> docker["Docker Builder"]
+    docker --> s3["S3 hashed artifacts"]
+    s3 --> edge["CloudFront published sites"]`,
+
+  'elog': `flowchart TB
+    apps["Cluster workloads"] --> fb["FluentBit Agents"]
+    fb --> msk["MSK / Kafka Queue"]
+    subgraph PIPE["Observability Pipeline"]
+      os["OpenSearch Index"]
+      cw["CloudWatch Alarms"]
+    end
+    msk --> os
+    os --> cw`,
+
+  'awt': `flowchart TB
+    src["API / S3 / Cron"] --> evb["EventBridge Triggers"]
+    evb --> orch["AWT Orchestrator ECS"]
+    orch --> sqs["Per-step SQS queues"]
+    sqs --> workers["Workflow Workers"]
+    workers --> store["Step State Store"]
+    workers --> sns["SNS failure alerts"]`
+};
+
+function initMermaidEngine() {
+  if (!window.mermaid) return;
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    securityLevel: 'loose',
+    themeVariables: {
+      darkMode: true,
+      background: '#05040a',
+      primaryColor: '#1e1b4b',
+      primaryTextColor: '#f8fafc',
+      primaryBorderColor: '#818cf8',
+      lineColor: '#06b6d4',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#05040a'
+    }
+  });
+}
+
+let mermaidRenderSeq = 0;
+
+async function renderProjectMermaid(archKey) {
+  const host = document.getElementById('project-mermaid-diagram');
+  if (!host || !window.mermaid) return;
+
+  const source = mermaidDiagrams[archKey] || mermaidDiagrams['emp-portal'];
+  host.removeAttribute('data-processed');
+  host.classList.add('mermaid');
+
+  try {
+    mermaidRenderSeq += 1;
+    const { svg } = await mermaid.render(`arch-mermaid-${mermaidRenderSeq}`, source);
+    host.innerHTML = svg;
+  } catch (err) {
+    host.textContent = 'Architecture diagram failed to render.';
+    console.error(err);
+  }
+}
+
 function initArchitectureExplorer() {
   const nodesContainer = document.getElementById('arch-nodes-container');
   const diagramTitle = document.getElementById('arch-diagram-title');
@@ -2498,7 +2798,7 @@ function initArchitectureExplorer() {
   if (!nodesContainer) return;
 
   let currentGroup = 'all';
-  let currentArchKey = 'aws-3tier';
+  let currentArchKey = 'emp-portal';
 
   function keysForGroup(group) {
     return Object.keys(architectureData).filter((key) => {
@@ -2594,6 +2894,8 @@ function initArchitectureExplorer() {
     if (window.lucide) {
       lucide.createIcons();
     }
+
+    renderProjectMermaid(archKey);
   }
 
   function updateInspector(node) {
@@ -2675,7 +2977,7 @@ function initArchitectureExplorer() {
     });
   }
 
-  let initialKey = 'aws-3tier';
+  let initialKey = 'emp-portal';
   const hash = (window.location.hash || '').replace('#', '');
   if (hash.startsWith('arch-')) {
     const fromHash = hash.slice(5);

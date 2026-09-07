@@ -2277,6 +2277,63 @@ button {
   background: var(--grad-primary);
 }
 
+.visual-architecture-stage {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 22px;
+  padding: 18px 14px 10px;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(1200px 280px at 12% 0%, rgba(129, 140, 248, 0.14), transparent 55%),
+    radial-gradient(900px 240px at 88% 100%, rgba(6, 182, 212, 0.1), transparent 50%),
+    rgba(5, 4, 10, 0.78);
+  border: 1px solid rgba(129, 140, 248, 0.32);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 0 36px rgba(6, 182, 212, 0.08);
+  overflow-x: auto;
+}
+
+.visual-arch-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyber-cyan);
+  margin: 0 8px 10px;
+}
+
+.visual-arch-kicker i {
+  width: 14px;
+  height: 14px;
+}
+
+#project-mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  min-height: 520px;
+  min-width: 720px;
+}
+
+#project-mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+#project-mermaid-diagram .cluster rect {
+  fill: rgba(15, 23, 42, 0.82) !important;
+  stroke: #818cf8 !important;
+  rx: 14px;
+  ry: 14px;
+}
+
+#project-mermaid-diagram .node rect,
+#project-mermaid-diagram .node polygon,
+#project-mermaid-diagram .node circle {
+  rx: 10px;
+}
+
 .arch-header-hud {
   display: flex;
   justify-content: space-between;
@@ -5115,6 +5172,10 @@ button {
   .arch-select-wrap {
     min-width: 0;
     width: 100%;
+  }
+
+  #project-mermaid-diagram {
+    min-width: 640px;
   }
 
   .case-study-grid {
