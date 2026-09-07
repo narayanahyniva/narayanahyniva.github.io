@@ -371,16 +371,16 @@ function initTechSphere() {
     { text: 'Redis', color: '#dc2626', size: 13 },
     { text: 'ArgoCD', color: '#ff7c00', size: 13 },
     { text: 'CloudWatch', color: '#ff9900', size: 13 },
-    { text: 'DevSecOps', color: '#f43f5e', size: 14 },
+    { text: 'DevSecOps', color: '#00f0ff', size: 14 },
     { text: 'AWS ECS', color: '#ff9900', size: 14 },
     { text: 'AWS Lambda', color: '#ff9900', size: 13 },
     { text: 'Azure AKS', color: '#0089d6', size: 13 },
     { text: 'Google GKE', color: '#ea4335', size: 13 },
     { text: 'Istio Mesh', color: '#466bb0', size: 13 },
     { text: 'Vanta Compliance', color: '#10b981', size: 14 },
-    { text: 'Bitdefender', color: '#ec4899', size: 14 },
+    { text: 'Bitdefender', color: '#00f0ff', size: 14 },
     { text: 'MS Defender', color: '#38bdf8', size: 14 },
-    { text: 'Web Filtering', color: '#a855f7', size: 13 }
+    { text: 'Web Filtering', color: '#f59e0b', size: 13 }
   ];
 
   const radius = Math.min(width, height) * 0.38;
@@ -597,7 +597,7 @@ const architectureData = {
   'aws-3tier': {
     group: 'platform',
     shortLabel: 'AWS 3-Tier Enterprise',
-    title: 'Hyniva Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
+    title: 'Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
     budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
@@ -644,8 +644,8 @@ const architectureData = {
         ],
         codeFile: 'amplify_app.tf',
         code: `resource "aws_amplify_app" "portal_frontend" {
-  name       = "hyniva-enterprise-portal"
-  repository = "https://github.com/Hyniva-LLC/FinxServe_React"
+  name       = "enterprise-portal"
+  repository = "https://github.com/org/FinxServe_React"
 
   build_spec = <<-EOT
     version: 1
@@ -827,7 +827,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/Hyniva-LLC/helm-charts'
+    repoURL: 'https://github.com/org/helm-charts'
     targetRevision: HEAD
     path: charts/finxserve
   destination:
@@ -1114,7 +1114,7 @@ spec:
   'emp-portal': {
     group: 'cloud',
     shortLabel: 'emp-portal Workforce Platform',
-    title: 'Hyniva Enterprise Workforce & Delivery Platform (emp-portal)',
+    title: 'Enterprise Workforce & Delivery Platform (emp-portal)',
     budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
@@ -1278,7 +1278,7 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
         codeFile: 'hyper_amplify.tf',
         code: `resource "aws_amplify_app" "hyper" {
   name       = "hyper-investor-spa"
-  repository = "https://github.com/Hyniva-LLC/hyper-web"
+  repository = "https://github.com/org/hyper-web"
   platform   = "WEB"
 }`
       },
@@ -2028,7 +2028,7 @@ resource "aws_sqs_queue" "settlement" {
         specs: ['IdP: Microsoft Entra ID', 'Protocols: SAML 2.0 + OAuth 2.0', 'Claims: Groups to RBAC roles'],
         codeFile: 'employee_portal_sso.tf',
         code: `resource "aws_iam_saml_provider" "entra" {
-  name                   = "entra-id-hyniva"
+  name                   = "entra-id-enterprise"
   saml_metadata_document = file("entra-metadata.xml")
 }`
       },
@@ -2090,7 +2090,7 @@ resource "aws_sqs_queue" "settlement" {
         specs: ['S3: Versioning + SSE-KMS', 'Jobs: Nightly pg_dump export', 'Retention: 30-day versions'],
         codeFile: 'employee_portal_s3.tf',
         code: `resource "aws_s3_bucket" "hr_backups" {
-  bucket = "hyniva-employee-portal-backups"
+  bucket = "employee-portal-backups"
 }`
       }
     ]
@@ -2740,13 +2740,13 @@ function initMermaidEngine() {
     securityLevel: 'loose',
     themeVariables: {
       darkMode: true,
-      background: '#05040a',
-      primaryColor: '#1e1b4b',
-      primaryTextColor: '#f8fafc',
-      primaryBorderColor: '#818cf8',
-      lineColor: '#06b6d4',
-      secondaryColor: '#0f172a',
-      tertiaryColor: '#05040a'
+      background: '#070a13',
+      primaryColor: '#0f1523',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#00f0ff',
+      lineColor: '#00f0ff',
+      secondaryColor: '#0a0e17',
+      tertiaryColor: '#06080f'
     }
   });
 }
@@ -3378,8 +3378,8 @@ function initDevOpsTerminal() {
   const commands = {
     help: () => `
 Available commands:
-  <span class="term-cmd">about</span>          - Bio and career progression at Hyniva
-  <span class="term-cmd">experience</span>     - 4+ years career milestones at Hyniva
+  <span class="term-cmd">about</span>          - Bio and career progression
+  <span class="term-cmd">experience</span>     - 4+ years career milestones
   <span class="term-cmd">education</span>      - Academic qualifications & grades (YVU)
   <span class="term-cmd">skills</span>         - Technical skills and tools matrix
   <span class="term-cmd">directory</span>      - Full 80+ AWS, Azure, GCP & Open-Source stack
@@ -3396,7 +3396,7 @@ Available commands:
   <span class="term-cmd">clear</span>          - Clear terminal output
     `,
     about: () => `
-<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud, DevOps & DevSecOps Engineer & Administrator at Hyniva (Bengaluru, India).
+<span class="term-info">Narayana Kanaka</span> (He/Him) - Cloud, DevOps & DevSecOps Engineer (Bengaluru, India).
 4+ years of dedicated experience across System Administration, Cloud Infrastructure, Toolchain Governance, and DevOps & DevSecOps Automation.
 Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for 13 enterprise products:
 • <span class="term-success">FinXServe</span> — Digital banking experience layer (Salesforce-native).
@@ -3406,7 +3406,7 @@ Architecting & managing multi-tier environments (Dev, Pre-Prod, UAT, Prod) for 1
 DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Actions, DevSecOps Quality Gates, Jira Administration, Microsoft 365 Admin.
     `,
     experience: () => `
-<span class="term-success">Professional Experience at Hyniva (4 yrs 2 mos · Bengaluru, India):</span>
+<span class="term-success">Professional Experience (4 yrs 2 mos · Bengaluru, India):</span>
 1. <span class="term-info">Cloud, DevOps & DevSecOps Engineer & Systems Administrator</span> (Dec 2024 – Present · 1 yr 9 mos):
    • Multi-tier environments: Development, Pre-Production, UAT, and Production for 13 enterprise products.
    • Front-end deployments via AWS Amplify; containerized backend on AWS ECS Fargate via GitHub Actions CI/CD and DevSecOps security checks.
@@ -3518,7 +3518,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 11. <span class="term-info">Buildzbit:</span> Modular no-code website builder with containerized rendering and CloudFront edge CDN.
 12. <span class="term-info">ELog:</span> High-throughput enterprise log aggregation & audit trail engine with OpenSearch and Kafka.
 13. <span class="term-info">AWT:</span> Automated Workflow Technology engine for enterprise task scheduling and event queues.
-14. <span class="term-info">emp-portal:</span> Hyniva Enterprise Workforce & Delivery Platform — Amplify SPA, Beanstalk FastAPI, private Multi-AZ RDS MySQL 8 (India + US).
+14. <span class="term-info">emp-portal:</span> Enterprise Workforce & Delivery Platform — Amplify SPA, Beanstalk FastAPI, private Multi-AZ RDS MySQL 8 (India + US).
     `,
     architecture: (arg) => {
       const key = (arg || '').trim().toLowerCase();

@@ -1,7 +1,7 @@
 # Narayana Kanaka — Cloud DevOps Engineer Portfolio & Consultancy Platform
 
 > **Live Website:** [https://narayanahyniva.github.io/](https://narayanahyniva.github.io/)  
-> **Location:** Bengaluru, Karnataka, India • **Experience:** 4+ Years at Hyniva (Systems Engineer &rarr; Cloud Engineer &rarr; Cloud DevOps Engineer)
+> **Location:** Bengaluru, Karnataka, India • **Experience:** 4+ Years (Systems Engineer &rarr; Cloud Engineer &rarr; Cloud DevOps Engineer)
 
 A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Consultancy web application engineered for **Narayana Kanaka** (He/Him).
 
@@ -9,7 +9,7 @@ A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Cons
 
 ## 🌟 Highlights & Features
 
-- 🏢 **4+ Years Full-Time Experience at Hyniva (Bengaluru, India)**: Documenting progressive promotions from System Engineer (Jul 2022) to Cloud Engineer (Jul 2023) to Cloud DevOps Engineer (Dec 2024 - Present).
+- 🏢 **4+ Years Full-Time Experience (Bengaluru, India)**: Documenting progressive promotions from System Engineer (Jul 2022) to Cloud Engineer (Jul 2023) to Cloud DevOps Engineer (Dec 2024 - Present).
 - 🎓 **Formal Academic Qualifications**: Master of Business Administration (MBA - 77% Distinction) & Bachelor of Computer Applications (BCA - 71%) from Yogi Vemana University, Kadapa.
 - 🛡️ **Verified LinkedIn Skill Assessments & Security Governance**: Passed official LinkedIn assessments in **Linux** and **Amazon Web Services (AWS)**; extensive administration of **Vanta** continuous SOC 2 / ISO 27001 compliance, **Bitdefender GravityZone** EDR & Web URL Filtering, and **Microsoft Defender for Endpoint**.
 - 🌐 **Comprehensive Multi-Cloud & Open-Source Directory (80+ Services)**: Complete searchable index of AWS (30+ services), Microsoft Azure (14 services), Google Cloud (12 services), DevOps & GitOps (14 tools), and Security, Observability & Linux (16 tools).
@@ -24,7 +24,7 @@ A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Cons
   - **AWS Serverless Event-Driven Architecture**
   - **Multi-Region High Availability & Disaster Recovery**
   - *Interactive node inspector with security specs and copyable Terraform/YAML IaC snippets.*
-- 📂 **Production Case Studies**: Detailed architectural breakdowns for FinXServe, Drive30 Command Center, Hyniva Multi-Tenant IaC, and automated Blue/Green CI/CD pipelines.
+- 📂 **Production Case Studies**: Detailed architectural breakdowns for FinXServe, Drive30 Command Center, emp-portal, and automated Blue/Green CI/CD pipelines.
 - 💰 **Freelance Scope & Project Estimator**: Interactive scope configurator with timeline and deliverables, 100% free consultation + pay on delivery, and 1-click WhatsApp booking.
 - 💻 **Interactive Web CLI Terminal**: Built-in interactive zsh-style terminal drawer supporting commands (`help`, `about`, `skills`, `projects`, `architecture`, `hire`, `resume`, `contact`, `neofetch`, `matrix`).
 - 📄 **ATS-Ready Resume Modal**: Instant clean resume viewer with one-click print-to-PDF formatting.
