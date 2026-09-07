@@ -1271,6 +1271,149 @@ spec:
 }`
       }
     ]
+  },
+  'emp-portal': {
+    title: 'Hyniva Enterprise Workforce & Delivery Platform (emp-portal)',
+    budget: '$300 – $500',
+    nodes: [
+      {
+        id: 'node-amplify',
+        icon: 'layout',
+        title: 'AWS Amplify (CloudFront CDN)',
+        desc: 'React 18 SPA & Edge Caching',
+        badge: 'Global SSL',
+        infoTitle: 'AWS Amplify Hosting with CloudFront CDN',
+        infoDesc: 'React 18 single-page application delivered from Amplify with CloudFront edge caching, automatic SSL, and SPA rewrite rules so deep-links resolve without 404s.',
+        specs: [
+          'Hosting: AWS Amplify + CloudFront global edge cache',
+          'Frontend: React 18 SPA with hashed production bundles',
+          'Security: Managed SSL, HSTS, and custom response headers'
+        ],
+        codeFile: 'amplify-stack.ts',
+        code: `new amplify.CfnApp(this, 'EmpPortalFrontend', {
+  name: 'emp-portal-spa',
+  platform: 'WEB',
+  environmentVariables: [
+    { name: 'NODE_OPTIONS', value: '--max-old-space-size=4096' }
+  ],
+  customRules: [{
+    source: '/<*>',
+    target: '/index.html',
+    status: '200'
+  }]
+});`
+      },
+      {
+        id: 'node-edge',
+        icon: 'network',
+        title: 'Route 53 & ALB',
+        desc: 'Custom Domain, ACM, HTTPS Facade',
+        badge: 'TLS 1.3',
+        infoTitle: 'Route 53, ALB & HTTPS API Facade',
+        infoDesc: 'Custom domain routing through Route 53 with ACM certificate termination on the Application Load Balancer, fronting the FastAPI origin as a hardened HTTPS facade.',
+        specs: [
+          'DNS: Route 53 alias records to the public ALB',
+          'Certificates: ACM TLS 1.3 with HTTP to HTTPS redirect',
+          'Facade: HTTPS ingress to the Elastic Beanstalk API origin'
+        ],
+        codeFile: 'network-stack.ts',
+        code: `const alb = new elbv2.ApplicationLoadBalancer(this, 'EmpPortalAlb', {
+  vpc: this.vpc,
+  internetFacing: true,
+  loadBalancerName: 'emp-portal-alb',
+  vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC }
+});
+
+alb.addListener('Https', {
+  port: 443,
+  certificates: [acm.Certificate.fromCertificateArn(this, 'Cert', certArn)],
+  defaultAction: elbv2.ListenerAction.forward([apiTargetGroup])
+});`
+      },
+      {
+        id: 'node-beanstalk',
+        icon: 'cpu',
+        title: 'Elastic Beanstalk (FastAPI)',
+        desc: 'Python 3.11 on Amazon Linux 2023',
+        badge: '~900 Endpoints',
+        infoTitle: 'Elastic Beanstalk FastAPI Origin',
+        infoDesc: 'Python 3.11 FastAPI application on Amazon Linux 2023 with Uvicorn listening on port 8000, exposing roughly 900 API endpoints for HR, workforce, and delivery workflows.',
+        specs: [
+          'Runtime: Python 3.11 on Amazon Linux 2023',
+          'Server: Uvicorn ASGI on port 8000 behind ALB health checks',
+          'Scale: Elastic Beanstalk rolling deployments, zero downtime'
+        ],
+        codeFile: 'api-stack.ts',
+        code: `new elasticbeanstalk.CfnEnvironment(this, 'EmpPortalApiEnv', {
+  applicationName: 'emp-portal-api',
+  solutionStackName: '64bit Amazon Linux 2023 v4.3 running Python 3.11',
+  optionSettings: [
+    {
+      namespace: 'aws:elasticbeanstalk:application:environment',
+      optionName: 'PORT',
+      value: '8000'
+    },
+    {
+      namespace: 'aws:elasticbeanstalk:environment',
+      optionName: 'LoadBalancerType',
+      value: 'application'
+    }
+  ]
+});`
+      },
+      {
+        id: 'node-rds',
+        icon: 'database',
+        title: 'Private RDS MySQL 8',
+        desc: 'Multi-AZ, Encrypted, Isolated Subnets',
+        badge: 'No Public Access',
+        infoTitle: 'Private Multi-AZ RDS MySQL 8',
+        infoDesc: 'Amazon RDS MySQL 8 running Multi-AZ in isolated private subnets, encrypted at rest, with zero public internet exposure and security-group ingress only from the API tier.',
+        specs: [
+          'Engine: RDS MySQL 8 Multi-AZ with automatic failover',
+          'Encryption: KMS at rest, TLS in transit',
+          'Network: PRIVATE_ISOLATED subnets, publiclyAccessible = false'
+        ],
+        codeFile: 'database-stack.ts',
+        code: `new rds.DatabaseInstance(this, 'EmpPortalMysql', {
+  engine: rds.DatabaseInstanceEngine.mysql({
+    version: rds.MysqlEngineVersion.VER_8_0
+  }),
+  vpc: this.vpc,
+  vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+  multiAz: true,
+  storageEncrypted: true,
+  publiclyAccessible: false,
+  backupRetention: cdk.Duration.days(7)
+});`
+      },
+      {
+        id: 'node-secops',
+        icon: 'shield-check',
+        title: 'Security & Ops',
+        desc: 'Secrets, SSM Bastion, SES',
+        badge: 'Zero Standing Access',
+        infoTitle: 'Secrets Manager, SSM Session Manager & SES',
+        infoDesc: 'Operational plane with Secrets Manager for HR and payroll credentials, SSM Session Manager as a bastion tunnel (no inbound SSH), and Amazon SES for transactional workforce emails.',
+        specs: [
+          'Secrets: AWS Secrets Manager for DB and app credentials',
+          'Access: SSM Session Manager bastion tunnel, no public SSH',
+          'Mail: Amazon SES for leave, approver, and payroll notices'
+        ],
+        codeFile: 'security-ops.ts',
+        code: `new secretsmanager.Secret(this, 'EmpPortalSecrets', {
+  secretName: 'emp-portal/prod/app',
+  description: 'HR, payroll, and session secrets'
+});
+
+new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
+  statements: [new iam.PolicyStatement({
+    actions: ['ssm:StartSession'],
+    resources: ['arn:aws:ec2:*:*:instance/*']
+  })]
+});`
+      }
+    ]
   }
 };
 
@@ -1920,7 +2063,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 ⏳ Microsoft Certified: Azure Administrator (AZ-104) [60% Roadmap Goal]
     `,
     projects: () => `
-<span class="term-success">Enterprise Production Platforms & Case Studies (13 Projects):</span>
+<span class="term-success">Enterprise Production Platforms & Case Studies (14 Projects):</span>
 1.  <span class="term-info">Hyper:</span> Wealth management platform with guided goal discovery, portfolio recommendations & real-time simulations.
 2.  <span class="term-info">FinXServe:</span> Salesforce-native digital banking layer with EC2/ECS Docker, Nginx proxy, PostgreSQL + pgAdmin, S3 & CI/CD.
 3.  <span class="term-info">Claim Pioneer (Uberization):</span> Automated AI claims assignment, live tracking & end-to-end workflow visibility.
@@ -1934,6 +2077,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 11. <span class="term-info">Buildzbit:</span> Modular no-code website builder with containerized rendering and CloudFront edge CDN.
 12. <span class="term-info">ELog:</span> High-throughput enterprise log aggregation & audit trail engine with OpenSearch and Kafka.
 13. <span class="term-info">AWT:</span> Automated Workflow Technology engine for enterprise task scheduling and event queues.
+14. <span class="term-info">emp-portal:</span> Hyniva Enterprise Workforce & Delivery Platform — Amplify SPA, Beanstalk FastAPI, private Multi-AZ RDS MySQL 8 (India + US).
     `,
     architecture: () => `
 Active production architectures:
@@ -1942,6 +2086,7 @@ Active production architectures:
 3. Kubernetes Microservices Mesh (Istio + Ingress + HPA Autoscaling)
 4. AWS Serverless Event-Driven (API Gateway + Lambda + DynamoDB)
 5. Multi-Region Disaster Recovery (Route 53 DNS Failover + Aurora Global DB)
+6. Enterprise Workforce Cloud emp-portal (Amplify + ALB + Elastic Beanstalk FastAPI + Private RDS MySQL 8)
     `,
     hire: () => `
 Freelance & Consultancy Services (Budget: $250 – $500):
@@ -2384,7 +2529,7 @@ function initDevSecOpsHub() {
    ========================================================================== */
 function initGlassmorphismEngine() {
   const cardSelector = 
-    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card';
+    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card, .case-study-stage, .case-study-panel';
 
   document.addEventListener('mousemove', (e) => {
     const card = e.target.closest(cardSelector);
@@ -2420,4 +2565,4 @@ function initGlassmorphismEngine() {
 }
 
 
-
+

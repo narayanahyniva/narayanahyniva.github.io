@@ -33,7 +33,7 @@
   <!-- Google Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260826">
+  <link rel="stylesheet" href="styles.css?v=20260907">
 
   <!-- Lucide Icons & Three.js CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -2201,6 +2201,9 @@ jobs:
           <button class="tab-arch-btn" data-arch="multi-region-dr">
             <i data-lucide="shield-alert"></i> Multi-Region Disaster Recovery
           </button>
+          <button class="tab-arch-btn" data-arch="emp-portal">
+            <i data-lucide="users"></i> Enterprise Workforce Cloud (emp-portal)
+          </button>
         </div>
 
         <!-- Interactive Architecture Stage -->
@@ -2290,10 +2293,10 @@ jobs:
         <!-- Interactive Slider Controls HUD Bar -->
         <div class="projects-controls-bar">
           <div class="project-filter-group" id="project-filter-group">
-            <button class="project-filter-pill active" data-filter="all">All Projects (13)</button>
+            <button class="project-filter-pill active" data-filter="all">All Projects (14)</button>
             <button class="project-filter-pill" data-filter="fintech">FinTech &amp; Banking (4)</button>
             <button class="project-filter-pill" data-filter="ai">AI &amp; Automation (4)</button>
-            <button class="project-filter-pill" data-filter="cloud">Enterprise &amp; Cloud (5)</button>
+            <button class="project-filter-pill" data-filter="cloud">Enterprise &amp; Cloud (6)</button>
           </div>
 
           <div class="slider-actions-group">
@@ -2307,7 +2310,7 @@ jobs:
             </button>
 
             <div class="slider-indicator-badge" id="project-slide-indicator">
-              01 / 13
+              01 / 14
             </div>
 
             <button class="slide-ctrl-btn" id="btn-next-project" aria-label="Next Project" title="Next Slide">
@@ -2717,12 +2720,124 @@ jobs:
                 </div>
               </div>
 
+              <!-- Slide 14: Hyniva Enterprise Workforce & Delivery Platform (emp-portal) -->
+              <div class="project-slide-item" data-cat="cloud" data-index="13">
+                <div class="project-card">
+                  <div class="project-preview-banner">
+                    <div class="project-category-tag">Enterprise Cloud &amp; HR Ops</div>
+                    <div class="project-arch-flow">
+                      Amplify (SPA) <span>&rarr;</span> Route 53 <span>&rarr;</span> ALB <span>&rarr;</span> Elastic Beanstalk (FastAPI) <span>&rarr;</span> Private RDS MySQL 8
+                    </div>
+                  </div>
+                  <div class="project-body">
+                    <div>
+                      <h3 class="project-title">Hyniva Enterprise Workforce &amp; Delivery Platform (emp-portal)</h3>
+                      <p class="project-desc">
+                        Production HR, workforce operations, and resource allocation platform serving multi-region operations (India + US). Full-stack platform with ~180k lines JS, ~99k lines Python, and zero-downtime CI/CD.
+                      </p>
+                      <div class="project-metrics-chips">
+                        <div class="metric-chip"><i data-lucide="code-2"></i> React 18</div>
+                        <div class="metric-chip"><i data-lucide="zap"></i> FastAPI</div>
+                        <div class="metric-chip"><i data-lucide="boxes"></i> AWS CDK</div>
+                        <div class="metric-chip"><i data-lucide="database"></i> Multi-AZ RDS</div>
+                      </div>
+                    </div>
+                    <div class="project-footer">
+                      <a href="#emp-portal-case-study" class="project-link">
+                        <span>Read Case Study</span> <i data-lucide="arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
           <!-- Slide Pagination Dots -->
           <div class="slider-pagination-nav" id="slider-pagination-nav">
             <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Hyniva Enterprise Workforce & Delivery Platform — Case Study
+         ========================================================================== -->
+    <section class="case-study-section" id="emp-portal-case-study">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Enterprise Case Study</div>
+          <h2 class="section-title">Hyniva <span class="gradient-text">Workforce &amp; Delivery</span> Platform</h2>
+          <p class="section-desc">
+            emp-portal &mdash; a production HR, workforce operations, and resource allocation platform spanning India and US operations, delivered on Amplify, Elastic Beanstalk, and private Multi-AZ RDS.
+          </p>
+        </div>
+
+        <div class="case-study-stage">
+          <div class="case-study-meta-row">
+            <div class="case-study-meta-chip"><i data-lucide="globe"></i> India + US Operations</div>
+            <div class="case-study-meta-chip"><i data-lucide="code-2"></i> ~180k lines JS</div>
+            <div class="case-study-meta-chip"><i data-lucide="cpu"></i> ~99k lines Python</div>
+            <div class="case-study-meta-chip"><i data-lucide="git-branch"></i> Zero-Downtime CI/CD</div>
+          </div>
+
+          <div class="case-study-grid">
+            <article class="case-study-panel">
+              <div class="case-study-panel-icon"><i data-lucide="alert-triangle"></i></div>
+              <h3>The Challenge</h3>
+              <p>
+                The client managed India and US staffing operations using disparate spreadsheets, leading to data silos, manual leave reconciliations, and slow project resource allocation.
+              </p>
+            </article>
+
+            <article class="case-study-panel">
+              <div class="case-study-panel-icon"><i data-lucide="sparkles"></i></div>
+              <h3>The Solution</h3>
+              <p>
+                Engineered a centralized portal with role-based access control, unified workforce directory, automated leave/approver workflows, and payroll-adjacent finance.
+              </p>
+            </article>
+          </div>
+
+          <div class="case-study-highlights">
+            <h3 class="case-study-highlights-title">
+              <i data-lucide="shield-check"></i> Key Architecture Highlights
+            </h3>
+            <ul class="case-study-highlight-list">
+              <li>
+                <span class="case-study-highlight-icon"><i data-lucide="lock"></i></span>
+                <div>
+                  <strong>Secure session plane</strong>
+                  <p>In-memory token management with httpOnly cookies &amp; private subnets for sensitive payroll/HR data.</p>
+                </div>
+              </li>
+              <li>
+                <span class="case-study-highlight-icon"><i data-lucide="boxes"></i></span>
+                <div>
+                  <strong>100% CDK-codified infrastructure</strong>
+                  <p>Cloud infrastructure via AWS CDK across 3 stacks (Network, Database, API) with no click-ops drift.</p>
+                </div>
+              </li>
+              <li>
+                <span class="case-study-highlight-icon"><i data-lucide="git-pull-request"></i></span>
+                <div>
+                  <strong>Guarded GitHub Actions CI/CD</strong>
+                  <p>Automated pipelines with branch protection and STS deployment guards for production rollouts.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="case-study-cta">
+            <div>
+              <h3>Looking to build a scalable, secure enterprise portal or modern AWS cloud infrastructure?</h3>
+              <p>Let's talk. Architecture, CDK, CI/CD, and production hardening &mdash; scoped to your stack.</p>
+            </div>
+            <a href="#contact" class="btn btn-primary">
+              <i data-lucide="zap"></i> Let's Talk
+            </a>
           </div>
         </div>
       </div>
@@ -3366,7 +3481,7 @@ jobs:
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="script.js?v=20260826"></script>
+  <script src="script.js?v=20260907"></script>
 </body>
 
 </html>
