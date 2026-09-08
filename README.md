@@ -37,7 +37,7 @@ A high-performance, interactive 3D Cloud & DevOps Engineering and Freelance Cons
 - **Core**: Semantic HTML5, CSS3 Custom Properties (Vanilla CSS Design System), Modern ES6+ JavaScript.
 - **3D Graphics & Animations**: Three.js (WebGL 3D Engine), HTML5 Canvas 3D Fibonacci tag sphere.
 - **Icons & Typography**: Lucide Icons, Google Fonts (`Outfit`, `Inter`, `JetBrains Mono`).
-- **Deployment**: GitHub Pages (Custom GitHub domain).
+- **Deployment**: GitHub Pages only — [https://narayanahyniva.github.io/](https://narayanahyniva.github.io/) (no custom domain / no `CNAME`).
 
 ---
 
@@ -57,6 +57,18 @@ npx serve .
 ```
 
 Open your browser and navigate to `http://localhost:8080/`.
+
+---
+
+## GitHub Pages (exclusive host)
+
+This is a **user site** (`narayanahyniva.github.io`). It is served only at:
+
+**https://narayanahyniva.github.io/**
+
+- There is **no** `CNAME` file and **no** custom domain (`is-a.dev` or otherwise).
+- There is **no** Node/Vite/Next/Astro build. `index.html`, `styles.css`, and `script.js` at the repo root **are** the published site.
+- Do not add a `CNAME` file or set a custom domain in **Settings → Pages**.
 
 ---
 
