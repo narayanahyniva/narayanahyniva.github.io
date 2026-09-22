@@ -1,0 +1,16 @@
+{
+  "name": "narayana-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "check": "node tools/build.cjs --check",
+    "build": "node tools/build.cjs",
+    "test": "node tools/verify.cjs",
+    "start": "python -m http.server 8080 --bind 127.0.0.1",
+    "audit": "node tools/audit.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "axe-core": "4.13.0"
+  }
+}

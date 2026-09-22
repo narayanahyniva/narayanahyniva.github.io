@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Interactive Project Slider & Grid Showcase Engine
   initProjectSlider();
 
-  // Freelance Scope & Cost Estimator
+  // Project Scope & Deliverables Explorer
   initFreelanceEstimator();
 
   // Interactive Web CLI Terminal
@@ -55,8 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // DevSecOps Security, Notification & Observability Hub Tabs & Copy
   initDevSecOpsHub();
 
-  // Glassmorphism 2.0 Dynamic Spotlight & 3D Tilt Engine
-  initGlassmorphismEngine();
+  // Keyboard access and progressive, lightweight motion.
+  initAccessibility();
+  initPortfolioMotion();
+  initStackMatrix();
 });
 
 /* ==========================================================================
@@ -78,16 +80,18 @@ function initNavigation() {
 
     // Active link on scroll spy
     const scrollPos = window.scrollY + 100;
-    document.querySelectorAll('section[id]').forEach(section => {
-      const top = section.offsetTop;
+    document.querySelectorAll('section[id], #experience').forEach(section => {
+      const top = section.getBoundingClientRect().top + window.scrollY;
       const height = section.offsetHeight;
       const id = section.getAttribute('id');
 
       if (scrollPos >= top && scrollPos < top + height) {
         navLinks.forEach(link => {
           link.classList.remove('active');
+          link.removeAttribute('aria-current');
           if (link.getAttribute('href') === `#${id}`) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'location');
           }
         });
       }
@@ -98,12 +102,14 @@ function initNavigation() {
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(navMenu.classList.contains('open')));
     });
 
     // Close on link click
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
@@ -116,6 +122,7 @@ function initDynamicTyping() {
   const typingElement = document.getElementById('dynamic-typing-text');
   if (!typingElement) return;
 
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const phrases = [
     'Systems Engineer → Cloud Engineer → Cloud, DevOps & DevSecOps Engineer',
     'Senior Cloud DevOps Engineer | AWS, Azure, GCP & Kubernetes',
@@ -349,6 +356,10 @@ function initTechSphere() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let sphereVisible = false;
+  let sphereFrame = 0;
   let width = (canvas.width = canvas.parentElement.offsetWidth || 400);
   let height = (canvas.height = 400);
 
@@ -482,9 +493,20 @@ function initTechSphere() {
       ctx.restore();
     });
 
-    requestAnimationFrame(render);
+    sphereFrame = sphereVisible && !document.hidden && !reducedMotion.matches && !document.documentElement.classList.contains('motion-paused') ? requestAnimationFrame(render) : 0;
   }
 
+  const resumeSphere = () => {
+    cancelAnimationFrame(sphereFrame);
+    render();
+  };
+  new IntersectionObserver(entries => {
+    sphereVisible = entries[0].isIntersecting;
+    resumeSphere();
+  }).observe(canvas);
+  document.addEventListener('visibilitychange', resumeSphere);
+  reducedMotion.addEventListener('change', resumeSphere);
+  document.addEventListener('portfolio-motion-change', resumeSphere);
   render();
 
   window.addEventListener('resize', () => {
@@ -579,7 +601,8 @@ function initLinuxMatrix() {
       const codeEl = btn.parentElement.querySelector('span');
       if (!codeEl) return;
       const codeText = codeEl.textContent.trim();
-      navigator.clipboard.writeText(codeText).then(() => {
+      writeClipboard(codeText).then(success => {
+        if (!success) return;
         btn.innerHTML = `<i data-lucide="check" style="width:14px; color:var(--neon-green);"></i>`;
         if (window.lucide) lucide.createIcons();
         setTimeout(() => {
@@ -599,7 +622,6 @@ const architectureData = {
     group: 'platform',
     shortLabel: 'AWS 3-Tier Enterprise',
     title: 'Enterprise Production Architecture (Amplify + ECS Fargate + ALB + Route 53)',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-user',
@@ -756,7 +778,6 @@ const architectureData = {
     group: 'platform',
     shortLabel: 'GitOps & CI/CD Pipeline',
     title: 'Automated GitOps & Zero-Downtime CI/CD Pipeline',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-git',
@@ -863,7 +884,6 @@ spec:
     group: 'platform',
     shortLabel: 'Kubernetes Microservices',
     title: 'Enterprise Kubernetes Microservices Architecture',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-ingress',
@@ -967,7 +987,6 @@ spec:
     group: 'platform',
     shortLabel: 'AWS Serverless Event-Driven',
     title: 'AWS Serverless Event-Driven Microservices Architecture',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-api',
@@ -1044,7 +1063,6 @@ spec:
     group: 'platform',
     shortLabel: 'Multi-Region Disaster Recovery',
     title: 'Multi-Region High Availability & Disaster Recovery',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-dns',
@@ -1116,7 +1134,6 @@ spec:
     group: 'cloud',
     shortLabel: 'emp-portal Workforce Platform',
     title: 'Enterprise Workforce & Delivery Platform (emp-portal)',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'node-amplify',
@@ -1265,7 +1282,6 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
     group: 'fintech',
     shortLabel: 'Hyper Investment Journeys',
     title: 'Hyper — Personalized Digital Investment Platform',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'hyper-edge',
@@ -1366,7 +1382,6 @@ new iam.ManagedPolicy(this, 'SsmBastionPolicy', {
     group: 'fintech',
     shortLabel: 'FinXServe Banking Cloud',
     title: 'FinXServe — Omnichannel Digital Banking Infrastructure',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'fx-cicd',
@@ -1466,7 +1481,6 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'ai',
     shortLabel: 'Claim Pioneer AI Dispatch',
     title: 'Claim Pioneer — AI Claims Lifecycle Uberization',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'cp-ui',
@@ -1554,14 +1568,13 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'ai',
     shortLabel: 'AIRA Reasoning Agents',
     title: 'AIRA — Autonomous Intelligent Reasoning Agent',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'aira-oneapi',
         icon: 'link-2',
         title: 'OneAPI Ingress',
         desc: 'API Gateway + JWT',
-        badge: 'Weeks not Months',
+        badge: 'Requirements-Led Delivery',
         infoTitle: 'OneAPI Integration Gateway',
         infoDesc: 'API Gateway HTTP APIs with JWT authorizers and partner keys collapse FI/insurance onboarding from months to weeks.',
         specs: ['Ingress: API Gateway HTTP API', 'Auth: JWT + API keys per partner', 'Throttle: Partner usage plans'],
@@ -1643,7 +1656,6 @@ resource "aws_sns_topic" "finxserve_ops" {
     group: 'cloud',
     shortLabel: 'Drive30 Inventory Command',
     title: 'Drive30 — Automotive Inventory & Command Center',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'd30-sftp',
@@ -1738,7 +1750,6 @@ resource "aws_amplify_app" "command_center" {
     group: 'fintech',
     shortLabel: 'VLF Vehicle Lending',
     title: 'VLF — Vehicle Loan Origination & Decisioning',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'vlf-ui',
@@ -1831,7 +1842,6 @@ resource "aws_amplify_app" "command_center" {
     group: 'cloud',
     shortLabel: 'EAzy School EdTech SaaS',
     title: 'EAzy School — Multi-Tenant EdTech ERP',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'ez-cdn',
@@ -1926,19 +1936,18 @@ resource "aws_amplify_app" "command_center" {
   },
   'people-fund': {
     group: 'fintech',
-    shortLabel: 'People Fund P2P Lending',
-    title: 'People Fund — PCI-DSS Crowdfunding Platform',
-    budget: '$100 – $250 (Pay on Delivery)',
+    shortLabel: 'PeopleFund Small Business Lending',
+    title: 'PeopleFund — Capital, Education & Healthy Small Businesses',
     nodes: [
       {
         id: 'pf-ui',
         icon: 'users',
-        title: 'Amplify Campaign UI',
-        desc: 'Backer & Creator Portals',
-        badge: 'P2P',
-        infoTitle: 'Amplify Crowdfunding Experience',
-        infoDesc: 'Campaign discovery, pledging, and creator dashboards hosted on Amplify with OAuth 2.0 sign-in.',
-        specs: ['Hosting: Amplify SPA', 'Auth: OAuth 2.0 / Cognito', 'CI/CD: GitHub Actions'],
+        title: 'Amplify Client Portal',
+        desc: 'Borrower & Advisor Portals',
+        badge: 'CDFI',
+        infoTitle: 'Amplify Lending & Education Experience',
+        infoDesc: 'Client and advisor portals for small business lending, education, and technical assistance. Hosted on Amplify with OAuth 2.0 sign-in. Headquarters: Austin, TX. Site: peoplefund.org.',
+        specs: ['Hosting: Amplify SPA', 'Auth: OAuth 2.0 / Cognito', 'CI/CD: GitHub Actions', 'HQ: Austin, TX'],
         codeFile: 'peoplefund_amplify.tf',
         code: `resource "aws_amplify_app" "people_fund" {
   name     = "people-fund-ui"
@@ -1949,11 +1958,11 @@ resource "aws_amplify_app" "command_center" {
         id: 'pf-waf',
         icon: 'shield',
         title: 'Route 53 / ACM / WAF',
-        desc: 'PCI Edge Controls',
-        badge: 'PCI-DSS',
-        infoTitle: 'PCI-DSS Edge (DNS, TLS, WAF)',
-        infoDesc: 'Public edge with ACM TLS, WAF, and no card data stored in the app tier — tokens only from the processor.',
-        specs: ['DNS: Route 53', 'TLS: ACM', 'PCI: No PAN storage, WAF on ALB'],
+        desc: 'Secure Lending Edge',
+        badge: 'TLS',
+        infoTitle: 'DNS, TLS, and WAF Edge',
+        infoDesc: 'Public edge with ACM TLS, WAF, and Route 53 for the PeopleFund lending platform. Card data stays with the payment processor.',
+        specs: ['DNS: Route 53', 'TLS: ACM', 'WAF on ALB'],
         codeFile: 'peoplefund_waf.tf',
         code: `resource "aws_wafv2_web_acl" "people_fund" {
   name  = "people-fund-pci-waf"
@@ -1964,7 +1973,7 @@ resource "aws_amplify_app" "command_center" {
       {
         id: 'pf-alb',
         icon: 'network',
-        title: 'ALB Micro-Lending API',
+        title: 'ALB Lending API',
         desc: 'HTTPS to ECS Engine',
         badge: 'Private Subnets',
         infoTitle: 'ALB to Lending Engine',
@@ -1980,12 +1989,12 @@ resource "aws_amplify_app" "command_center" {
       {
         id: 'pf-engine',
         icon: 'cpu',
-        title: 'Micro-Lending Engine',
-        desc: 'ECS Campaign & Ledger APIs',
+        title: 'Small Business Lending Engine',
+        desc: 'ECS Origination & Credit APIs',
         badge: 'Fargate',
         infoTitle: 'ECS Fargate Lending Engine',
-        infoDesc: 'Campaign, pledge, and ledger services on Fargate with idempotent webhook handlers.',
-        specs: ['Compute: ECS Fargate', 'APIs: Campaigns, pledges, ledger', 'Idempotency: Webhook keys'],
+        infoDesc: 'Origination, credit, microlending, and nonprofit loan services on Fargate supporting PeopleFund mission outcomes: informed decisions, appropriate credit, and healthy business growth.',
+        specs: ['Compute: ECS Fargate', 'APIs: Origination, credit, literacy', 'Products: Micro, startup, veteran, nonprofit loans'],
         codeFile: 'peoplefund_ecs.tf',
         code: `resource "aws_ecs_service" "lending" {
   name        = "people-fund-engine"
@@ -2016,7 +2025,6 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'Employee Portal HRMS (India)',
     title: 'Employee Portal — Entra ID HRMS & Workspace',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'ep-sso',
@@ -2100,7 +2108,6 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'Document Manager Vault',
     title: 'Document Manager — KMS Encrypted Cloud Archival',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'dm-ui',
@@ -2198,7 +2205,6 @@ resource "aws_sqs_queue" "settlement" {
     group: 'ai',
     shortLabel: 'Buildzbit Site Builder',
     title: 'Buildzbit — Modular Builder & Edge Publish',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'bz-studio',
@@ -2292,7 +2298,6 @@ resource "aws_sqs_queue" "settlement" {
     group: 'cloud',
     shortLabel: 'ELog Audit & Observability',
     title: 'ELog — High-Throughput Logging & Audit Trail',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'elog-agents',
@@ -2387,7 +2392,6 @@ resource "aws_cloudwatch_metric_alarm" "ingest_lag" {
     group: 'ai',
     shortLabel: 'AWT Workflow Engine',
     title: 'AWT — Automated Workflow Technology Engine',
-    budget: '$100 – $250 (Pay on Delivery)',
     nodes: [
       {
         id: 'awt-trigger',
@@ -2673,11 +2677,11 @@ const mermaidDiagrams = {
     app --> s3`,
 
   'people-fund': `flowchart TB
-    donors["Campaign visitors"] --> ui["Amplify Campaign UI"]
+    clients["Small business owners"] --> ui["Amplify Client Portal"]
     ui --> edge["Route 53 / ACM / WAF"]
-    edge --> alb["ALB Micro-Lending API"]
+    edge --> alb["ALB Lending API"]
     subgraph VPC["AWS VPC"]
-      eng["Micro-Lending Engine"]
+      eng["Small Business Lending Engine"]
       pay["Payment Webhooks"]
     end
     alb --> eng
@@ -2738,7 +2742,7 @@ function initMermaidEngine() {
   mermaid.initialize({
     startOnLoad: false,
     theme: 'dark',
-    securityLevel: 'loose',
+    securityLevel: 'strict',
     themeVariables: {
       darkMode: true,
       background: '#09090b',
@@ -2754,14 +2758,32 @@ function initMermaidEngine() {
 
 async function renderMermaidDiagram(containerId, diagramCode) {
   const container = document.getElementById(containerId);
-  if (!container || !window.mermaid || !diagramCode) return;
+  if (!container || !diagramCode) return;
+  const renderToken = Symbol();
+  container.renderToken = renderToken;
+  container.setAttribute('aria-busy', 'true');
+  try {
+    if (!window.mermaid) {
+      window.mermaidLoader ||= import('https://cdn.jsdelivr.net/npm/mermaid@12.0.0/dist/mermaid.esm.min.mjs')
+        .then(module => { window.mermaid = module.default; initMermaidEngine(); })
+        .catch(error => { window.mermaidLoader = null; throw error; });
+      await window.mermaidLoader;
+    }
+    if (container.renderToken !== renderToken) return;
+  } catch (error) {
+    container.textContent = 'Diagram unavailable. Explore the architecture nodes and code below, or select the architecture again to retry.';
+    container.removeAttribute('aria-busy');
+    return;
+  }
   container.removeAttribute('data-processed');
   try {
     const id = 'mermaid-svg-' + Math.floor(Math.random() * 100000);
     const { svg } = await mermaid.render(id, diagramCode);
-    container.innerHTML = svg;
+    if (container.renderToken === renderToken) container.innerHTML = svg;
+    container.removeAttribute('aria-busy');
   } catch (err) {
-    container.textContent = 'Architecture diagram failed to render.';
+    container.removeAttribute('aria-busy');
+    container.textContent = 'Architecture diagram failed to render. The node inspector and code are available below.';
     console.error('Mermaid render error:', err);
   }
 }
@@ -2836,8 +2858,8 @@ function initArchitectureExplorer() {
     }
 
     const budgetBadge = document.getElementById('arch-budget-badge');
-    if (budgetBadge && arch.budget) {
-      budgetBadge.textContent = `● Est. Setup: ${arch.budget}`;
+    if (budgetBadge) {
+      budgetBadge.textContent = '● Scope discussed before proposal';
     }
 
     const groupBadge = document.getElementById('arch-group-badge');
@@ -2847,7 +2869,8 @@ function initArchitectureExplorer() {
 
     nodesContainer.innerHTML = '';
     arch.nodes.forEach((node, index) => {
-      const nodeEl = document.createElement('div');
+      const nodeEl = document.createElement('button');
+      nodeEl.type = 'button';
       nodeEl.className = `arch-node ${index === 0 ? 'selected' : ''}`;
       nodeEl.setAttribute('data-node-id', node.id);
       nodeEl.innerHTML = `
@@ -2883,7 +2906,8 @@ function initArchitectureExplorer() {
       lucide.createIcons();
     }
 
-    renderProjectMermaid(archKey);
+    const section = document.getElementById('architectures');
+    if (section.getBoundingClientRect().top < window.innerHeight) renderProjectMermaid(archKey);
   }
 
   function updateInspector(node) {
@@ -2947,6 +2971,7 @@ function initArchitectureExplorer() {
     if (!link) return;
     const key = link.getAttribute('data-open-arch');
     if (key && architectureData[key]) {
+      e.preventDefault();
       openProjectArchitecture(key);
     }
   });
@@ -2954,7 +2979,8 @@ function initArchitectureExplorer() {
   if (btnCopyIaC) {
     btnCopyIaC.addEventListener('click', () => {
       const code = iacCodeDisplay.textContent;
-      navigator.clipboard.writeText(code).then(() => {
+      writeClipboard(code).then(success => {
+        if (!success) return;
         btnCopyIaC.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
         if (window.lucide) lucide.createIcons();
         setTimeout(() => {
@@ -2974,6 +3000,13 @@ function initArchitectureExplorer() {
 
   populateSelect('all', initialKey);
   loadArchitecture(initialKey);
+  const architectureObserver = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      renderProjectMermaid(currentArchKey);
+      architectureObserver.disconnect();
+    }
+  }, { rootMargin: '200px' });
+  architectureObserver.observe(document.getElementById('architectures'));
 }
 
 /* ==========================================================================
@@ -3040,6 +3073,8 @@ function initProjectSlider() {
     } else {
       track.style.transform = 'none';
     }
+
+    allSlides.forEach(slide => { slide.inert = !isGridMode && slide !== visibleSlides[activeIndex]; });
 
     // Update Indicator Badge
     if (indicator) {
@@ -3173,7 +3208,7 @@ function initProjectSlider() {
     if (!stage) return;
     const projectsRect = stage.getBoundingClientRect();
     const isInViewport = projectsRect.top < window.innerHeight && projectsRect.bottom > 0;
-    if (isInViewport && !isGridMode) {
+    if (isInViewport && !isGridMode && !e.target.closest('input, textarea, select, [contenteditable], [role=dialog]')) {
       if (e.key === 'ArrowRight') {
         activeIndex++;
         updateSlider();
@@ -3217,15 +3252,13 @@ function initProjectSlider() {
 }
 
 /* ==========================================================================
-   Freelance Scope & Cost Estimator
+   Project Scope & Deliverables Explorer
    ========================================================================== */
 function initFreelanceEstimator() {
   const scopeChips = document.querySelectorAll('.scope-chip[data-scope]');
   const cloudChips = document.querySelectorAll('.scope-chip[data-cloud]');
   const slider = document.getElementById('scale-slider');
   const scaleLabel = document.getElementById('scale-label');
-  const estTimeline = document.getElementById('est-timeline');
-  const estCost = document.getElementById('est-cost');
   const estDeliverables = document.getElementById('est-deliverables');
   const btnWhatsApp = document.getElementById('btn-calc-whatsapp');
 
@@ -3240,9 +3273,10 @@ function initFreelanceEstimator() {
   const deliverablesMap = {
     'iac-setup': [
       'Terraform Modular Codebase with Remote State Locking',
-      'Multi-AZ VPC, Subnet Segmentation & NAT Gateways',
-      'Automated CI/CD GitHub Actions Infrastructure Pipeline',
-      '14 Days Post-Deployment Warranty & Architecture Handover'
+      'Multi-AZ VPC, Subnet Segmentation & NAT Gateway Architecture',
+      'Automated CI/CD Infrastructure Pipeline with GitHub Actions',
+      'Architecture Documentation & Handover',
+      'Post-Deployment Support'
     ],
     'cicd-pipeline': [
       'Automated GitHub Actions / Jenkins Multi-Stage Pipeline',
@@ -3263,27 +3297,14 @@ function initFreelanceEstimator() {
       'Targeting 30% to 60% Monthly Infrastructure Bill Reduction'
     ],
     'full-consulting': [
-      'Dedicated Weekly Architecture & Sprint Planning Sessions',
+      'Architecture & Sprint Planning Sessions',
       'Continuous Cloud Monitoring, Backup & Patch Management',
-      'Priority SLA 2-Hour Response Time for Production Incidents',
+      'Production Incident Support with Agreed Service Expectations',
       'End-to-End DevSecOps Guidance & Team Mentorship'
     ]
   };
 
-  const basePricing = {
-    'iac-setup': { time: '1 - 2 Weeks' },
-    'cicd-pipeline': { time: '1 - 2 Weeks' },
-    'k8s-migration': { time: '2 - 3 Weeks' },
-    'cost-audit': { time: '3 - 5 Days' },
-    'full-consulting': { time: 'Monthly Retainer' }
-  };
-
   function updateCalculation() {
-    const scopeData = basePricing[selectedScope];
-
-    estTimeline.textContent = `Estimated Delivery: ${scopeData.time}`;
-    estCost.textContent = 'Free Consult · $100–$250 on Delivery';
-
     // Update Deliverables
     const deliverables = deliverablesMap[selectedScope] || [];
     estDeliverables.innerHTML = '';
@@ -3301,7 +3322,7 @@ function initFreelanceEstimator() {
       `• Selected Scope: ${selectedScope}\n` +
       `• Target Cloud: ${selectedCloud}\n` +
       `• Scale: ${scaleNames[scaleIndex]}\n` +
-      `• Commercial model: 100% Free Consultation. Standard setups $100-$250 pay on delivery.\n` +
+      `• Next step: Discuss requirements, architecture, and scope. Timeline and pricing follow scope agreement.\n` +
       `Let's discuss my project details.`
     );
     btnWhatsApp.href = `https://wa.me/919666143335?text=${message}`;
@@ -3389,7 +3410,7 @@ Available commands:
   <span class="term-cmd">projects</span>       - Production projects & case studies
   <span class="term-cmd">linux</span>          - 26-Domain Enterprise Linux Administration matrix
   <span class="term-cmd">admin</span>          - Jira, GitHub Org & Microsoft 365 Administration
-  <span class="term-cmd">hire</span>           - Freelance: 100% free consultation + pay on delivery
+  <span class="term-cmd">hire</span>           - Discuss project requirements, architecture, and scope
   <span class="term-cmd">resume</span>         - Summary ATS resume & contact
   <span class="term-cmd">contact</span>        - Direct email, phone, and WhatsApp
   <span class="term-cmd">neofetch</span>       - System specs HUD banner
@@ -3513,7 +3534,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
 5.  <span class="term-info">Drive30:</span> Automotive inventory processing &amp; Command Center platform with AWS Transfer Family (SFTP), Lambda IdP, S3, SQS, ECS Fargate &amp; Next.js on Amplify.
 6.  <span class="term-info">VLF:</span> Vehicle Loan & Finance origination platform with automated underwriting pipelines on AWS.
 7.  <span class="term-info">EAzy School:</span> Cloud-native school ERP & EdTech SaaS with ECS Fargate and automated S3 backups.
-8.  <span class="term-info">People Fund:</span> Peer-to-peer crowdfunding & micro-lending platform with secure payment webhooks.
+8.  <span class="term-info">PeopleFund:</span> CDFI in Austin, TX — capital, education, and resources for healthy small businesses (peoplefund.org).
 9.  <span class="term-info">Employee Portal:</span> Enterprise HRMS workspace with Microsoft Entra ID (Azure AD) SSO and RBAC governance.
 10. <span class="term-info">Document Manager:</span> Secure cloud document vault with AWS S3 KMS encryption and automated virus scanning.
 11. <span class="term-info">Buildzbit:</span> Modular no-code website builder with containerized rendering and CloudFront edge CDN.
@@ -3547,7 +3568,7 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
         '  hyper                Hyper — Digital investment journeys',
         '  finxserve            FinXServe — Omnichannel digital banking',
         '  vlf                  VLF — Vehicle loan origination',
-        '  people-fund         People Fund — PCI-DSS P2P crowdfunding',
+        '  people-fund         PeopleFund — small business lending, Austin TX',
         '',
         '<span class="term-info">AI &amp; Automation (4):</span>',
         '  claim-pioneer        Claim Pioneer — AI claims dispatcher',
@@ -3567,9 +3588,11 @@ DevOps Core: AWS Amplify, AWS ECS Fargate, ALB, Route 53, GoDaddy ACM, GitHub Ac
     },
     hire: () => `
 Freelance & Consultancy Services:
-• Step 1: 100% Free Consultation ($0 upfront)
-• Step 2: Clear Scope ($100-$250 standard; custom/hourly for large projects)
-• Step 3: Pay Only When Live and Working (zero risk)
+• Step 1: Contact me and discuss your requirements
+• Step 2: Review technical scope and architecture
+• Step 3: Recommend a solution and finalize the scope
+• Step 4: Discuss estimated timeline and pricing
+• Step 5: Begin implementation after mutual agreement
 • IaC & Cloud Architecture Setup (Terraform)
 • Zero-Downtime CI/CD Pipeline Automation
 • Kubernetes / EKS Cluster Migration
@@ -3722,8 +3745,7 @@ function initContactForm() {
 
     window.location.href = `mailto:kanakanarayana99@gmail.com?subject=${subject}&body=${body}`;
 
-    alert(`Thank you, ${name}! Your consultation request email draft has been generated. I will respond to you within 2 business hours.`);
-    form.reset();
+    document.getElementById('contact-status').textContent = 'Your email app should open with a draft. Send it there to complete your message. If it does not open, email kanakanarayana99@gmail.com directly. Your text is kept here.';
   });
 }
 
@@ -3851,7 +3873,7 @@ function initDevSecOpsHub() {
     stepperPills.forEach((pill, idx) => {
       if (idx === currentSlide) {
         pill.classList.add('active');
-        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        pill.parentElement.scrollTo({ left: pill.offsetLeft - pill.parentElement.clientWidth / 2 + pill.offsetWidth / 2, behavior: 'auto' });
       } else {
         pill.classList.remove('active');
       }
@@ -3961,7 +3983,8 @@ function initDevSecOpsHub() {
     copyBtn.addEventListener('click', () => {
       const codeBlock = document.querySelector('.workflow-code-block code');
       if (codeBlock) {
-        navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        writeClipboard(codeBlock.innerText).then(success => {
+        if (!success) return;
           const originalHTML = copyBtn.innerHTML;
           copyBtn.innerHTML = '<i data-lucide="check"></i> Copied!';
           if (window.lucide) lucide.createIcons();
@@ -4011,44 +4034,6 @@ function initDevSecOpsHub() {
 /* ==========================================================================
    Glassmorphism 2.0 Dynamic Spotlight & 3D Interactive Tilt Engine
    ========================================================================== */
-function initGlassmorphismEngine() {
-  const cardSelector = 
-    '.service-card, .project-card, .hero-pulse-card, .cloud-badge-card, .skill-bar-card, .sphere-container-card, .linux-card, .arch-node, .dir-card, .education-card, .cert-badge-card, .contact-item, .contact-info-card, .contact-form-card, .about-bio-card, .timeline-card, .calculator-wrapper-card, .calc-summary-side, .terminal-window, .resume-modal-content, .devsec-slide-box, .sim-terminal-box, .sim-report-card, .sim-table-box, .sim-iac-box, .sim-trivy-box, .sim-dast-box, .sim-falco-box, .workflow-code-wrapper, .pane-gate-card, .case-study-stage, .case-study-panel, .c2c-pipeline-stage, .c2c-vpc-stage, .c2c-node, .c2c-step';
-
-  document.addEventListener('mousemove', (e) => {
-    const card = e.target.closest(cardSelector);
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
-
-    // Subtle 3D Perspective Tilt for non-modal elements
-    if (!card.classList.contains('no-tilt') && !card.closest('.terminal-modal-overlay') && !card.closest('.resume-modal-overlay')) {
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const tiltX = (y - centerY) / centerY; // -1 to 1
-      const tiltY = (centerX - x) / centerX; // -1 to 1
-      const maxTilt = 4.0; // degrees
-
-      card.style.transform = `perspective(1000px) rotateX(${tiltX * maxTilt}deg) rotateY(${tiltY * maxTilt}deg) translateY(-4px)`;
-    }
-  });
-
-  // Smooth reset on mouse leave
-  document.querySelectorAll(cardSelector).forEach(card => {
-    card.addEventListener('mouseleave', () => {
-      if (!card.closest('.terminal-modal-overlay') && !card.closest('.resume-modal-overlay')) {
-        card.style.transform = '';
-      }
-    });
-  });
-}
-
-
 /* ==========================================================================
    emp-portal Code-to-Cloud Lab — Architecture Stage + Deployment Simulator
    ========================================================================== */
@@ -4452,7 +4437,8 @@ function initEmpPortalCloudLab() {
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const code = document.getElementById('c2c-iac-display').textContent;
-      navigator.clipboard.writeText(code).then(() => {
+      writeClipboard(code).then(success => {
+        if (!success) return;
         copyBtn.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
         if (window.lucide) lucide.createIcons();
         setTimeout(() => {
@@ -4476,3 +4462,150 @@ function initEmpPortalCloudLab() {
 
 
 
+
+
+async function writeClipboard(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch { window.prompt('Copy this text manually:', text); return false; }
+}
+
+function initAccessibility() {
+  const securityStage = document.getElementById('devsec-slider-stage');
+  const syncSecuritySlides = () => securityStage.querySelectorAll('.devsec-slide-item').forEach(slide => {
+    slide.inert = !securityStage.classList.contains('grid-mode') && !slide.classList.contains('active');
+  });
+  new MutationObserver(syncSecuritySlides).observe(securityStage, {attributes:true, attributeFilter:['class'], subtree:true});
+  syncSecuritySlides();
+  document.querySelectorAll('.scope-chip, .filter-btn, .project-filter-pill, .dir-tab, .linux-tab').forEach(button => {
+    if (button.tagName !== 'BUTTON') return;
+    const sync = () => button.setAttribute('aria-pressed', String(button.classList.contains('active') || button.classList.contains('selected')));
+    new MutationObserver(sync).observe(button, {attributes:true, attributeFilter:['class']});
+    sync();
+  });
+  const toggle = document.getElementById('mobile-toggle-btn');
+  const nav = document.getElementById('nav-menu');
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+  });
+  document.querySelectorAll('[data-open-resume]').forEach(button => button.addEventListener('click', () => {
+    document.getElementById('resume-modal').classList.add('open');
+  }));
+  const dialogs = [...document.querySelectorAll('[role="dialog"]')];
+  const pageRegions = [...document.querySelectorAll('body > header, body > main, body > footer')];
+  dialogs.forEach(dialog => {
+    let wasOpen = false;
+    let returnFocus = null;
+    const focusable = () => [...dialog.querySelectorAll('button, a[href], input, select, textarea, [tabindex="0"]')].filter(el => el.getClientRects().length && !el.disabled);
+    new MutationObserver(() => {
+      const isOpen = dialog.classList.contains('open');
+      if (wasOpen === isOpen) return;
+      wasOpen = isOpen;
+      dialog.inert = !isOpen;
+      if (isOpen) {
+        returnFocus = document.activeElement;
+        (dialog.querySelector('input') || focusable()[0] || dialog).focus({preventScroll:true});
+      }
+      const anyOpen = dialogs.some(el => el.classList.contains('open'));
+      pageRegions.forEach(el => { el.inert = anyOpen; });
+      document.body.style.overflow = anyOpen ? 'hidden' : '';
+      if (!isOpen && returnFocus?.isConnected && !anyOpen) returnFocus.focus({preventScroll:true});
+    }).observe(dialog, {attributes:true, attributeFilter:['class']});
+    dialog.addEventListener('keydown', event => {
+      if (event.key === 'Escape') { dialog.classList.remove('open'); event.preventDefault(); }
+      if (event.key === 'Tab') {
+        const items = focusable();
+        if (!items.length) { event.preventDefault(); dialog.focus(); return; }
+        const first = items[0], last = items[items.length - 1];
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog)) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+  });
+  document.querySelectorAll('.c2c-node').forEach(node => {
+    if (node.tagName === 'BUTTON') return;
+    node.tabIndex = 0;
+    node.setAttribute('role', 'button');
+    node.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); node.click(); }
+    });
+  });
+}
+
+
+// Content remains visible before JS and when observers/animations are unavailable.
+function initPortfolioMotion() {
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const root = document.documentElement;
+  const hero = document.getElementById('home');
+  const toggle = document.getElementById('motion-toggle');
+  let userPaused = false;
+  let heroVisible = false;
+  const entrances = new Set();
+  const syncMotion = () => {
+    const paused = userPaused || preference.matches;
+    root.classList.toggle('motion-paused', paused);
+    hero.classList.toggle('motion-visible', heroVisible && !document.hidden && !paused);
+    toggle.hidden = preference.matches;
+    toggle.setAttribute('aria-pressed', String(userPaused));
+    toggle.textContent = userPaused ? 'Resume motion' : 'Pause motion';
+    if (paused) entrances.forEach(animation => animation.cancel());
+    document.dispatchEvent(new Event('portfolio-motion-change'));
+  };
+  toggle.addEventListener('click', () => { userPaused = !userPaused; syncMotion(); });
+  preference.addEventListener('change', syncMotion);
+  document.addEventListener('visibilitychange', syncMotion);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      heroVisible = entries[0].isIntersecting;
+      syncMotion();
+    }).observe(hero);
+    const reveal = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        reveal.unobserve(entry.target);
+        if (preference.matches || userPaused || document.hidden || !entry.target.animate) return;
+        const animation = entry.target.animate([
+          { opacity: .35, transform: 'translateY(14px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], { duration: 480, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+        entrances.add(animation);
+        animation.finished.catch(() => {}).finally(() => entrances.delete(animation));
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll('.section-header, .about-bio-card, .timeline-card, .cert-badge-card, .eco-card, .resume-callout').forEach(element => reveal.observe(element));
+  }
+  syncMotion();
+}
+
+
+function initStackMatrix() {
+  const list = document.querySelector('.stack-tabs');
+  if (!list) return;
+  const tabs = [...list.querySelectorAll('[role="tab"]')];
+  const activate = (tab, focus = false) => {
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+    });
+    if (focus) tab.focus();
+  };
+  list.hidden = false;
+  activate(tabs[0]);
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== undefined) { event.preventDefault(); activate(tabs[next], true); }
+    });
+  });
+}
